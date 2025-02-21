@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mi Proyecto Django{% endblock %}</title>
+
+    <!-- Estilos globales -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/bootstrap/css/bootstrap.min.css'%}">
+    {% block sytle %}{% endblock %} <!-- Espacio para agregar contenido extra en el head -->
+</head>
+
+<body>
+
+
+    <!-- Contenido principal -->
+    <main>
+        {% block content %}
+        <!-- Aquí va el contenido de cada página -->
+        {% endblock %}
+    </main>
+    <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    {% block extra_js %}{% endblock %} <!-- Espacio para scripts adicionales -->
+
+</body>
+
+</html>

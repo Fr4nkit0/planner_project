@@ -1,0 +1,65 @@
+# Entornos virtuales
+venv/
+env/
+
+# Compilados de Python
+*.pyc
+__pycache__/
+
+# Configuración y secretos
+*.env
+*.local
+
+# Archivos de bases de datos SQLite (aunque uses PostgreSQL, por si acaso)
+*.sqlite3
+
+# Configuración de editores
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.user
+*.vcxproj
+*.vcxproj.filters
+
+# Logs y archivos temporales
+*.log
+*.pot
+*.pyc
+*.pyo
+*.~
+*.bak
+*.tmp
+*.DS_Store
+
+
+
+# Archivos de cobertura
+htmlcov/
+.coverage
+*.cover
+*.py,cover
+
+# Node y dependencias
+ qnpm-debug.log
+yarn-error.log
+
+# Archivos de Docker y compilaciones
+*.dockerignore
+Dockerfile
+
+
+# Otros
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Ignorar node_modules (puede ser reinstalado con package.json)
+node_modules/
+
+# Ignorar Bootstrap descargado desde npm (ya está en static/libs)
+scss/
+package-lock.json
+package.json
