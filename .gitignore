@@ -61,5 +61,3 @@ node_modules/
 
 # Ignorar Bootstrap descargado desde npm (ya está en static/libs)
 scss/
-package-lock.json
-package.json
