@@ -1,0 +1,31 @@
+{
+  "name": "planner_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "sass scss/styles.scss static/libs/bootstrap/css/bootstrap.min.css --style=compressed",
+    "watch:css": "sass --watch scss/styles.scss:static/libs/bootstrap/css/bootstrap.min.css",
+    "build:js": "cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js static/libs/bootstrap/js/",
+    "watch:js": "watch 'cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js static/libs/bootstrap/js/' node_modules/bootstrap/dist/js/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fr4nkit0/planner_project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Fr4nkit0/planner_project/issues"
+  },
+  "homepage": "https://github.com/Fr4nkit0/planner_project#readme",
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "sass": "^1.63.6"
+  }
+}
