@@ -2,8 +2,16 @@
 
 {% load static %}
 
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+{% block content %}
+
+{% include 'usuarios/components/login.html' %}
+
+{% endblock content %}
 
 {% block extra_js %}
-<script src="{% static 'build/usuarios/login/js/index.min.js' %}"></script>
 
 {% endblock extra_js %}
