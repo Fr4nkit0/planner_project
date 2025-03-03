@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}{% endblock titulo %}</title>
+    <link rel="stylesheet" href="{% static 'libs/bootstrap/css/bootstrap.min.css' %}">
+    {% block extra_css %} {% endblock extra_css %}
+</head>
+
+<body>
+    <main class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        {% block contenido_main %}
+        {% endblock contenido_main %}
+    </main>
+
+    <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    {% block extra_js %}{% endblock extra_js %}
+</body>
+
+</html>

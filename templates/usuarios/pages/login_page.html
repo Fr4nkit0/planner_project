@@ -1,16 +1,18 @@
-{% extends 'core/layout/base.html' %}
+{% extends 'usuarios/layout/base_usuarios.html' %}
 
 {% load static %}
+
+{% block titulo %}Inicio De Session{% endblock titulo %}
 
 {% block extra_css %}
 
 {% endblock extra_css %}
 
-{% block content %}
+{% block contenido_main %}
 
 {% include 'usuarios/components/login.html' %}
 
-{% endblock content %}
+{% endblock contenido_main %}
 
 {% block extra_js %}
 
