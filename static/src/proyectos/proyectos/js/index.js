@@ -1,5 +1,5 @@
 import { obtenerProyectos } from "./services/proyectoServicio.js";
-import { listarProyectos } from "./modules/proyectoModules.js";
+import { listarProyectos } from "./components/proyectoComponents.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     obtenerProyectos((data) => {
