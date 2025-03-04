@@ -1,0 +1,15 @@
+{% extends 'core/layout/base.html' %}
+{% load static %}
+
+{% block titulo %}Proyectos{% endblock titulo %}
+
+
+{% block contenido_main %}
+{% include 'proyectos/components/proyectos.html' %}
+{% endblock contenido_main %}
+
+
+{% block extra_js%}
+<script type="module" src="{% static 'src/proyectos/proyectos/js/index.js' %}"></script>
+
+{% endblock extra_js%}
