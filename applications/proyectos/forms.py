@@ -15,14 +15,23 @@ class ProyectoForm(forms.ModelForm):
         return proyecto
 
 
+class ActualizarProyectoForm (forms.ModelForm):
+    class Meta:
+        model = Proyecto
+        fields = ['nombre', 'descripcion']
+
+
 class PizarraForm(forms.ModelForm):
     class Meta:
         model = Pizarra
-        fields = ['nombre', 'proyecto']
+        fields = ['nombre']
 
-    def save(self, usuario=None, *args, **kwargs):
+    def save(self, usuario=None, proyecto=None, *args, **kwargs):
         pizarra = super().save(commit=False)
         if usuario:
             pizarra.usuario = usuario
+        pizarra.save()
+        if proyecto:
+            pizarra.proyecto = proyecto
         pizarra.save()
         return pizarra

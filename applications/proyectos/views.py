@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.utils.timezone import now
 from .models import Proyecto, Pizarra
-from .forms import ProyectoForm, PizarraForm
+from .forms import ProyectoForm, PizarraForm, ActualizarProyectoForm
 # Create your views here.
 
 
@@ -17,30 +18,46 @@ def crear_proyecto_ajax_view(request):
     return JsonResponse({'error': "metodo no permitido"}, status=405)
 
 
-# def actualizar_proyecto_ajax_view(request):
-#     if request.method == 'POST':
-#         try:
-#             pk = request.get('pk')
-#             nombre = request.get('nombre')
-#             description = request.get('description')
-#             fecha_entrega = request.get('fecha_entrega')
+def actualizar_proyecto_ajax_view(request):
+    if request.method == 'POST':
+        try:
+            proyecto_id = request.POST.get('proyecto_id')
+            proyecto = Proyecto.objects.get(id=proyecto_id)
+            form = ActualizarProyectoForm(request.POST, instance=proyecto)
+            if form.is_valid():
+                form.save()
+                return JsonResponse({'success': 'Proyecto actualizado correctamente'})
+            else:
+                return JsonResponse({'error': form.errors}, status=400)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
 
-#             proyecto = get_object_or_404(Proyecto, pk=pk)
-#             proyecto.nombre = nombre
-#             proyecto.description = description
-#             proyecto.fecha_entrega = fecha_entrega
-#             proyecto.save()
 
-#             return JsonResponse({'success': 'Proyecto actualizado correctamente'})
-#         except Exception as e:
-#             return JsonResponse({'error': str(e)}, status=400)
+def eliminar_proyecto_ajax_view(request):
+    if request.method == 'POST':
+        proyecto_id = request.POST.get('proyecto_id')
+        try:
+            proyecto = Proyecto.objects.get(id=proyecto_id)
+            proyecto.delete()
+            return JsonResponse({'success': 'Proyecto eliminado correctamente'})
+        except Proyecto.DoesNotExist:
+            return JsonResponse({'error': 'Proyecto no encontrado'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
 
 def crear_pizarra_ajax_view(request):
     if request.method == 'POST':
         form = PizarraForm(request.POST)
         if form.is_valid():
-            # Asigna el usuario desde el formulario
-            pizarra = form.save(usuario=request.user)
+            proyect_id = request.POST.get('proyecto_id')
+            try:
+                proyecto = Proyecto.objects.get(id=proyect_id)
+            except Proyecto.DoesNotExist:
+                return JsonResponse({'error': 'Proyecto no encontrado'}, status=404)
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=400)
+            pizarra = form.save(usuario=request.user, proyecto=proyecto)
             return JsonResponse({'mensaje': 'Pizarra Creada Exitosamente'}, status=201)
         else:
             return JsonResponse({'error': form.errors}, status=400)
@@ -64,7 +81,6 @@ def listar_proyectos_ajax_view(request):
             'fecha_entrega': proyecto.fecha_entrega,
             'pizarras': list(proyecto.pizarras.values('id', 'nombre'))
         })
-
     return JsonResponse({'proyectos': data}, status=200)
 
 

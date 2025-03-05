@@ -7,6 +7,6 @@ urlpatterns = [
          name='prueba_config_view'),
     path("login",
          PersonalizacionLoginView.as_view(),
-         name="login-page"
+         name="login_page"
          )
 ]
