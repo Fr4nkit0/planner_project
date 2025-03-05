@@ -35,7 +35,6 @@ def crear_proyecto_ajax_view(request):
 #         except Exception as e:
 #             return JsonResponse({'error': str(e)}, status=400)
 
-
 def crear_pizarra_ajax_view(request):
     if request.method == 'POST':
         form = PizarraForm(request.POST)
@@ -51,10 +50,11 @@ def crear_pizarra_ajax_view(request):
 def listar_proyectos_ajax_view(request):
     if request.method != 'GET':
         return JsonResponse({'error': 'Método no permitido'}, status=405)
-
-    proyectos = Proyecto.objects.prefetch_related('pizarras').all()
-    data = []
-
+    try:
+        proyectos = Proyecto.objects.prefetch_related('pizarras').all()
+        data = []
+    except:
+        return JsonResponse({'error': 'Error al obtener los proyectos'}, status=500)
     for proyecto in proyectos:
         data.append({
             'id': proyecto.id,
