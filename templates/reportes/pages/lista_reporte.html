@@ -1,0 +1,33 @@
+{% extends "reportes/layout/base_reporte.html" %}
+{% block content %}
+<div class="container">
+    {% if reportes %}
+    <ul>
+        {% for reporte in reportes %}
+        <li>
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-4 sidebar">
+                        <p>usuario</p>
+                        <div>
+                            {{ reporte.titulo }}
+                            {{ reporte.fecha_creacion }}
+                        </div>
+                    </div>
+                    <div class="col-md-5 sidebar">
+                        <a href="#">Editar</a>
+                        <a href="#">Eliminar</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {{ reporte.descripcion }}
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Sin reportes</p>
+    {% endif %}
+</div>
+{% endblock %}
