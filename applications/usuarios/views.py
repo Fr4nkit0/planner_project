@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 
 from .forms import PersonalizadoLoginForm
 from django.contrib.auth import get_user, logout
+from django.shortcuts import redirect
 
 
 # Create your views here.
@@ -20,3 +21,4 @@ class PersonalizacionLoginView(LoginView):
     template_name = 'usuarios/pages/login_page.html'
     form_class = PersonalizadoLoginForm
     success_url = reverse_lazy('listar_proyectos_page')
+

@@ -1,11 +1,11 @@
 // Material Design 3 colors in Sass variables
 
 
-$md-sys-color-primary-container: #EADDFF;
+$md-sys-color-primary-container: #FEF7FF;
 
 
 // Primary palette
-$md3-primary: #6200EE; // Indigo 500
+$md3-primary: #EADDFF; // 
 $md3-primary-light: #9D47FF; // Indigo 200
 $md3-primary-dark: #0A00B6; // Indigo 700
 
@@ -13,12 +13,12 @@ $md3-primary-dark: #0A00B6; // Indigo 700
 $md3-border: #e0e0e0; // Bordes
 
 // Secondary palette
-$md3-secondary: #03DAC6; // Teal 200
+$md3-secondary: #ECE6F0; // 
 $md3-secondary-light: #67E1D5; // Teal 100
 $md3-secondary-dark: #018786; // Teal 700
 
 // Error color
-$md3-error: #B00020; // Red 500
+$md3-error: #B3261E; // 
 $md3-error-light: #FF8A80; // Red 100
 $md3-error-dark: #D50000; // Red 700
 
@@ -317,91 +317,5 @@ body {
   }
   
 
-  // Estilo de paginación
-.pagination {
-  display: flex;
-  justify-content: center;
-  padding: 1rem;
-  background-color: $md3-surface;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-  .page-item {
-    margin: 0 4px;
-
-    &.active .page-link {
-      background-color: $md3-primary;
-      color: $md3-on-primary;
-      border-color: $md3-primary;
-      border-radius: 50%;
-    }
-
-    .page-link {
-      padding: 0.5rem 1rem;
-      color: $md3-on-surface;
-      background-color: $md3-surface;
-      border: 1px solid $md3-border;
-      border-radius: 50%;
-      transition: background-color 0.3s, box-shadow 0.3s;
-
-      &:hover {
-        background-color: lighten($md3-primary, 30%);
-        color: $md3-on-primary;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      }
-
-      &:focus {
-        box-shadow: 0 0 0 3px rgba($md3-primary, 0.5);
-      }
-    }
-  }
-}
 
 
-.form-control {
-  background-color: $md3-surface;
-  color: $md3-on-surface;
-  border: none;
-  border-bottom: 2px solid $md3-border;
-  border-radius: 0;
-  padding: 0.75rem 0.5rem;
-  font-size: 1rem;
-  outline: none;
-  box-shadow: none;
-  transition: border-color 0.3s, box-shadow 0.3s;
-
-  &::placeholder {
-    color: $md3-border;
-    opacity: 1;
-  }
-
-  &:focus {
-    border-bottom: 2px solid $md3-primary;
-    box-shadow: 0 1px 0 0 $md3-primary;
-  }
-
-  &.is-invalid {
-    border-bottom: 2px solid $md3-error;
-  }
-}
-
-// Labels flotantes estilo MD3
-.form-floating > .form-control {
-  padding-top: 1.625rem;
-  padding-bottom: 0.625rem;
-}
-
-.form-floating > label {
-  color: $md3-border;
-  font-size: 1rem;
-  left: 0.5rem;
-  top: 1rem;
-  transition: all 0.2s ease-out;
-}
-
-.form-floating > .form-control:focus ~ label,
-.form-floating > .form-control:not(:placeholder-shown) ~ label {
-  top: 0.25rem;
-  font-size: 0.75rem;
-  color: $md3-primary;
-}
