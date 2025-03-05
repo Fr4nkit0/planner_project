@@ -12,6 +12,7 @@ export function crearPizarraHtml(button) {
     const modalLabel = document.getElementById("modal-label");
     const proyectoId = button.getAttribute("data-id");
     const modalBody = document.getElementById("modal-body");
+
     modalLabel.textContent = "Crear Pizarra";
-    modalBody.innerHTML = formularioPizarraHtml();
+    modalBody.innerHTML = formularioPizarraHtml(proyectoId);
 }

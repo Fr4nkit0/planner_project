@@ -28,15 +28,18 @@ export function botonModal(proyectoId) {
         </div>
     `;
 }
-export function formularioPizarraHtml() {
+export function formularioPizarraHtml(proyectoId) {
     return ` 
         <form method="POST" id="form-pizarra">
+            <input type="hidden" name="proyecto_id" value="${proyectoId}">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre De Pizarra</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" required>
             </div>
-            <button type="submit" class="btn btn-primary">Crear Pizarra</button>
+            <div class="d-flex justify-content-center gap-1">
+                <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Crear Pizarra</button> 
+            </div>
         </form>
-    `
-        ;
+    ` ;
 }

@@ -33,7 +33,8 @@ export function proyectoHtml(proyecto) {
 }
 export function editarProyectoFormularioHtml(proyectoId, nombreProyecto, descripcionProyecto) {
     return `
-        <form method="POST">
+        <form method="POST" id="form-actualizar-proyecto">
+            <input type="hidden" name="proyecto_id" value="${proyectoId}">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" value="${nombreProyecto}" required>
@@ -42,16 +43,22 @@ export function editarProyectoFormularioHtml(proyectoId, nombreProyecto, descrip
                 <label for="descripcion" class="form-label">Descripción</label>
                 <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required>${descripcionProyecto}</textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            <div class="d-flex justify-content-center gap-1">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            </div>
         </form>
     `;
 }
 export function eliminarProyectoFormularioHtml(proyectoId, nombreProyecto) {
     return `
-        <p>¿Estás seguro de eliminar el proyecto ?</p>
-        <form method="POST">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-danger">Confirmar Eliminacion</button>
+        <p class="text-center">¿Estás seguro de eliminar el proyecto ?</p>
+        <form method="POST" id="form-eliminar-proyecto">
+            <input type="hidden" name="proyecto_id" value="${proyectoId}">
+            <div class="d-flex justify-content-center gap-1">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-danger">Confirmar Eliminacion</button>
+            </div>
         </form>
      ` ;
 }

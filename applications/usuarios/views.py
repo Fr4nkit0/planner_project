@@ -19,4 +19,4 @@ def prueba_config_view(request):
 class PersonalizacionLoginView(LoginView):
     template_name = 'usuarios/pages/login_page.html'
     form_class = PersonalizadoLoginForm
-    success_url = reverse_lazy('listar-proyectos-page')
+    success_url = reverse_lazy('listar_proyectos_page')

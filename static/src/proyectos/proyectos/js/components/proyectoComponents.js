@@ -5,7 +5,6 @@ export function listarProyectos(data) {
     proyectosContainer.innerHTML = "";
     if (data.proyectos && data.proyectos.length > 0) {
         data.proyectos.forEach(proyecto => {
-            // Crear el HTML de cada proyecto
             proyectosContainer.innerHTML += proyectoHtml(proyecto);
         });
     } else {
@@ -14,7 +13,6 @@ export function listarProyectos(data) {
 }
 export function actualizarModal(button) {
     const tipo = button.getAttribute("data-tipo");
-    console.log(tipo);
     return tipoDeModal(button, tipo);
 }
 function tipoDeModal(button, tipo) {
@@ -43,12 +41,6 @@ function crearEliminarProyectoHtml(button) {
     const nombreProyecto = button.getAttribute("data-nombre");
     const modalLabel = document.getElementById("modal-label");
     const modalBody = document.getElementById("modal-body");
-    modalLabel.textContent = "Eliminar Proyecto";
-
-
-    // Agregar el mensaje antes del formulario
-    modalBody.insertAdjacentHTML("beforeend", `
-         <p>¿Estás seguro de eliminar el proyecto <strong>${nombreProyecto}</strong>?</p>
-     `);
+    modalLabel.textContent = "Eliminar Proyecto  " + nombreProyecto;
     modalBody.innerHTML = eliminarProyectoFormularioHtml(proyectoId, nombreProyecto);
 }
