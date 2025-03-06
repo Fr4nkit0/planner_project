@@ -108,4 +108,6 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 LOGIN_URL = 'login_page'
 LOGIN_REDIRECT_URL = 'listar_proyectos_page'
+# Redirige a la página de inicio de sesión después de cerrar sesión
 LOGOUT_REDIRECT_URL = 'login_page'
+

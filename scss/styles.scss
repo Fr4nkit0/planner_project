@@ -77,7 +77,7 @@ $dropdown-color: $md3-on-surface; // Texto oscuro
 
 // Hover y focus
 $dropdown-link-hover-bg: $md3-surface-variant; // Color de fondo al hacer hover
-$dropdown-link-hover-color: $md3-on-surface; 
+$dropdown-link-hover-color: $md3-on-surface;
 
 // Borde y sombra (elevación)
 $dropdown-border-color: $md3-outline;
@@ -106,10 +106,10 @@ $navbar-color: $md3-on-surface; // Texto oscuro
 
 // Hover y focus
 $navbar-hover-bg: $md3-surface-variant; // Variante más oscura al hacer hover
-$navbar-hover-color: $md3-on-surface; 
+$navbar-hover-color: $md3-on-surface;
 
 // Sombra sutil (elevación)
-$navbar-box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+$navbar-box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 
 // Borde inferior (si lo deseas)
 $navbar-border-color: $md3-outline;
@@ -125,7 +125,7 @@ $navbar-toggler-padding-y: 0.5rem;
 $navbar-toggler-padding-x: 0.75rem;
 $navbar-toggler-font-size: 1.25rem;
 $navbar-toggler-border-radius: 0.5rem;
-$navbar-toggler-border-color: $md3-outline; 
+$navbar-toggler-border-color: $md3-outline;
 
 $navbar-toggler-icon-bg: $md3-on-surface; // Color del icono de "hamburguesa"
 
@@ -179,44 +179,44 @@ $btn-link-decoration: none; // Sin subrayado
 
 
 // Colores primarios
-$primary: $md3-primary;  // Color principal
-$primary-light: $md3-primary-light;  // Color primario claro
-$primary-dark: $md3-primary-dark;  // Color primario oscuro
+$primary: $md3-primary; // Color principal
+$primary-light: $md3-primary-light; // Color primario claro
+$primary-dark: $md3-primary-dark; // Color primario oscuro
 
 // Colores secundarios
-$secondary: $md3-secondary;  // Color secundario
-$secondary-light: $md3-secondary-light;  // Color secundario claro
-$secondary-dark: $md3-secondary-dark;  // Color secundario oscuro
+$secondary: $md3-secondary; // Color secundario
+$secondary-light: $md3-secondary-light; // Color secundario claro
+$secondary-dark: $md3-secondary-dark; // Color secundario oscuro
 
 // Colores de texto
-$text-color: $md3-on-background;  // Color de texto principal
-$text-muted: $md3-neutral;  // Color de texto "muted" (suavizado)
+$text-color: $md3-on-background; // Color de texto principal
+$text-muted: $md3-neutral; // Color de texto "muted" (suavizado)
 
 // Colores de fondo
-$body-bg: $md3-background;  // Fondo principal
-$surface: $md3-surface;  // Fondo de superficie (áreas del contenido)
+$body-bg: $md3-background; // Fondo principal
+$surface: $md3-surface; // Fondo de superficie (áreas del contenido)
 
 // Colores de error
-$danger: $md3-error;  // Color de error
-$danger-light: $md3-error-light;  // Color de error claro
-$danger-dark: $md3-error-dark;  // Color de error oscuro
+$danger: $md3-error; // Color de error
+$danger-light: $md3-error-light; // Color de error claro
+$danger-dark: $md3-error-dark; // Color de error oscuro
 
 // Colores de "success" (éxito) y "info" (información)
-$success: $md3-secondary;  // Usando el color secundario para el éxito
-$info: $md3-primary-light;  // Usando el color primario claro para la información
+$success: $md3-secondary; // Usando el color secundario para el éxito
+$info: $md3-primary-light; // Usando el color primario claro para la información
 
 // Colores de enlaces
-$link-color: $md3-primary;  // Color de enlace (usando color primario)
-$link-hover-color: $md3-primary-dark;  // Color de enlace al pasar el mouse
+$link-color: $md3-primary; // Color de enlace (usando color primario)
+$link-hover-color: $md3-primary-dark; // Color de enlace al pasar el mouse
 
 // Colores de borde
-$border-color: $md3-outline;  // Color de borde general
+$border-color: $md3-outline; // Color de borde general
 
 // Colores para "hover" y "focus" (estados activos)
-$btn-primary-bg: $md3-primary;  // Fondo del botón primario
-$btn-primary-border: $md3-primary-dark;  // Borde del botón primario
-$btn-primary-hover-bg: $md3-primary-light;  // Fondo del botón primario al hacer hover
-$btn-primary-hover-border: $md3-primary;  // Borde del botón primario al hacer hover
+$btn-primary-bg: $md3-primary; // Fondo del botón primario
+$btn-primary-border: $md3-primary-dark; // Borde del botón primario
+$btn-primary-hover-bg: $md3-primary-light; // Fondo del botón primario al hacer hover
+$btn-primary-hover-border: $md3-primary; // Borde del botón primario al hacer hover
 
 // Colores en el modo oscuro
 $dark-theme-background: $md3-dark-background;
@@ -299,43 +299,51 @@ body {
 
 
 .btn {
-    position: relative;
-    overflow: hidden; // Necesario para el ripple
+  position: relative;
+  overflow: hidden; // Necesario para el ripple
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  opacity: 0;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 1;
   }
-  
-  .btn::after {
-    content: "";
-    position: absolute;
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-    transform: scale(0);
-    animation: ripple 0.6s linear;
-    opacity: 0;
-  }
-  
-  @keyframes ripple {
-    to {
-      transform: scale(4);
-      opacity: 1;
-    }
-  }
-  
+}
+
 // f4edf7
-  //Input de usuario personalizado
-  .form-control {
-    background-color: #f4edf7;
-    border: none;              /* Sin bordes */
-    border-radius: 50px;       /* Bordes redondeados */
-    padding: 10px 15px;        /* Espaciado interno */
-    color: #3b3b3b;            /* Color del texto */
-    box-shadow: none;          /* Eliminar sombra al enfocar */
-    font-size: 14px;
-  }
+//Input de usuario personalizado
+.form-control {
+  background-color: #f4edf7;
+  border: none;
+  /* Sin bordes */
+  border-radius: 50px;
+  /* Bordes redondeados */
+  padding: 10px 15px;
+  /* Espaciado interno */
+  color: #3b3b3b;
+  /* Color del texto */
+  box-shadow: none;
+  /* Eliminar sombra al enfocar */
+  font-size: 14px;
+}
 
-  .form-control::placeholder {
-    color: black;            /* Color del placeholder */
-    opacity: 0.7;              /* Transparencia del placeholder */
-  }
+.form-control::placeholder {
+  color: black;
+  /* Color del placeholder */
+  opacity: 0.7;
+  /* Transparencia del placeholder */
+}
 
-
-
+.dropdown-toggle::after {
+  display: none;
+}

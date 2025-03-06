@@ -28,26 +28,37 @@
                     aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
+
+                
                 <div class="collapse navbar-collapse" id="navbarScroll">
                     <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#"></a>
                         </li>
+                        <li>
+                            <a href="{% url 'logout' %}">Cerrar sesión</a>
+                        </li>
 
                     </ul>
-
-
-
-
-
                     <!-- Aquí va el ícono de usuario alineado a la derecha -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <img src="{% static 'src/core/image/usuario.svg' %}" alt="Logo" width="24" height="24"
+                            <div class="dropdown" style="max-width: 200px;">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownLink"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="{% static 'src/core/image/usuario.svg' %}" alt="Logo" width="24" height="24"
                                     class="d-inline-block align-text-top">
-                            </a>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownLink">
+                                    <li>
+                                        <img src="{% static 'src/core/image/cerrar_sesion.svg' %}" alt="Logo" width="24" height="24">
+                                        <a href="{% url 'logout' %}" style="color: black; text-decoration: none;">Cerrar sesión</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
+
                     </ul>
 
                 </div>

@@ -22,3 +22,6 @@ class PersonalizacionLoginView(LoginView):
     form_class = PersonalizadoLoginForm
     success_url = reverse_lazy('listar_proyectos_page')
 
+def cerrar_sesion_view(request):
+    logout(request)
+    return redirect('login_page')

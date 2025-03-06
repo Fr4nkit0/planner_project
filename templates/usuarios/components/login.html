@@ -1,43 +1,41 @@
 {% if form.errors %}
-<div class="alert alert-danger">
-    <strong>Error:</strong> Usuario o contraseña incorrectos.
-</div>
+    <div class="position-absolute top-0 alert alert-danger mt-5">
+        <strong>Error:</strong> Usuario o contraseña incorrectos.
+    </div>
 {% endif %}
 
 
 {% load static %}
 
-<div class="container">
+<div class="container d-flex justify-content-center py-5 mt-n3"
+    style="max-width: 700px; width: 100%; background-color: #FEF7FF">
+    <div class="py-5" style="max-width: 400px; width: 100%;">
+        <div class="container text-center mb-4">
+            <img src="{% static 'src/core/image/usuario_dif_color.svg' %}" alt="Logo" width="120" height="120"
+                class="d-inline-block align-text-top">
+        </div>
+
+        <form method="post" action="{% url 'login_page' %}">
+            {% csrf_token %}
+
+            <!-- Campo Usuario -->
+            <div class="form">
+                {{ form.username }}
+                <label for="{{ form.username.id_for_label }}"></label>
+            </div>
+
+            <!-- Campo Contraseña -->
+            <div class="form">
+                {{ form.password }}
+                <label for="{{ form.password.id_for_label }}"></label>
+            </div>
 
 
-    
-</div>
+            <p class="fs-6 text-center fw-bold">¿Olvidaste tu contraseña?</p>
 
-<div style="max-width: 400px; width: 100%;">
-    <div class="container text-center mb-4">
-        <img src="{% static 'src/core/image/usuario.svg' %}" alt="Logo" width="120" height="120"
-                                    class="d-inline-block align-text-top">
+            <!-- Botón Ingresar -->
+            <button type="submit" class="btn btn-primary w-100 rounded-pill fw-bold">Iniciar Sesión</button>
+        </form>
     </div>
 
-    <form method="post" action="{% url 'login_page' %}">
-        {% csrf_token %}
-
-        <!-- Campo Usuario -->
-        <div class="form">
-            {{ form.username }}
-            <label for="{{ form.username.id_for_label }}"></label>
-        </div>
-
-        <!-- Campo Contraseña -->
-        <div class="form">
-            {{ form.password }}
-            <label for="{{ form.password.id_for_label }}"></label>
-        </div>
-
-
-        <p class="fs-6 text-center fw-bold">¿Olvidaste tu contraseña?</p>
-
-        <!-- Botón Ingresar -->
-        <button type="submit" class="btn btn-primary w-100 rounded-pill fw-bold">Iniciar Sesión</button>
-    </form>
 </div>
