@@ -10790,4 +10790,23 @@ body {
     transform: scale(4);
     opacity: 1;
   }
+}
+.form-control {
+  background-color: #f4edf7;
+  border: none; /* Sin bordes */
+  border-radius: 50px; /* Bordes redondeados */
+  padding: 10px 15px; /* Espaciado interno */
+  color: #3b3b3b; /* Color del texto */
+  box-shadow: none; /* Eliminar sombra al enfocar */
+  font-size: 14px;
+}
+
+.form-control::-moz-placeholder {
+  color: black; /* Color del placeholder */
+  opacity: 0.7; /* Transparencia del placeholder */
+}
+
+.form-control::placeholder {
+  color: black; /* Color del placeholder */
+  opacity: 0.7; /* Transparencia del placeholder */
 }/*# sourceMappingURL=styles.css.map */

@@ -3,35 +3,35 @@
     <strong>Error:</strong> Usuario o contraseña incorrectos.
 </div>
 {% endif %}
-<div style="max-width: 500px; width: 100%;">
+
+
+{% load static %}
+
+<div style="max-width: 400px; width: 100%;">
     <div class="container text-center  mb-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-circle"
-            viewBox="0 0 16 16">
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-            <path fill-rule="evenodd"
-                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-        </svg>
+        <img src="{% static 'src/core/image/usuario.svg' %}" alt="Logo" width="120" height="120"
+                                    class="d-inline-block align-text-top">
     </div>
 
     <form method="post" action="{% url 'login_page' %}">
         {% csrf_token %}
 
         <!-- Campo Usuario -->
-        <div class="form-floating mb-3">
+        <div class="form">
             {{ form.username }}
-            <label for="{{ form.username.id_for_label }}">Usuario</label>
+            <label for="{{ form.username.id_for_label }}"></label>
         </div>
 
         <!-- Campo Contraseña -->
-        <div class="form-floating mb-3">
+        <div class="form">
             {{ form.password }}
-            <label for="{{ form.password.id_for_label }}">Contraseña</label>
+            <label for="{{ form.password.id_for_label }}"></label>
         </div>
 
 
-        <p class="text-center">¿ Has olvidado la contraseña? </p>
+        <p class="fs-6 text-center fw-bold">¿Olvidaste tu contraseña?</p>
 
         <!-- Botón Ingresar -->
-        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+        <button type="submit" class="btn btn-primary w-100 rounded-pill fw-bold">Iniciar Sesión</button>
     </form>
 </div>
