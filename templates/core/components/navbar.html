@@ -1,0 +1,47 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'listar_proyectos_page' %}">PLANNER PROJECT</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+            aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"></a>
+                </li>
+            </ul>
+
+            <!-- Bloque personalizable dentro del navbar -->
+            {% block navbar_content %}
+            {% endblock %}
+
+            <!-- Aquí va el ícono de usuario alineado a la derecha -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown ">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownLink"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{% static 'src/core/image/usuario.svg' %}" alt="Logo" width="24"
+                                height="24" class="d-inline-block align-text-top">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownLink">
+                            <li>
+                                <form method="post" action="{% url 'logout_page' %}" id="form-cerrar-session">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Cerrar Sesión" style="border: none; background: none; text-decoration: none; cursor: pointer;">
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>

@@ -106,6 +106,10 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'usuarios.Usuario'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Usa la base de datos para las sesiones
+SESSION_COOKIE_AGE = 1209600  # 2 semanas
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # No expira al cerrar el navegador
+SESSION_COOKIE_SECURE = False  # True si usas HTTPS
 LOGIN_URL = 'login_page'
 LOGIN_REDIRECT_URL = 'listar_proyectos_page'
 # Redirige a la página de inicio de sesión después de cerrar sesión
