@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.timezone import now
 from .models import Proyecto, Pizarra
 from .forms import ProyectoForm, PizarraForm, ActualizarProyectoForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -84,9 +85,36 @@ def listar_proyectos_ajax_view(request):
     return JsonResponse({'proyectos': data}, status=200)
 
 
+@login_required
 def listar_proyectos_page_view(request):
     return render(request, 'proyectos/pages/proyectos_page.html', {})
 
 
+def listar_notas_ajax_view(request, pizarra_id):
+    if request.method == 'GET':
+        try:
+            pizarra = Pizarra.objects.get(id=pizarra_id)
+        except Pizarra.DoesNotExist:
+            return JsonResponse({'error': 'Pizarra no encontrada'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+        notas = pizarra.notas.all()
+        data = [
+            {
+                'id': nota.id,
+                'titulo': nota.titulo,
+                'color': nota.etiqueta.color if nota.etiqueta else None,
+                'estado': nota.estado
+            }
+            for nota in notas
+        ]
+        return JsonResponse({'notas': data}, status=200)
+
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
 def listar_notas_page_view(request, pizarra_id):
+    # Verificar si la pizarra existe
+    if not Pizarra.objects.filter(id=pizarra_id).exists():
+        return redirect('listar_proyectos_page')
     return render(request, 'proyectos/pages/notas_page.html', {})

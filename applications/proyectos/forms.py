@@ -30,7 +30,6 @@ class PizarraForm(forms.ModelForm):
         pizarra = super().save(commit=False)
         if usuario:
             pizarra.usuario = usuario
-        pizarra.save()
         if proyecto:
             pizarra.proyecto = proyecto
         pizarra.save()

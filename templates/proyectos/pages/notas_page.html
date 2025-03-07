@@ -1,0 +1,18 @@
+{% extends 'core/layout/base.html' %}
+{% load static %}
+
+{% block titulo %}Notas{% endblock titulo %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'src/proyectos/notas/css/style.css' %}">
+{% endblock extra_css %}
+
+
+{% block contenido_main %}
+{% include 'proyectos/components/notas.html' %}
+{% endblock contenido_main %}
+
+
+{% block extra_js%}
+<script type="module" src="{% static 'src/proyectos/notas/js/index.js' %}"></script>
+{% endblock extra_js%}

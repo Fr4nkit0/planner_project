@@ -1,0 +1,35 @@
+.task-container {
+    width: 95vw;
+    height: 80dvh;
+    background-color: #ecf0f1;
+    border: 10px solid #6e3f09;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    margin-top: 1px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 5px;
+}
+
+.task-card {
+    width: 200px;
+    height: 150px;
+    background-color: #CAC4D0;
+    border: none;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    transform: rotate(-5deg);
+    padding: 15px;
+    position: relative;
+}
+
+.task-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0, 0, 0, 0.1);
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+}
