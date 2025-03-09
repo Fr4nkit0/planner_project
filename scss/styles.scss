@@ -74,6 +74,7 @@ $headings-font-family: $font-family-sans-serif; // Asegúrate de que los título
 // Fondo y texto
 $dropdown-bg: $md3-surface; // Fondo claro
 $dropdown-color: $md3-on-surface; // Texto oscuro
+$dropdown-link-active-bg: $md-sys-color-primary-container;
 
 // Hover y focus
 $dropdown-link-hover-bg: $md3-surface-variant; // Color de fondo al hacer hover
@@ -136,14 +137,12 @@ $navbar-dark-hover-bg: $md3-dark-on-surface-variant;
 $navbar-dark-border-color: $md3-outline;
 
 
-
-
 $btn-padding-y: 0.75rem; // Altura cómoda
 $btn-padding-x: 1.5rem; // Anchura estándar
-$btn-border-radius: 0.5rem; // Borde redondeado (MD3 usa 4px o más)
+$btn-border-radius: 50px; // Borde redondeado (MD3 usa 4px o más)
 
-$btn-font-weight: 500; // Peso seminegrita
-$btn-font-size: 1rem; // Tamaño base
+$btn-font-weight: 700; // Peso seminegrita
+$btn-font-size: 0.90rem; // Tamaño base
 
 $btn-primary-bg: $md3-primary; // Fondo primario
 $btn-primary-color: $md3-on-primary; // Texto blanco
@@ -174,8 +173,6 @@ $btn-link-color: $md3-primary; // Solo texto con el color primario
 $btn-link-hover-color: $md3-primary-dark; // Oscurece al pasar el mouse
 $btn-link-active-color: $md3-primary-light;
 $btn-link-decoration: none; // Sin subrayado
-
-
 
 
 // Colores primarios

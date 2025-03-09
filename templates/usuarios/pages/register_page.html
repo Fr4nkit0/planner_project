@@ -8,11 +8,25 @@
 
 {% endblock extra_css %}
 
+
+{% block mensajes_de_error %}
+
+{% include 'usuarios/components/mensajes_error_registro.html' %}
+    
+{% endblock mensajes_de_error %}
+
+
 {% block contenido_main %}
+
+
 
 {% include 'usuarios/components/register.html' %}
 
+
+
 {% endblock contenido_main %}
+
+
 
 {% block extra_js %}
 

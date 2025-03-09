@@ -7,12 +7,10 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-
-
         <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll d-none d-lg-block"
+                style="--bs-scroll-height: 100px;">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#"></a>
                 </li>
             </ul>
 
@@ -22,26 +20,45 @@
 
             <!-- Aquí va el ícono de usuario alineado a la derecha -->
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <div class="dropdown ">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownLink"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{% static 'src/core/image/usuario.svg' %}" alt="Logo" width="24"
-                                height="24" class="d-inline-block align-text-top">
+                <!-- Enlace directo para móviles (visible solo cuando el navbar está colapsado) -->
+                <li class="nav-item d-lg-none">
+                    <form class="py-1" method="post" action="{% url 'logout_page' %}">
+                        {% csrf_token %}
+                        <button type="submit"
+                            style="border: none; background: none; padding: 0; text-decoration: none; color: black"
+                            data-bs-toggle="modal" data-bs-target="#logoutModal">
+                            <img src="{% static 'src/core/image/cerrar_sesion.svg' %}" alt="Logo" width="24" height="24"
+                                class="d-inline-block align-text-top"> Cerrar sesión</button>
+                    </form>
+                </li>
+
+                <!-- Aquí va el formulario de busqueda -->
+                {% include 'core/components/form_busqueda.html' %}
+
+                <li class="nav-item d-flex justify-content-center align-items-center">
+                    <div class="dropdown d-none d-lg-block">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownLink" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <img src="{% static 'src/core/image/usuario.svg' %}" alt="Logo" width="24" height="24"
+                                class="d-inline-block align-text-top">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownLink">
                             <li>
-                                <form method="post" action="{% url 'logout_page' %}" id="form-cerrar-session">
+                                <form class="dropdown-item" method="post" action="{% url 'logout_page' %}">
                                     {% csrf_token %}
-                                    <input type="submit" value="Cerrar Sesión" style="border: none; background: none; text-decoration: none; cursor: pointer;">
+                                    <img src="{% static 'src/core/image/cerrar_sesion.svg' %}" alt="Logo" width="24"
+                                        height="24" class="d-inline-block align-text-top me-1">
+                                    <button type="submit"
+                                        style="border: none; background: none; padding: 0; text-decoration: none; color: black"
+                                        data-bs-toggle="modal" data-bs-target="#logoutModal">Cerrar sesión</button>
                                 </form>
                             </li>
                         </ul>
                     </div>
                 </li>
-
             </ul>
-
         </div>
-    </div>
+
+        {% include 'core/components/modal_logout.html' %}
+
 </nav>
