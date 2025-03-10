@@ -1,5 +1,5 @@
 import { obtenerProyectos, eliminarProyecto, actualizarProyecto } from "./services/proyectoServicio.js";
-import { crearPizarra } from "./services/pizarraServicio.js";
+import { crearPizarra, eliminarPizarra, actualizarPizarra } from "./services/pizarraServicio.js";
 import { listarProyectos, actualizarModal } from "./components/proyectoComponents.js";
 
 function cargarProyectos() {
@@ -14,13 +14,22 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarProyectos();
 })
 document.addEventListener("click", (e) => {
+    // Detectar clic en una tarjeta (redirigir solo si NO es un modal o dropdown)
+    const card = e.target.closest(".card");
+    if (card && !e.target.closest(".dropdown") && !card.dataset.bsToggle) {
+        window.location.href = card.dataset.url; // Redirigir a la URL
+    }
     if (e.target.closest("[data-bs-target='#modal']")) {
         const button = e.target.closest("[data-bs-target='#modal']");
         actualizarModal(button);
     }
+    if (e.target.closest(".dropdown-toggle")) {
+        e.stopPropagation();
+        return;
+    }
 });
 document.addEventListener("submit", (e) => {
-    if(e.target && e.target.id != "form-cerrar-session"){
+    if (e.target && e.target.id != "form-cerrar-session") {
         e.preventDefault();
         if (e.target && e.target.id == "form-pizarra") {
             const form = document.getElementById("form-pizarra");
@@ -30,7 +39,6 @@ document.addEventListener("submit", (e) => {
                     const modalInstance = bootstrap.Modal.getInstance(modalElement)
                     modalInstance.hide();
                     cargarProyectos();
-    
                 },
                 (error) => {
                     console.log(error);
@@ -45,7 +53,6 @@ document.addEventListener("submit", (e) => {
                     const modalInstance = bootstrap.Modal.getInstance(modalElement)
                     modalInstance.hide();
                     cargarProyectos();
-    
                 },
                 (error) => {
                     console.log(error);
@@ -57,15 +64,41 @@ document.addEventListener("submit", (e) => {
             actualizarProyecto(form,
                 (data) => {
                     const modalElement = document.getElementById("modal");
-                    const modalInstance = bootstrap.Modal.getInstance(modalElement)
+                    const modalInstance = bootstrap.Modal.getInstance(modalElement);
                     modalInstance.hide();
                     cargarProyectos();
-    
+
                 },
                 (error) => {
                     console.log(error);
                 }
             )
-    }
+        }
+        if (e.target && e.target.id == "form-eliminar-pizarra") {
+            const modalElement = document.getElementById("modal");
+            const form = document.getElementById("form-eliminar-pizarra");
+            eliminarPizarra(form,
+                (data) => {
+                    const modalInstance = bootstrap.Modal.getInstance(modalElement)
+                    modalInstance.hide();
+                    cargarProyectos();
+                },
+                (error) => {
+                    console.log(error);
+                });
+        }
+        if (e.target && e.target.id == "form-actualizar-pizarra") {
+            const modalElement = document.getElementById("modal");
+            const form = document.getElementById("form-actualizar-pizarra");
+            actualizarPizarra(form,
+                (data) => {
+                    const modalInstance = bootstrap.Modal.getInstance(modalElement)
+                    modalInstance.hide();
+                    cargarProyectos();
+                },
+                (error) => {
+                    console.log(error);
+                });
+        }
     }
 });

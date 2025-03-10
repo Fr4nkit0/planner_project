@@ -21,17 +21,38 @@ export function notaCrearHtml() {
 }
 export function formularioNotaHtml() {
     return `
-    <form id="form-nota" >
+    <form id="form-nota">
         <input type="hidden" name="pizarra_id" value="${obtenerIdPizarraUrl()}">
+
         <div class="mb-3">
-            <label for="titulo" class="form-label">Titulo</label>
+            <label for="titulo" class="form-label">Título</label>
             <input type="text" class="form-control" id="titulo" name="titulo" required>
         </div>
+
         <div class="mb-3">
-            <label for="descripcion" class="form-label">Descripcion</label>
+            <label for="descripcion" class="form-label">Descripción</label>
             <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        
+        <div class="mb-3 row">
+            <div class="col-9 d-flex align-items-center gap-1">
+                <label for="fecha" class="form-label fs-7 mb-0" style="white-space: nowrap;">Pendiente Para:</label>
+                <input type="date" class="form-control" id="fecha" name="fecha">
+            </div>
+            <div class="col d-flex align-items-center">
+                <label for="etiqueta" class="form-label fs-7 mb-0 me-">Etiqueta:</label>
+                <div class="btn-group dropend">
+                    <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;"></button>
+                    <div class="dropdown-menu">
+                        <p>No hay Etiquetas Disponibles por el momento</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
-    `
-}
+    <div class="mb-3 d-flex justify-content-center gap-1"> 
+        <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancelar</button> 
+        <button type="submit" form="form-nota" class="btn btn-primary">Guardar</button>
+    </div>
+    `;
+} 

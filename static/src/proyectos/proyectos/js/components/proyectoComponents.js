@@ -1,5 +1,5 @@
 import { proyectoHtml, editarProyectoFormularioHtml, eliminarProyectoFormularioHtml } from "./proyectoHtml.js";
-import { crearPizarraHtml } from "./pizarraComponents.js"
+import { crearPizarraHtml, crearEditarPizarraHtml, crearEliminarPizarraHtml } from "./pizarraComponents.js"
 export function listarProyectos(data) {
     const proyectosContainer = document.getElementById("proyectos-container");
     proyectosContainer.innerHTML = "";
@@ -16,15 +16,23 @@ export function actualizarModal(button) {
     return tipoDeModal(button, tipo);
 }
 function tipoDeModal(button, tipo) {
-    if (tipo == "crear-pizarra") {
-        crearPizarraHtml(button);
-    }
     if (tipo == "editar-proyecto") {
         crearEditarProyectoHtml(button);
     }
     if (tipo == "eliminar-proyecto") {
         crearEliminarProyectoHtml(button);
     }
+    if (tipo == "crear-pizarra") {
+        crearPizarraHtml(button);
+    }
+    if (tipo == "editar-pizarra") {
+        crearEditarPizarraHtml(button);
+    }
+    if (tipo == "eliminar-pizarra") {
+        crearEliminarPizarraHtml(button)
+    }
+
+
 }
 function crearEditarProyectoHtml(button) {
     const proyectoId = button.getAttribute("data-id");
@@ -42,5 +50,5 @@ function crearEliminarProyectoHtml(button) {
     const modalLabel = document.getElementById("modal-label");
     const modalBody = document.getElementById("modal-body");
     modalLabel.textContent = "Eliminar Proyecto  " + nombreProyecto;
-    modalBody.innerHTML = eliminarProyectoFormularioHtml(proyectoId, nombreProyecto);
+    modalBody.innerHTML = eliminarProyectoFormularioHtml(proyectoId);
 }

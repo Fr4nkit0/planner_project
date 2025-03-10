@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.timezone import now
-from .models import Proyecto, Pizarra
+from .models import Nota, Proyecto, Pizarra
 from .forms import ProyectoForm, PizarraForm, ActualizarProyectoForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -65,6 +65,34 @@ def crear_pizarra_ajax_view(request):
     return JsonResponse({'error': 'Metodo no permitido'}, status=405)
 
 
+def actualizar_pizarra_ajax_view(request):
+    if request.method == 'POST':
+        try:
+            pizarra_id = request.POST.get('pizarra_id')
+            pizarra = Pizarra.objects.get(id=pizarra_id)
+            form = PizarraForm(request.POST, instance=pizarra)
+            if form.is_valid():
+                form.save()
+                return JsonResponse({'success': 'Pizarra actualizada correctamente'})
+            else:
+                return JsonResponse({'error': form.errors}, status=400)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+
+def eliminar_pizarra_ajax_view(request):
+    if request.method == 'POST':
+        pizarra_id = request.POST.get('pizarra_id')
+        try:
+            pizarra = Pizarra.objects.get(id=pizarra_id)
+            pizarra.delete()
+            return JsonResponse({'success': 'Pizarra eliminado correctamente'})
+        except Pizarra.DoesNotExist:
+            return JsonResponse({'error': 'Pizarra no encontrado'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+
 def listar_proyectos_ajax_view(request):
     if request.method != 'GET':
         return JsonResponse({'error': 'Método no permitido'}, status=405)
@@ -110,6 +138,25 @@ def listar_notas_ajax_view(request, pizarra_id):
         ]
         return JsonResponse({'notas': data}, status=200)
 
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
+def obtener_nota_ajax_view(request, nota_id):
+    if request.method == 'GET':
+        try:
+            nota = Nota.objects.get(id=nota_id)
+        except Nota.DoesNotExist:
+            return JsonResponse({'error': 'Nota no encontrada'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+        data = {
+            'id': nota.id,
+            'titulo': nota.titulo,
+            'descripcion': nota.descripcion,
+            'etiqueta': nota.etiqueta.id if nota.etiqueta else None,
+            'estado': nota.estado
+        }
+        return JsonResponse(data, status=200)
     return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 
