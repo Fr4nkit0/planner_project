@@ -37,6 +37,12 @@ class PersonalizadoCreacionDeUsuarioForm(UserCreationForm):
             'placeholder': 'Nombre de usuario',
         })
 
+        # Personalizar el campo de nombre de email
+        self.fields['email'].widget.attrs.update({
+            'class': 'form-control fw-bold',
+            'placeholder': 'Correo electrónico',
+        })
+
         # Personalizar el campo de contraseña (password1)
         self.fields['password1'].widget = forms.PasswordInput(attrs={
             'class': 'form-control  fw-bold',

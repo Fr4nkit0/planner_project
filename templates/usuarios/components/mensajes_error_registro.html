@@ -1,11 +1,11 @@
-{% if form.username.errors %}
-<div class="position-absolute top-0 alert alert-danger mt-5">{{ form.username.errors }}</div>
+{% if form.errors %}
+<div class="position-absolute top-0 alert alert-danger mt-5">{{ form.errors }}</div>
 {% endif %}
 
-{% if form.password1.errors %}
+{% comment %} {% if form.password1.errors %}
 <div class="position-absolute top-0 alert alert-danger mt-5">{{ form.password1.errors }}</div>
 {% endif %}
 
 {% if form.password2.errors %}
 <div class="position-absolute top-0 alert alert-danger mt-5">{{ form.password2.errors }}</div>
-{% endif %}
+{% endif %} {% endcomment %}

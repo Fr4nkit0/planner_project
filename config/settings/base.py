@@ -115,3 +115,4 @@ LOGIN_REDIRECT_URL = 'listar_proyectos_page'
 # Redirige a la página de inicio de sesión después de cerrar sesión
 LOGOUT_REDIRECT_URL = 'login_page'
 
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

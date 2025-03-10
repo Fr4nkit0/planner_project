@@ -20,16 +20,16 @@
 
             <!-- Aquí va el ícono de usuario alineado a la derecha -->
             <ul class="navbar-nav ml-auto">
+
                 <!-- Enlace directo para móviles (visible solo cuando el navbar está colapsado) -->
                 <li class="nav-item d-lg-none">
-                    <form class="py-1" method="post" action="{% url 'logout_page' %}">
-                        {% csrf_token %}
-                        <button type="submit"
-                            style="border: none; background: none; padding: 0; text-decoration: none; color: black"
-                            data-bs-toggle="modal" data-bs-target="#logoutModal">
-                            <img src="{% static 'src/core/image/cerrar_sesion.svg' %}" alt="Logo" width="24" height="24"
-                                class="d-inline-block align-text-top"> Cerrar sesión</button>
-                    </form>
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-start my-1">
+                        <img src="{% static 'src/core/image/cerrar_sesion.svg' %}" alt="Logo" width="24" height="24"
+                            class="d-inline-block align-text-top">
+                        <button class="ms-1" style="border: none; background: none; padding: 0; text-decoration: none; color: black"
+                            data-bs-toggle="modal" data-bs-target="#logoutModal">Cerrar sesión</button>
+                    </div>
                 </li>
 
                 <!-- Aquí va el formulario de busqueda -->
@@ -43,15 +43,13 @@
                                 class="d-inline-block align-text-top">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownLink">
-                            <li>
-                                <form class="dropdown-item" method="post" action="{% url 'logout_page' %}">
-                                    {% csrf_token %}
-                                    <img src="{% static 'src/core/image/cerrar_sesion.svg' %}" alt="Logo" width="24"
-                                        height="24" class="d-inline-block align-text-top me-1">
-                                    <button type="submit"
-                                        style="border: none; background: none; padding: 0; text-decoration: none; color: black"
-                                        data-bs-toggle="modal" data-bs-target="#logoutModal">Cerrar sesión</button>
-                                </form>
+                            <li class="d-flex justify-content-center">
+                                {% csrf_token %}
+                                <img src="{% static 'src/core/image/cerrar_sesion.svg' %}" alt="Logo" width="24"
+                                    height="24" class="d-inline-block align-text-top me-1">
+                                <button
+                                    style="border: none; background: none; padding: 0; text-decoration: none; color: black"
+                                    data-bs-toggle="modal" data-bs-target="#logoutModal">Cerrar sesión</button>
                             </li>
                         </ul>
                     </div>
