@@ -22,8 +22,8 @@ export function proyectoHtml(proyecto) {
                             </div>
                         </div>
                     </div>
-                    <div class="body overflow-y-auto overflow-x-hidden" style="max-height: 700px;">
-                        <div class="row">
+                    <div class="body" >
+                        <div class="row overflow-auto" style="max-height: 400px;">
                             ${mostrarPizarras(proyecto, proyecto.id)}
                         </div>
                     </div>
@@ -50,9 +50,9 @@ export function editarProyectoFormularioHtml(proyectoId, nombreProyecto, descrip
         </form>
     `;
 }
-export function eliminarProyectoFormularioHtml(proyectoId, nombreProyecto) {
+export function eliminarProyectoFormularioHtml(proyectoId) {
     return `
-        <p class="text-center">¿Estás seguro de eliminar el proyecto ?</p>
+        <p class="text-center">¿Estás seguro de eliminar el proyecto</p>
         <form method="POST" id="form-eliminar-proyecto">
             <input type="hidden" name="proyecto_id" value="${proyectoId}">
             <div class="d-flex justify-content-center gap-1">
@@ -62,3 +62,31 @@ export function eliminarProyectoFormularioHtml(proyectoId, nombreProyecto) {
         </form>
      ` ;
 }
+
+// Enviaste
+// <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-3">
+//     <div class="card border-0 shadow-sm rounded-4" 
+//          style="height: 75px; width: 200px; margin: 10px; cursor: pointer;" 
+//          onclick="window.location.href='listar-notas/${pizarra.id}'">
+        
+//         <div class="d-flex justify-content-between align-items-center">
+//             <div class="text-center w-100">
+//                 <span>${pizarra.nombre}</span>
+//             </div>
+//             <div class="bg-primary position-relative" style="width: 90px; height: 75px; border-radius: 10px;">
+//                 <div class="dropdown position-absolute end-0 top-0">
+//                     <button class="dropdown-toggle" type="button" id="dropdownMenu" 
+//                             data-bs-toggle="dropdown" aria-expanded="false" 
+//                             style="background: none; border: none;" 
+//                             onclick="event.stopPropagation();">
+//                         <img src="/static/src/core/image/drop-down.svg"">
+//                     </button>
+//                     <ul class="dropdown-menu shadow-sm border-0" aria-labelledby="dropdownMenu">
+//                         <li><p>Probando</p></li>
+//                         <li><p>Probando</p></li>
+//                     </ul>
+//                 </div>
+//             </div>
+//         </div>
+//     </div>
+// </div>
