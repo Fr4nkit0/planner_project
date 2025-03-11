@@ -1,9 +1,31 @@
 from django.urls import path
-from applications.reportes.views import ListaReporteView, DetalleReporteView, CreacionReporteView, ActualizacionReporteView, EliminacionReporteView
+from applications.reportes.views import (
+    crear_reporte_ajax_view,
+    actualizar_reporte_ajax_view,
+    eliminar_reporte_ajax_view,
+    listar_reportes_ajax_view,
+    listar_reportes_page_view,
+
+)
 urlpatterns = [
-    path('', ListaReporteView.as_view(), name= 'reportes'),
-    path('reporte/<int:pk>/', DetalleReporteView.as_view(), name= 'reporte'),
-    path('creacion_reporte/', CreacionReporteView.as_view(), name= 'creacion_reporte'),
-    path('actualizacion_reporte/<int:pk>/', ActualizacionReporteView.as_view(), name= 'actualizacion_reporte'),
-    path('eliminacion_reporte/<int:pk>/', EliminacionReporteView.as_view(), name= 'eliminacion_reporte'),
+    path('',
+        listar_reportes_page_view,
+        name='listar_reportes_page'
+        ),
+    path('ajax/crear-reporte',
+        crear_reporte_ajax_view,
+        name='crear_reporte_ajax_view'
+        ),
+    path('ajax/actualizar-reporte/<int:pk>',
+        actualizar_reporte_ajax_view,
+        name='actualizar_reporte_ajax_view'
+        ),
+    path('ajax/eliminar-reporte/<int:pk>',
+        eliminar_reporte_ajax_view,
+        name='eliminar_reporte_ajax_view'
+        ),
+    path('ajax/listar-reportes',
+        listar_reportes_ajax_view,
+        name='listar_reportes_ajax_view'
+        )
 ]
