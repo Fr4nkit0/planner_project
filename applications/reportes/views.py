@@ -1,62 +1,61 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, View
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Reporte
 from .forms import CreacionReporteForm
-from django.urls import reverse_lazy
-from django.contrib import messages
+from django.http import JsonResponse
 
 # Create your views here.
-class BaseView(View):
-    def dispatch(self, request, *args, **kwargs):
-        id_reporte = self.kwargs.get('pk')
-        if not str(id_reporte).isdigit():
-            messages.error(request, "El ID del reporte no es valido")
-            return redirect('reportes')
-        if not Reporte.objects.filter(pk = id_reporte).exists():
-            messages.error(request, "El reporte no fue encontrado")
-            return redirect('reportes')
-        return super().dispatch(request, *args, **kwargs)
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['anterior'] = self.request.GET.get('anterior', reverse_lazy('reportes'))
-        return context
-    
-    def get_success_url(self):
-        return self.request.GET.get('anterior', reverse_lazy('reportes'))
 
-class ListaReporteView(ListView):
-    model = Reporte
-    context_object_name = 'reportes'
-    template_name = 'reportes/pages/lista_reporte.html'
-    
-class DetalleReporteView(DetailView):
-    model = Reporte
-    context_object_name = 'reporte'
-    template_name = 'reportes/pages/detalle_reporte.html'
-    
-    def get_object(self, queryset = None):
-        reporte_id = self.kwargs.get('pk')
-        try:
-            return Reporte.objects.get(pk = reporte_id)
-        except Reporte.DoesNotExist:
-            return redirect('Reportes')
-        
-class CreacionReporteView(CreateView):
-    model = Reporte
-    form_class = CreacionReporteForm
-    template_name = 'reportes/pages/formulario_reporte.html'
-    success_url = reverse_lazy('reportes')
-    
-class ActualizacionReporteView(UpdateView, BaseView):
-    model = Reporte
-    form_class = CreacionReporteForm
-    template_name = 'reportes/pages/formulario_reporte.html'
-        
-    def get_success_url(self,):
-        return self.request.GET.get('anterior', reverse_lazy('reportes'))
-    
-class EliminacionReporteView(DeleteView, BaseView):
-    model = Reporte
-    template_name = 'reportes/pages/eliminacion_reporte.html'
+def crear_reporte_ajax_view(request):
+    if request.method == 'POST':
+        form = CreacionReporteForm(request.POST)
+        if form.is_valid():
+            reporte = form.save(usuario=request.user)
+            return JsonResponse({'success': 'Reporte creado correctamente'}, status=201)
+        else:
+            return JsonResponse({'error': form.errors}, status=400)
+    return JsonResponse({'error': "metodo no permitido"}, status=405)
+
+def actualizar_reporte_ajax_view(request, pk):
+    print("ENTRO A LA VIEW")
+    try:
+        reporte = Reporte.objects.get(pk=pk)
+    except Reporte.DoesNotExist:
+        return JsonResponse({'error': 'Reporte no encontrado'}, status=404)
+
+    if request.method == 'POST':
+        form = CreacionReporteForm(request.POST, instance=reporte)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': 'Reporte actualizado correctamente'}, status=200)
+        else:
+            return JsonResponse({'error': form.errors}, status=400)
+    return JsonResponse({'error': "metodo no permitido"}, status=405)
+
+def eliminar_reporte_ajax_view(request, pk):
+    try:
+        reporte = Reporte.objects.get(pk=pk)
+    except Reporte.DoesNotExist:
+        return JsonResponse({'error': 'Reporte no encontrado'}, status=404)
+
+    if request.method == 'POST':
+        reporte.delete()
+        return JsonResponse({'success': 'Reporte eliminado correctamente'}, status=200)
+    return JsonResponse({'error': "metodo no permitido"}, status=405)
+
+def listar_reportes_ajax_view(request):
+    if request.method == 'GET':
+        reportes = Reporte.objects.all()
+        data = []
+        for reporte in reportes:
+            data.append({
+                'id': reporte.id,
+                'titulo': reporte.titulo,
+                'descripcion': reporte.descripcion, 
+                'usuario': reporte.usuario.username if reporte.usuario else None,
+                'fecha_creacion': reporte.fecha_creacion.strftime('%d/%m/%Y')
+            })
+        return JsonResponse({'reportes': data}, status=200)
+    return JsonResponse({'error': "metodo no permitido"}, status=405)
+
+def listar_reportes_page_view(request):
+    return render(request, 'reportes/pages/reportes_page.html', {})
