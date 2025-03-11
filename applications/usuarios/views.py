@@ -10,6 +10,8 @@ from django.shortcuts import redirect
 from .forms import PersonalizadoCreacionDeUsuarioForm 
 import logging
 
+from django.contrib.auth import views as auth_views
+from django.http import JsonResponse
 # Create your views here.
 
 User = get_user_model()  # Importa el modelo de usuario
