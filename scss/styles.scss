@@ -234,7 +234,7 @@ $light: $md-sys-color-primary-container !default;
 
 
 // Personalización del modal
-$modal-content-bg: #ffffff; // Fondo blanco o claro según MD3
+$modal-content-bg: #FEF7FF; // Fondo blanco o claro según MD3
 $modal-content-border-color: rgba(0, 0, 0, 0.12); // Borde sutil
 $modal-content-border-width: 1px;
 $modal-border-radius: 28px; // Bordes redondeados según MD3
@@ -315,6 +315,11 @@ body {
     transform: scale(4);
     opacity: 1;
   }
+}
+
+
+.modal-header {
+  border: none;
 }
 
 // f4edf7

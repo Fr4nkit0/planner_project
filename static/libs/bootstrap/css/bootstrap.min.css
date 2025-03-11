@@ -11870,6 +11870,10 @@ body {
     opacity: 1;
   }
 }
+.modal-header {
+  border: none;
+}
+
 .form-control {
   background-color: #f4edf7;
   border: none;

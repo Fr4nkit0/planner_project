@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <h2 class="text-center fw-bold">Inicio de Sesión</h2>
 <div class="container text-center mb-4">
     <img src="{% static 'src/core/image/usuario_dif_color.svg' %}" alt="Logo" width="120" height="120"
@@ -24,6 +25,8 @@
 
         <!-- Botón Ingresar -->
         <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+
+
     </form>
 </div>
 
@@ -34,5 +37,5 @@
         tienes una cuenta?</a>
     <a class="me-2" style="text-decoration: none; color: #212529; font-weight: bold"
         href="{% url 'password_reset' %}">¿Olvidaste tu contraseña?</a>
-    
+
 </div>
