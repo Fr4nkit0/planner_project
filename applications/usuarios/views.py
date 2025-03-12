@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
-
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
@@ -10,8 +9,6 @@ from django.shortcuts import redirect
 from .forms import PersonalizadoCreacionDeUsuarioForm 
 import logging
 
-from django.contrib.auth import views as auth_views
-from django.http import JsonResponse
 # Create your views here.
 
 User = get_user_model()  # Importa el modelo de usuario
@@ -29,6 +26,7 @@ class PersonalizacionLoginView(LoginView):
 
 class PersonalizacionLogoutView(LogoutView):
     next_page = reverse_lazy('login_page')  # Redirige a la página de inicio de sesión
+
 
 def registro_usuario_view(request):
     if request.method == 'POST':

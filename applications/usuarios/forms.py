@@ -1,6 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, SetPasswordForm
 from .models import Usuario
 
 class PersonalizadoLoginForm(AuthenticationForm):
@@ -23,7 +22,6 @@ class PersonalizadoLoginForm(AuthenticationForm):
     )
 
 class PersonalizadoCreacionDeUsuarioForm(UserCreationForm):
-
     class Meta:
         model = Usuario  # Asocia el formulario con tu modelo personalizado
         fields = ["username", "email", "password1", "password2"]
@@ -55,4 +53,20 @@ class PersonalizadoCreacionDeUsuarioForm(UserCreationForm):
             'class': 'form-control fw-bold',
             'placeholder': 'Confirmar contraseña',
             'autocomplete': 'current-password',
+        })
+
+class PersonalizadoSetPasswordForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Personaliza el campo new_password1
+        self.fields['new_password1'].widget.attrs.update({
+            'class': 'form-control  fw-bold',
+            'placeholder': 'Nueva contraseña',  # Agrega un placeholder
+        })
+
+        # Personaliza el campo new_password2
+        self.fields['new_password2'].widget.attrs.update({
+            'class': 'form-control  fw-bold',
+            'placeholder': 'Confirmar nueva contraseña',  # Agrega un placeholder
         })

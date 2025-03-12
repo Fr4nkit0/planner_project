@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load socialaccount %}
 
 <h2 class="text-center fw-bold">Inicio de Sesión</h2>
 <div class="container text-center mb-4">
@@ -25,6 +25,13 @@
 
         <!-- Botón Ingresar -->
         <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+
+        <!-- Botón de inicio de sesión con Google -->
+<a href="{% provider_login_url 'google' %}" class="btn btn-google">
+    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" style="height: 20px;">
+    Iniciar sesión con Google
+</a>
+
 
     </form>
 </div>
