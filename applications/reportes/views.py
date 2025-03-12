@@ -1,9 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from .models import Reporte
 from .forms import CreacionReporteForm
-from django.http import JsonResponse
-
-# Create your views here.
 
 def crear_reporte_ajax_view(request):
     if request.method == 'POST':
@@ -15,32 +14,31 @@ def crear_reporte_ajax_view(request):
             return JsonResponse({'error': form.errors}, status=400)
     return JsonResponse({'error': "metodo no permitido"}, status=405)
 
-def actualizar_reporte_ajax_view(request, pk):
-    print("ENTRO A LA VIEW")
-    try:
-        reporte = Reporte.objects.get(pk=pk)
-    except Reporte.DoesNotExist:
-        return JsonResponse({'error': 'Reporte no encontrado'}, status=404)
-
+def actualizar_reporte_ajax_view(request):
     if request.method == 'POST':
-        form = CreacionReporteForm(request.POST, instance=reporte)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({'success': 'Reporte actualizado correctamente'}, status=200)
-        else:
-            return JsonResponse({'error': form.errors}, status=400)
-    return JsonResponse({'error': "metodo no permitido"}, status=405)
+        try:
+            reporte_id = request.POST.get('reporte_id')
+            reporte = Reporte.objects.get(id=reporte_id)
+            form = CreacionReporteForm(request.POST, instance=reporte)
+            if form.is_valid():
+                form.save()
+                return JsonResponse({'success': 'Reporte actualizado correctamente'})
+            else:
+                return JsonResponse({'error': form.errors}, status=400)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
 
-def eliminar_reporte_ajax_view(request, pk):
-    try:
-        reporte = Reporte.objects.get(pk=pk)
-    except Reporte.DoesNotExist:
-        return JsonResponse({'error': 'Reporte no encontrado'}, status=404)
-
+def eliminar_reporte_ajax_view(request):
     if request.method == 'POST':
-        reporte.delete()
-        return JsonResponse({'success': 'Reporte eliminado correctamente'}, status=200)
-    return JsonResponse({'error': "metodo no permitido"}, status=405)
+        reporte_id = request.POST.get('reporte_id')
+        try:
+            reporte = Reporte.objects.get(id=reporte_id)
+            reporte.delete()
+            return JsonResponse({'success': 'Reporte eliminado correctamente'})
+        except Reporte.DoesNotExist:
+            return JsonResponse({'error': 'Reporte no encontrado'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
 
 def listar_reportes_ajax_view(request):
     if request.method == 'GET':
@@ -50,7 +48,7 @@ def listar_reportes_ajax_view(request):
             data.append({
                 'id': reporte.id,
                 'titulo': reporte.titulo,
-                'descripcion': reporte.descripcion, 
+                'descripcion': reporte.descripcion,
                 'usuario': reporte.usuario.username if reporte.usuario else None,
                 'fecha_creacion': reporte.fecha_creacion.strftime('%d/%m/%Y')
             })
