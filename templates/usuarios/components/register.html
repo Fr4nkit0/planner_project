@@ -6,7 +6,7 @@
         class="d-inline-block align-text-top">
 </div>
 <div class="py-4 container" style="max-width: 400px; width: 100%;">
-    <form method="post" action="{% url 'register_page' %}">
+    <form id="registerForm" method="post" action="{% url 'register_page' %}">
         {% csrf_token %}
 
         <!-- Campo de nombre de usuario -->
@@ -14,45 +14,122 @@
             {{ form.username }}
             <label for="{{ form.username.id_for_label }}"></label>
         </div>
+        <div class="error-message" id="usernameError"></div>
 
         <!-- Campo de email -->
         <div class="form">
             {{ form.email }}
             <label for="{{ form.email.id_for_label }}"></label>
         </div>
+        <div class="error-message" id="emailError"></div>
 
         <!-- Campo de contraseña -->
         <div class="form">
             {{ form.password1 }}
             <label for="{{ form.password1.id_for_label }}"></label>
         </div>
+        <div class="error-message" id="password1Error"></div>
 
-        <!-- Campo de confirmación de contraseña -->    
+        <!-- Campo de confirmación de contraseña -->
         <div class="form">
             {{ form.password2 }}
             <label for="{{ form.password2.id_for_label }}"></label>
         </div>
+        <div class="error-message" id="password2Error"></div>
 
         <!-- Botón Registrar -->
         <button class="btn btn-primary w-100" type="submit">Registrarse</button>
     </form>
 </div>
 
-<!-- Ir a Registrar Usuario -->
+<!-- Ir a Login Usuario -->
 <div class="container d-flex justify-content-center text-center fw-bold">
     <a class="me-2" style="text-decoration: none; color: #212529; font-weight: bold" href="{% url 'login_page' %}">¿Ya
         tienes una cuenta?</a>
 </div>
 
 
-
-
-
-<!-- Campo de correo electrónico -->
-<!-- <div class="form">
-        <label for="{{ form.email.id_for_label }}">Correo electrónico:</label>
-        {{ form.email }}
-        {% if form.email.errors %}
-        <div class="error">{{ form.email.errors }}</div>
-        {% endif %}
-    </div> -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById("registerForm");
+    
+        const username = document.getElementById("username");
+        const email = document.getElementById("email");
+        const password1 = document.getElementById("password1");
+        const password2 = document.getElementById("password2");
+    
+        const usernameError = document.getElementById("usernameError");
+        const emailError = document.getElementById("emailError");
+        const password1Error = document.getElementById("password1Error");
+        const password2Error = document.getElementById("password2Error");
+    
+        function validateUsername() {
+            const value = username.value.trim();
+            const regex = /^[a-zA-Z0-9@.+-_]+$/;
+    
+            if (value.length < 4 || value.length > 150) {
+                usernameError.textContent = "El usuario debe tener entre 4 y 150 caracteres.";
+                return false;
+            } else if (!regex.test(value)) {
+                usernameError.textContent = "El usuario solo puede contener letras, números y @/./+/-/_";
+                return false;
+            } else {
+                usernameError.textContent = "";
+                return true;
+            }
+        }
+    
+        function validateEmail() {
+            const value = email.value.trim();
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+            if (!regex.test(value)) {
+                emailError.textContent = "Ingrese un correo electrónico válido.";
+                return false;
+            } else {
+                emailError.textContent = "";
+                return true;
+            }
+        }
+    
+        function validatePassword1() {
+            const value = password1.value.trim();
+    
+            if (value.length < 8) {
+                password1Error.textContent = "La contraseña debe tener al menos 8 caracteres.";
+                return false;
+            } else if (!isNaN(value)) {
+                password1Error.textContent = "La contraseña no puede ser solo números.";
+                return false;
+            } else if (value.includes(username.value.trim())) {
+                password1Error.textContent = "La contraseña no puede contener el nombre de usuario.";
+                return false;
+            } else {
+                password1Error.textContent = "";
+                return true;
+            }
+        }
+    
+        function validatePassword2() {
+            if (password2.value.trim() !== password1.value.trim()) {
+                password2Error.textContent = "Las contraseñas no coinciden.";
+                return false;
+            } else {
+                password2Error.textContent = "";
+                return true;
+            }
+        }
+    
+        // Asegurarse de que el DOM esté cargado antes de agregar los eventos
+        if (username) username.addEventListener("input", validateUsername);
+        if (email) email.addEventListener("input", validateEmail);
+        if (password1) password1.addEventListener("input", validatePassword1);
+        if (password2) password2.addEventListener("input", validatePassword2);
+    
+        form.addEventListener("submit", function(event) {
+            if (!validateUsername() || !validateEmail() || !validatePassword1() || !validatePassword2()) {
+                event.preventDefault();
+            }
+        });
+    });
+    </script>

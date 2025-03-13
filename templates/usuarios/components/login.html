@@ -2,30 +2,41 @@
 
 
 <h2 class="text-center fw-bold">Inicio de Sesión</h2>
-<div class="container text-center mb-4">
+<div class="container text-center mb-4 position-relative d-flex justify-content-center">
     <img src="{% static 'src/core/image/usuario_dif_color.svg' %}" alt="Logo" width="120" height="120"
         class="d-inline-block align-text-top">
+    {% if form.errors %}
+        <div class="position-absolute position-absolute mt-4 top-100 start-50 translate-middle" style="color: #B3261E;">
+            <strong>Error:</strong> Usuario o contraseña incorrectos.
+        </div>    
+    {% endif %}
+        
 </div>
 <div class="py-5 container" style="max-width: 400px; width: 100%;">
 
-    <form method="post" action="{% url 'login_page' %}">
+    <form id="loginForm" method="post" action="{% url 'login_page' %}">
         {% csrf_token %}
 
         <!-- Campo Usuario -->
-        <div class="form">
+        <div class="form-floating mb-4">
             {{ form.username }}
-            <label for="{{ form.username.id_for_label }}"></label>
+            <label class="fw-bold" for="{{ form.username.id_for_label }}">Usuario</label>
+            <div class="position-relative ms-3">
+                <div id="usernameError" class="error-message position-absolute" style="font-size: 15px;"></div>
+            </div>
         </div>
 
         <!-- Campo Contraseña -->
-        <div class="form">
+        <div class="form-floating mb-4">
             {{ form.password }}
-            <label for="{{ form.password.id_for_label }}"></label>
+            <label class="fw-bold" for="{{ form.password.id_for_label }}">Contraseña</label>
+            <div class="position-relative ms-3">
+                <div id="passwordError" class="error-message position-absolute" style="font-size: 15px;"></div>
+            </div>
         </div>
 
         <!-- Botón Ingresar -->
-        <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
-
+        <button type="submit" class="btn btn-primary w-100 mt-1">Iniciar Sesión</button>
     </form>
 </div>
 
@@ -36,5 +47,67 @@
         tienes una cuenta?</a>
     <a class="me-2" style="text-decoration: none; color: #212529; font-weight: bold"
         href="{% url 'password_reset' %}">¿Olvidaste tu contraseña?</a>
-
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Seleccionar elementos
+        const form = document.getElementById('loginForm');
+        const usernameInput = form.querySelector('input[name="username"]');
+        const passwordInput = form.querySelector('input[name="password"]');
+        const usernameError = document.getElementById('usernameError');
+        const passwordError = document.getElementById('passwordError');
+
+        // Función para mostrar errores
+        function showError(element, message) {
+            element.textContent = message;
+            element.style.color = '#B3261E';
+        }
+
+        // Función para limpiar errores
+        function clearError(element) {
+            element.textContent = '';
+        }
+
+        // Validación del nombre de usuario
+        function validateUsername() {
+            const value = usernameInput.value.trim();
+            if (!value) {
+                showError(usernameError, 'El nombre de usuario es obligatorio.');
+                return false;
+            }
+            clearError(usernameError);
+            return true;
+        }
+
+        // Validación de la contraseña
+        function validatePassword() {
+            const value = passwordInput.value.trim();
+            if (!value) {
+                showError(passwordError, 'La contraseña es obligatoria.');
+                return false;
+            }
+            if (value.length < 8) {
+                showError(passwordError, 'Debe tener al menos 8 caracteres.');
+                return false;
+            }
+            clearError(passwordError);
+            return true;
+        }
+
+        // Validar en tiempo real
+        usernameInput.addEventListener('input', validateUsername);
+        passwordInput.addEventListener('input', validatePassword);
+
+        // Validar antes de enviar el formulario
+        form.addEventListener('submit', function (e) {
+            const isUsernameValid = validateUsername();
+            const isPasswordValid = validatePassword();
+
+            // Evitar el envío si hay errores
+            if (!isUsernameValid || !isPasswordValid) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
