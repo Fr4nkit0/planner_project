@@ -1,4 +1,3 @@
-// reporteHtml.js
 export function reporteHtml(reporte) {
     const inicialUsuario = reporte.usuario ? reporte.usuario.charAt(0).toUpperCase() : "";
     const tituloMayuscula = reporte.titulo.toUpperCase();
@@ -15,12 +14,11 @@ export function reporteHtml(reporte) {
                     </div>
                 </div>
                 <div class="icono">
-                    <a href="#" class="me-2 btn-editar-reporte" data-id="${reporte.id}" data-tipo="editar-reporte" data-nombre="${reporte.titulo}" data-descripcion="${reporte.descripcion}">
-                        <img src="/static/src/core/image/lapiz.svg" alt="Editar" width="20">
-                    </a>
-                    <a href="#" class="btn-eliminar-reporte" data-id="${reporte.id}" data-tipo="eliminar-reporte" data-nombre="${reporte.titulo}">
-                        <img src="/static/src/core/image/eliminar.svg" alt="Eliminar" width="20">
-                    </a>
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modal"
+                    data-id="${reporte.id}" data-titulo="${reporte.titulo}" data-descripcion="${reporte.descripcion}"
+                    data-tipo="editar-reporte"><img src="/static/src/core/image/lapiz.svg" alt="Editar" width="20"></button>
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modal"
+                    data-id="${reporte.id}" data-tipo="eliminar-reporte"><img src="/static/src/core/image/eliminar.svg" alt="Eliminar" width="20"></button>
                 </div>
             </div>
             <div class="card-body contenido">
@@ -32,28 +30,28 @@ export function reporteHtml(reporte) {
 
 export function editarReporteFormularioHtml(reporteId, titulo, descripcion) {
     return `
-        <form id="form-editar-reporte" method="POST">
+        <form method="POST" id="form-editar-reporte">
             <input type="hidden" name="reporte_id" value="${reporteId}">
             <div class="mb-3">
                 <label for="titulo" class="form-label">Título</label>
-                <input type="text" class="form-control" id="titulo" name="titulo" value="${titulo}">
+                <input type="text" class="form-control" id="titulo" name="titulo" value="${titulo}" required>
             </div>
             <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripción</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="3">${descripcion}</textarea>
+                <label for="descripcion" class="form-label">Descripcion</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required>${descripcion}</textarea>
             </div>
             <div class="d-flex justify-content-center gap-1">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button id="modal-edicion-reporte-${reporteId}" type="submit" class="btn btn-primary">Guardar Cambios</button>
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
             </div>
         </form>
     `;
 }
 
-export function eliminarReporteFormularioHtml(reporteId, titulo) {
+export function eliminarReporteFormularioHtml(reporteId) {
     return `
-        <p class="text-center">¿Estás seguro de eliminar el reporte "${titulo}"?</p>
-        <form id="form-eliminar-reporte" method="POST">
+        <p class="text-center">¿Estás seguro de eliminar este reporte?</p>
+        <form method="POST" id="form-eliminar-reporte">
             <input type="hidden" name="reporte_id" value="${reporteId}">
             <div class="d-flex justify-content-center gap-1">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

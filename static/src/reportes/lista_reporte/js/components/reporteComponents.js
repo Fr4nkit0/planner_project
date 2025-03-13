@@ -1,4 +1,3 @@
-// reporteComponents.js
 import { reporteHtml, editarReporteFormularioHtml, eliminarReporteFormularioHtml } from "./reporteHtml.js";
 
 export function listarReportes(data) {
@@ -15,19 +14,19 @@ export function listarReportes(data) {
 
 export function actualizarModal(button) {
     const tipo = button.getAttribute("data-tipo");
-    const modalLabel = document.getElementById("modal-label");
-    const modalBody = document.getElementById("modal-body");
-
     if (tipo === "editar-reporte") {
         const reporteId = button.getAttribute("data-id");
-        const nombreReporte = button.getAttribute("data-nombre");
-        const descripcionReporte = button.getAttribute("data-descripcion");
+        const titulo = button.getAttribute("data-titulo");
+        const descripcion = button.getAttribute("data-descripcion");
+        const modalLabel = document.getElementById("modal-label");
+        const modalBody = document.getElementById("modal-body");
         modalLabel.textContent = "Editar Reporte";
-        modalBody.innerHTML = editarReporteFormularioHtml(reporteId, nombreReporte, descripcionReporte);
+        modalBody.innerHTML = editarReporteFormularioHtml(reporteId, titulo, descripcion);
     } else if (tipo === "eliminar-reporte") {
         const reporteId = button.getAttribute("data-id");
-        const nombreReporte = button.getAttribute("data-nombre");
+        const modalLabel = document.getElementById("modal-label");
+        const modalBody = document.getElementById("modal-body");
         modalLabel.textContent = "Eliminar Reporte";
-        modalBody.innerHTML = eliminarReporteFormularioHtml(reporteId, nombreReporte);
+        modalBody.innerHTML = eliminarReporteFormularioHtml(reporteId);
     }
 }
