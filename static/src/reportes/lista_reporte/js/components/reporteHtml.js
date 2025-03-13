@@ -2,6 +2,10 @@ export function reporteHtml(reporte) {
     const inicialUsuario = reporte.usuario ? reporte.usuario.charAt(0).toUpperCase() : "";
     const tituloMayuscula = reporte.titulo.toUpperCase();
     return `
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal" data-tipo="crear-reporte">
+    + Crear Reporte
+</button>
+
         <div class="card p-3 reporte">
             <div class="d-flex justify-content-between align-items-center titulo_reporte">
                 <div class="d-flex align-items-center">
@@ -56,6 +60,25 @@ export function eliminarReporteFormularioHtml(reporteId) {
             <div class="d-flex justify-content-center gap-1">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
+            </div>
+        </form>
+    `;
+}
+
+export function crearReporteFormularioHtml() {
+    return `
+        <form method="POST" id="form-crear-reporte">
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Título</label>
+                <input type="text" class="form-control" id="titulo" name="titulo" required>
+            </div>
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+            </div>
+            <div class="d-flex justify-content-center gap-1">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-success">Crear Reporte</button>
             </div>
         </form>
     `;

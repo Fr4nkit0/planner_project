@@ -28,5 +28,8 @@ export function actualizarModal(button) {
         const modalBody = document.getElementById("modal-body");
         modalLabel.textContent = "Eliminar Reporte";
         modalBody.innerHTML = eliminarReporteFormularioHtml(reporteId);
+    } else if (tipo === "crear-reporte") {  // ✅ Nuevo caso para crear
+        modalLabel.textContent = "Crear Nuevo Reporte";
+        modalBody.innerHTML = crearReporteFormularioHtml();
     }
 }

@@ -1,9 +1,8 @@
-import { obtenerReportes, eliminarReporte, actualizarReporte } from "./services/reporteServicio.js";
+import { obtenerReportes, eliminarReporte, actualizarReporte, crearReporte } from "./services/reporteServicio.js";
 import { listarReportes, actualizarModal } from "./components/reporteComponents.js";
 
 function cargarReportes() {
     obtenerReportes((data) => {
-        console.log(data);
         listarReportes(data);
     }, (error) => {
         console.log(error);
@@ -18,10 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (target) {
             const tipo = target.getAttribute("data-tipo");
-            const id = target.getAttribute("data-id");
 
-            if (tipo === "editar-reporte" || tipo === "eliminar-reporte") {
-                console.log(tipo);
+            if (["editar-reporte", "eliminar-reporte", "crear-reporte"].includes(tipo)) {
                 actualizarModal(target);
                 const modal = new bootstrap.Modal(document.getElementById("modal"));
                 modal.show();
@@ -43,28 +40,31 @@ document.addEventListener("DOMContentLoaded", () => {
 function submitHandler(e) {
     e.preventDefault();
     const form = e.target;
-    const tipo = form.getAttribute("id").includes("editar") ? "editar-reporte" : "eliminar-reporte";
+    const tipo = form.getAttribute("id").includes("editar") ? "editar-reporte" :
+                 form.getAttribute("id").includes("eliminar") ? "eliminar-reporte" : 
+                 "crear-reporte";
 
     if (tipo === "editar-reporte") {
-        actualizarReporte(form, (data) => {
-            console.log("Respuesta del servidor:", data);
-            cerrarModalYActualizar();
-        }, (error) => {
-            console.log(error);
-        });
+        actualizarReporte(form, manejarRespuesta, manejarError);
     } else if (tipo === "eliminar-reporte") {
-        eliminarReporte(form, (data) => {
-            console.log("Respuesta del servidor:", data);
-            cerrarModalYActualizar();
-        }, (error) => {
-            console.log(error);
-        });
+        eliminarReporte(form, manejarRespuesta, manejarError);
+    } else if (tipo === "crear-reporte") {
+        crearReporte(form, manejarRespuesta, manejarError);
     }
+}
+
+function manejarRespuesta(data) {
+    console.log("✅ Respuesta del servidor:", data);
+    cerrarModalYActualizar();
+}
+
+function manejarError(error) {
+    console.log("❌ Error:", error);
 }
 
 function cerrarModalYActualizar() {
     cerrarModalCorrectamente();
-    cargarReportes(); // Vuelve a cargar la lista de reportes
+    cargarReportes(); // Recargar la lista de reportes
 }
 
 function cerrarModalCorrectamente() {
