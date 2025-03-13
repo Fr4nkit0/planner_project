@@ -73,8 +73,9 @@ function cerrarModalCorrectamente() {
     if (modal) {
         modal.hide();
     }
-    setTimeout(() => {
+    modalElement.addEventListener("hidden.bs.modal", () => {
         document.body.classList.remove("modal-open");
+        document.body.style.overflow = ""; // ✅ Habilita el scroll
         document.querySelectorAll(".modal-backdrop").forEach(el => el.remove());
-    }, 300);
+    }, { once: true });
 }

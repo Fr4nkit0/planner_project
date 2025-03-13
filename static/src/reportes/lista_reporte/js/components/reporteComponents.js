@@ -1,4 +1,4 @@
-import { reporteHtml, editarReporteFormularioHtml, eliminarReporteFormularioHtml } from "./reporteHtml.js";
+import { reporteHtml, editarReporteFormularioHtml, eliminarReporteFormularioHtml , crearReporteFormularioHtml } from "./reporteHtml.js";
 
 export function listarReportes(data) {
     const reportesContainer = document.getElementById("reportes-container");
@@ -29,6 +29,8 @@ export function actualizarModal(button) {
         modalLabel.textContent = "Eliminar Reporte";
         modalBody.innerHTML = eliminarReporteFormularioHtml(reporteId);
     } else if (tipo === "crear-reporte") {  // ✅ Nuevo caso para crear
+        const modalLabel = document.getElementById("modal-label");
+        const modalBody = document.getElementById("modal-body");
         modalLabel.textContent = "Crear Nuevo Reporte";
         modalBody.innerHTML = crearReporteFormularioHtml();
     }

@@ -2,9 +2,9 @@ export function reporteHtml(reporte) {
     const inicialUsuario = reporte.usuario ? reporte.usuario.charAt(0).toUpperCase() : "";
     const tituloMayuscula = reporte.titulo.toUpperCase();
     return `
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal" data-tipo="crear-reporte">
-    + Crear Reporte
-</button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal" data-tipo="crear-reporte">
+        + Crear Reporte
+        </button>
 
         <div class="card p-3 reporte">
             <div class="d-flex justify-content-between align-items-center titulo_reporte">
@@ -46,7 +46,7 @@ export function editarReporteFormularioHtml(reporteId, titulo, descripcion) {
             </div>
             <div class="d-flex justify-content-center gap-1">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
             </div>
         </form>
     `;
@@ -59,7 +59,7 @@ export function eliminarReporteFormularioHtml(reporteId) {
             <input type="hidden" name="reporte_id" value="${reporteId}">
             <div class="d-flex justify-content-center gap-1">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
+                <button type="submit" class="btn btn-danger">Confirmar</button>
             </div>
         </form>
     `;
