@@ -1,27 +1,24 @@
 import { obtenerIdPizarraUrl } from '../modules/notaModules.js'
 export function notaHtml(nota) {
-    return `<!-- cambiar la class col-12 col-md-6 col-lg-6 col-xl-4 m-3 mas adelante testear con mas card  -->
-            <div class="col-12 col-md-6 col-lg-6 col-xl-4 m-3">
-                <div class="task-card d-flex align-items-center justify-content-center"  data-bs-toggle="modal" data-bs-target="#modal" 
-                    data-id=${nota.id}  data-tipo="ver-nota" style="background-color: ${nota.color};">
-                        <p class="text-center">${nota.titulo}</p>
-                </div>
+    return `
+            <div class="task-card d-flex align-items-center justify-content-center col-12 col-sm-6 col-md-4 col-lg-3 m-4"  data-bs-toggle="modal" data-bs-target="#modal" 
+                data-id=${nota.id}  data-tipo="ver-nota" style="background-color: ${nota.color};">
+                    <p class="text-center">${nota.titulo}</p>
             </div>
+
             `;
 }
 export function notaCrearHtml() {
     return `
-    <div class="col-12 col-md-6 col-lg-6 col-xl-4 m-3">
-        <div class="task-card d-flex align-items-center justify-content-center"  data-bs-toggle="modal" data-bs-target="#modal" data-tipo="crear-nota" >
+        <div class="task-card d-flex align-items-center justify-content-center col-12 col-sm-6 col-md-4 col-lg-3 m-4"  data-bs-toggle="modal" data-bs-target="#modal" data-tipo="crear-nota" >
             <img src="/static/src/core/image/agregar.svg" alt="Agregar"
                         style="display: block; max-width: 100%; max-height: 100%;">
         </div>
-    </div>
     `;
 }
 export function formularioNotaHtml() {
     return `
-    <form id="form-nota">
+    <form  method="POST" id="form-crear-nota">
         <input type="hidden" name="pizarra_id" value="${obtenerIdPizarraUrl()}">
 
         <div class="mb-3">
@@ -31,20 +28,62 @@ export function formularioNotaHtml() {
 
         <div class="mb-3">
             <label for="descripcion" class="form-label">Descripción</label>
-            <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+            <textarea class="form-control" id="descripcion" name="descripcion" rows="4"></textarea>
         </div>
         
         <div class="mb-3 row">
             <div class="col-9 d-flex align-items-center gap-1">
-                <label for="fecha" class="form-label fs-7 mb-0" style="white-space: nowrap;">Pendiente Para:</label>
-                <input type="date" class="form-control" id="fecha" name="fecha">
-            </div>
+                <label for="fecha" class="form-label fs-7 mb-0" style="white-space: nowrap;">Pendiente Para: </label>
+                <input type="date" class="form-control" id="fecha" name="pendiente" style="max-width: 150px;">
+            </div>  
             <div class="col d-flex align-items-center">
-                <label for="etiqueta" class="form-label fs-7 mb-0 me-">Etiqueta:</label>
+                <label for="etiqueta" class="form-label fs-7 mb-0 me-2">Color:</label>
                 <div class="btn-group dropend">
                     <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;"></button>
-                    <div class="dropdown-menu">
-                        <p>No hay Etiquetas Disponibles por el momento</p>
+                    
+                    <div class="dropdown-menu p-3" style="background-color: #ede6ee;" id="drop-down-etiqueta">
+                        <h6 class="text-center">Colores</h6>
+                        
+                        <!-- Contenedor con scroll -->
+                        <div class="container" id="color-container" style="max-height: 200px; overflow-y: auto;">
+                            
+                            <!-- Rojo -->
+                            <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                <input class="form-check-input" type="checkbox" name="color" id="color1" value="#FF5733" style="margin-top: 0;">
+                                <label for="color1" class="flex-grow-1" style="background-color: #FF5733; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                            </div>
+
+                            <!-- Verde -->
+                            <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                <input class="form-check-input" type="checkbox" name="color" id="color2" value="#33FF57" style="margin-top: 0;">
+                                <label for="color2" class="flex-grow-1" style="background-color: #33FF57; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                            </div>
+
+                            <!-- Azul -->
+                            <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                <input class="form-check-input" type="checkbox" name="color" id="color3" value="#3357FF" style="margin-top: 0;">
+                                <label for="color3" class="flex-grow-1" style="background-color: #3357FF; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                            </div>
+
+                            <!-- Amarillo -->
+                            <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                <input class="form-check-input" type="checkbox" name="color" id="color4" value="#F4D03F" style="margin-top: 0;">
+                                <label for="color4" class="flex-grow-1" style="background-color: #F4D03F; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                            </div>
+
+                            <!-- Morado -->
+                            <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                <input class="form-check-input" type="checkbox" name="color" id="color5" value="#8E44AD" style="margin-top: 0;">
+                                <label for="color5" class="flex-grow-1" style="background-color: #8E44AD; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                            </div>
+
+                            <!-- Negro -->
+                            <div class="form-check d-flex align-items-center gap-2">
+                                <input class="form-check-input" type="checkbox" name="color" id="color6" value="#2C3E50" style="margin-top: 0;">
+                                <label for="color6" class="flex-grow-1" style="background-color: #2C3E50; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -52,7 +91,234 @@ export function formularioNotaHtml() {
     </form>
     <div class="mb-3 d-flex justify-content-center gap-1"> 
         <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancelar</button> 
-        <button type="submit" form="form-nota" class="btn btn-primary">Guardar</button>
+        <button type="submit" form="form-crear-nota" class="btn btn-primary">Guardar</button>
     </div>
     `;
-} 
+}
+
+export function detalleNotaHtml() {
+    return `
+    <section id="detalle-nota">
+        <form  method="POST" id="form-editar-nota">
+            <input type="hidden" name="pizarra_id" value="${obtenerIdPizarraUrl()}">
+            <div class="row d-flex align-items-center gap-2 mb-3"> 
+                <div class="col d-flex align-items-center">
+                <input type="text" class="form-control" id="titulo" name="titulo" style="max-width: 130px;" required>
+                </div>
+                <div class="col-8 d-flex justify-content-end align-items-center">
+                    <div class="d-flex align-items-center">
+                        <label for="pendiente_para" class="me-2 mb-0">Pendiente para:</label>
+                        <input type="date" id="pendiente_para" name="pendiente_para" class="form-control" style="max-width: 130px;">
+                    </div>
+                </div>                
+            </div>
+            <div class="row d-flex align-items-center gap-2 mb-3"> 
+                <div class="col d-flex align-items-center">
+                    <p class="mb-0">Descripción</p>
+                    <div class="col-9 d-flex justify-content-end align-items-center"> 
+                        <label for="etiqueta" class="form-label fs-7 mb-0 me-2">Color:</label>
+                        <div class="btn-group dropend">
+                            <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;"></button>
+                            
+                            <div class="dropdown-menu p-3" style="background-color: #ede6ee;" id="drop-down-etiqueta">
+                                <h6 class="text-center">Colores</h6>
+                                
+                                <!-- Contenedor con scroll -->
+                                <div class="container" id="color-container" style="max-height: 200px; overflow-y: auto;">
+                                    
+                                    <!-- Rojo -->
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" name="color" id="color1" value="#FF5733" style="margin-top: 0;">
+                                        <label for="color1" class="flex-grow-1" style="background-color: #FF5733; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                                    </div>
+
+                                    <!-- Verde -->
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" name="color" id="color2" value="#33FF57" style="margin-top: 0;">
+                                        <label for="color2" class="flex-grow-1" style="background-color: #33FF57; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                                    </div>
+
+                                    <!-- Azul -->
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" name="color" id="color3" value="#3357FF" style="margin-top: 0;">
+                                        <label for="color3" class="flex-grow-1" style="background-color: #3357FF; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                                    </div>
+
+                                    <!-- Amarillo -->
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" name="color" id="color4" value="#F4D03F" style="margin-top: 0;">
+                                        <label for="color4" class="flex-grow-1" style="background-color: #F4D03F; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                                    </div>
+
+                                    <!-- Morado -->
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" name="color" id="color5" value="#8E44AD" style="margin-top: 0;">
+                                        <label for="color5" class="flex-grow-1" style="background-color: #8E44AD; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                                    </div>
+
+                                    <!-- Negro -->
+                                    <div class="form-check d-flex align-items-center gap-2">
+                                        <input class="form-check-input" type="checkbox" name="color" id="color6" value="#2C3E50" style="margin-top: 0;">
+                                        <label for="color6" class="flex-grow-1" style="background-color: #2C3E50; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mb-3">
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="4"></textarea>
+            </div>
+        </form>
+    </section>
+    <section class="container">
+        <div class="row mb-3">
+            <div class="col-12 fw-bold">
+                Comentarios
+            </div>
+        </div>
+
+        <!-- Caja para escribir un nuevo comentario -->
+        <div class="row mb-3 align-items-center">
+            <div class="col-auto">
+               <img src="/static/src/core/image/usuario.svg" >
+            </div>
+            <div class="col">
+                <input type="text" class="form-control rounded-pill" placeholder="Escribe un comentario..." id="comentario" name="comentario">
+            </div>
+        </div>
+    </section>
+    <section class="container overflow-auto" id="comentario-container style="max-height: 400px;">
+     
+    </section>
+    <div class="mb-3 d-flex justify-content-center gap-1"> 
+        <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancelar</button> 
+        <button type="submit" form="form-editar-nota" class="btn btn-primary">Guardar</button>
+    </div>
+
+    `;
+}
+
+/* <section class= "container" id="nota-contenido">
+            <div class="row d-flex align-items-center gap-2 mb-3"> 
+                <div class="col d-flex align-items-center">
+                    <p class="mb-0">Título de la nota</p>
+                </div>
+                <div class="col-8 d-flex justify-content-end align-items-center">
+                    <div class="d-flex align-items-center">
+                        <label for="pendiente_para" class="me-2 mb-0">Pendiente para:</label>
+                        <input type="date" id="pendiente_para" name="pendiente_para" class="form-control" style="max-width: 130px;">
+                    </div>
+                </div>                
+            </div>
+            <div class="row d-flex align-items-center gap-2 mb-3">
+                <div class="col d-flex align-items-center">
+                    <p class="mb-0">Descripción</p>
+                </div>
+                <div class="col-8 d-flex justify-content-end align-items-center">
+                    <label for="etiqueta" class="form-label fs-7 mb-0 me-2">Color:</label>
+                    <div class="btn-group dropend">
+                        <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;"></button>
+                        <div class="btn-group dropend">
+                            <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;"></button>
+                            
+                            <div class="dropdown-menu p-3" style="background-color: #ede6ee;" id="drop-down-etiqueta">
+                                <h6 class="text-center">Colores</h6>
+                                
+                                <!-- Contenedor con scroll -->
+                                <div class="container" id="color-container" style="max-height: 200px; overflow-y: auto;">
+                                    
+                                    <!-- Rojo -->
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" name="color" id="color1" value="#FF5733" style="margin-top: 0;">
+                                        <label for="color1" class="flex-grow-1" style="background-color: #FF5733; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                                    </div>
+
+                                    <!-- Verde -->
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" name="color" id="color2" value="#33FF57" style="margin-top: 0;">
+                                        <label for="color2" class="flex-grow-1" style="background-color: #33FF57; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                                    </div>
+
+                                    <!-- Azul -->
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" name="color" id="color3" value="#3357FF" style="margin-top: 0;">
+                                        <label for="color3" class="flex-grow-1" style="background-color: #3357FF; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                                    </div>
+
+                                    <!-- Amarillo -->
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" name="color" id="color4" value="#F4D03F" style="margin-top: 0;">
+                                        <label for="color4" class="flex-grow-1" style="background-color: #F4D03F; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                                    </div>
+
+                                    <!-- Morado -->
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" name="color" id="color5" value="#8E44AD" style="margin-top: 0;">
+                                        <label for="color5" class="flex-grow-1" style="background-color: #8E44AD; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                                    </div>
+
+                                    <!-- Negro -->
+                                    <div class="form-check d-flex align-items-center gap-2">
+                                        <input class="form-check-input" type="checkbox" name="color" id="color6" value="#2C3E50" style="margin-top: 0;">
+                                        <label for="color6" class="flex-grow-1" style="background-color: #2C3E50; height: 20px; border-radius: 5px; display: flex; align-items: center;"></label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+            </div>
+            <div class = "row">
+                <div class="mb-3">
+                    <textarea class="form-control" id="nota-descripcion" name="descripcion" rows="5"></textarea>
+                </div>       
+                falta la sescion de comentario 
+            </div>
+        </section> */
+
+/* <section class="nota-contenido">
+<h2 contenteditable="true" class="nota-titulo">Tarea 1</h2>
+
+<label for="pendiente_para">Pendiente para:</label>
+<input type="date" id="pendiente_para" name="pendiente_para">
+
+<label for="etiquetas">Etiquetas:</label>
+<select id="etiquetas" name="etiquetas" multiple>
+    <option value="urgente">Urgente</option>
+    <option value="revision">En revisión</option>
+</select>
+
+<label for="descripcion">Descripción:</label>
+<textarea id="descripcion" name="descripcion" contenteditable="true">descripcion de una tarea...</textarea>
+</section>
+<section class="comentarios">
+<h3>Comentarios</h3>
+<div class="comentario-nuevo">
+    <i class="icon-user"></i>
+    <input type="text" placeholder="Escribe un comentario...">
+    <button class="btn-agregar">Agregar</button>
+</div>
+
+<div class="comentario">
+    <i class="icon-user"></i>
+    <p>Un comentario, un comentario, un comentario...</p>
+    <div class="comentario-acciones">
+        <button class="btn-editar">Editar</button>
+        <button class="btn-eliminar">Eliminar</button>
+    </div>
+</div>
+
+<div class="comentario">
+    <i class="icon-user"></i>
+    <p>Otro comentario...</p>
+    <div class="comentario-acciones">
+        <button class="btn-editar">Editar</button>
+        <button class="btn-eliminar">Eliminar</button>
+    </div>
+</div>
+</section> */

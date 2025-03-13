@@ -5,7 +5,6 @@ from .models import *
 
 admin.site.register(Proyecto)
 admin.site.register(Pizarra)
-admin.site.register(Etiqueta)
 admin.site.register(Nota)
 admin.site.register(Archivo)
 admin.site.register(Comentario)

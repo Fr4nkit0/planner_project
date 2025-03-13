@@ -4,7 +4,6 @@ import { listarProyectos, actualizarModal } from "./components/proyectoComponent
 
 function cargarProyectos() {
     obtenerProyectos((data) => {
-        console.log(data);
         listarProyectos(data);
     }, (error) => {
         console.log(error);

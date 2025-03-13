@@ -1,5 +1,5 @@
 from django import forms
-from .models import Proyecto, Pizarra
+from .models import Proyecto, Pizarra, Nota
 
 
 class ProyectoForm(forms.ModelForm):
@@ -34,3 +34,18 @@ class PizarraForm(forms.ModelForm):
             pizarra.proyecto = proyecto
         pizarra.save()
         return pizarra
+
+
+class NotaForm(forms.ModelForm):
+    class Meta:
+        model = Nota
+        fields = ['titulo', 'descripcion', 'pendiente', 'color']
+
+    def save(self, usuario=None, pizarra=None, *args, **kwargs):
+        nota = super().save(commit=False)
+        if usuario:
+            nota.usuario = usuario
+        if pizarra:
+            nota.pizarra = pizarra
+        nota.save()
+        return nota

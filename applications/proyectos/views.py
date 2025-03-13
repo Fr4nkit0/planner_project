@@ -1,9 +1,10 @@
 from django.shortcuts import redirect, render, get_object_or_404
+from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.timezone import now
 from .models import Nota, Proyecto, Pizarra
-from .forms import ProyectoForm, PizarraForm, ActualizarProyectoForm
+from .forms import ProyectoForm, PizarraForm, ActualizarProyectoForm, NotaForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -69,7 +70,12 @@ def actualizar_pizarra_ajax_view(request):
     if request.method == 'POST':
         try:
             pizarra_id = request.POST.get('pizarra_id')
-            pizarra = Pizarra.objects.get(id=pizarra_id)
+            try:
+                pizarra = Pizarra.objects.get(id=pizarra_id)
+            except Pizarra.DoesNotExist:
+                return JsonResponse({'error': 'Pizarra no encontrada'}, status=404)
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=400)
             form = PizarraForm(request.POST, instance=pizarra)
             if form.is_valid():
                 form.save()
@@ -118,26 +124,19 @@ def listar_proyectos_page_view(request):
     return render(request, 'proyectos/pages/proyectos_page.html', {})
 
 
-def listar_notas_ajax_view(request, pizarra_id):
-    if request.method == 'GET':
-        try:
-            pizarra = Pizarra.objects.get(id=pizarra_id)
-        except Pizarra.DoesNotExist:
-            return JsonResponse({'error': 'Pizarra no encontrada'}, status=404)
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=400)
-        notas = pizarra.notas.all()
-        data = [
-            {
-                'id': nota.id,
-                'titulo': nota.titulo,
-                'color': nota.etiqueta.color if nota.etiqueta else None,
-                'estado': nota.estado
-            }
-            for nota in notas
-        ]
-        return JsonResponse({'notas': data}, status=200)
-
+def crear_nota_ajax_view(request):
+    if request.method == 'POST':
+        form = NotaForm(request.POST)
+        if form.is_valid():
+            try:
+                pizarra_id = request.POST.get('pizarra_id')
+                pizarra = Pizarra.objects.get(id=pizarra_id)
+            except Pizarra.DoesNotExist:
+                return JsonResponse({'error': 'Pizarra no encontrada'}, status=404)
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=400)
+            form.save(usuario=request.user, pizarra=pizarra)
+            return JsonResponse({'mensaje': 'Nota Creada Exitosamente'}, status=201)
     return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 
@@ -157,6 +156,52 @@ def obtener_nota_ajax_view(request, nota_id):
             'estado': nota.estado
         }
         return JsonResponse(data, status=200)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
+def listar_notas_ajax_view(request, pizarra_id):
+    if request.method == 'GET':
+        try:
+            pizarra = Pizarra.objects.get(id=pizarra_id)
+        except Pizarra.DoesNotExist:
+            return JsonResponse({'error': 'Pizarra no encontrada'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+        notas = pizarra.notas.all()
+        # Obtener el número de página de los parámetros de la solicitud (por defecto es 1)
+        page_number = request.GET.get('page', 1)
+        # Obtener todas las notas de la pizarra
+        notas = pizarra.notas.all()
+        # Crear un paginador con 31 notas por página
+        paginator = Paginator(notas, 31)
+        try:
+            # Obtener la página solicitada
+            page = paginator.page(page_number)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+        data = [
+            {
+                'id': nota.id,
+                'titulo': nota.titulo,
+                'color': nota.color,
+                'estado': nota.estado
+            }
+            for nota in page
+        ]
+        # Obtener la página anterior y la página siguiente
+        prev_page = page.previous_page_number() if page.has_previous() else None
+        next_page = page.next_page_number() if page.has_next() else None
+
+        return JsonResponse({
+            'notas': data,
+            'paginacion': {
+                'total_paginas': paginator.num_pages,
+                'pagina_actual': page.number,
+                'pagina_anterior': prev_page,
+                'pagina_siguiente': next_page
+            }
+        }, status=200)
     return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 
