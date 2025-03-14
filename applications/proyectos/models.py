@@ -7,8 +7,8 @@ from applications.core.models import ModeloBase
 class Proyecto(ModeloBase):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
-    fecha_inicio = models.DateTimeField(null=True, blank=True)
-    fecha_entrega = models.DateTimeField(null=True, blank=True)
+    fecha_inicio = models.DateField(auto_now_add=True)
+    fecha_entrega = models.DateField(null=True, blank=True)
 
     class Meta:
         ordering = ['fecha_creacion']

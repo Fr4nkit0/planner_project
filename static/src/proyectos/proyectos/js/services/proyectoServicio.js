@@ -15,8 +15,8 @@ export function crearProyecto(form, successCallback, errorCallBack) {
         .then(data => successCallback(data))
         .catch(error => errorCallBack(error))
 }
-export function obtenerProyectos(successCallback, errorCallBack) {
-    const url = "ajax/listar-proyectos";
+export function obtenerProyectos(searchQuery = '', successCallback, errorCallBack) {
+    const url = `ajax/listar-proyectos/?q=${encodeURIComponent(searchQuery)}`;
     fetch(url)
         .then(response => response.json())
         .then(data => successCallback(data))
