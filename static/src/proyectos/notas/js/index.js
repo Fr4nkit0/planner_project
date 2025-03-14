@@ -1,11 +1,11 @@
 import { obtenerNotas, crearNota } from "./services/notaService.js";
 import { mostrarNotas, actualizarModal } from "./components/notaComponents.js";
 import { obtenerIdPizarraUrl } from "./modules/notaModules.js";
-function cargarNotas(pagina = 1) {
+function cargarNotas(pagina = 1, searchQuery = '') {
     const pizarraId = obtenerIdPizarraUrl();
-    obtenerNotas(pizarraId, pagina,
+    obtenerNotas(pizarraId, pagina, searchQuery,
         (data) => {
-            mostrarNotas(data);
+            mostrarNotas(data, searchQuery);
         },
         (error) => {
             console.log(error);
@@ -15,6 +15,19 @@ function cargarNotas(pagina = 1) {
 
 document.addEventListener("DOMContentLoaded", () => {
     cargarNotas();
+    // Escuchar cambios en el campo de búsqueda
+    const searchInput = document.getElementById("search-input");
+    console.log(searchInput)
+    if (searchInput) {
+        let timer;
+        searchInput.addEventListener("input", () => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                const searchQuery = searchInput.value.trim();
+                cargarNotas(1, searchQuery); // Buscar desde la página 1 con el término ingresado
+            }, 300); // Espera 300 ms después de que el usuario deje de escribir
+        });
+    }
 });
 
 document.addEventListener("click", (e) => {
@@ -25,8 +38,9 @@ document.addEventListener("click", (e) => {
     if (e.target.closest(".page-link")) {
         e.preventDefault();
         const pagina = e.target.getAttribute("data-pagina");
+        const searchQuery = e.target.getAttribute("data-query") || '';
         if (pagina) {
-            cargarNotas(pagina); // Carga la página seleccionada
+            cargarNotas(pagina, searchQuery); // Pasa la página y el término de búsqueda        
         }
     }
 });

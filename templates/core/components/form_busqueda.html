@@ -1,13 +1,23 @@
 {% load static %}
 
 <li class="nav-item me-3 my-1">
-    <div class="input-group" style="max-width: 300px;">
+    <!-- <div class="input-group" style="max-width: 300px;">
         <input type="text" class="form-control" placeholder="Buscar ..." aria-label="Username"
             aria-describedby="basic-addon1">
         <span class="border-0 input-group-text"
             style="border-top-right-radius: 25px; border-bottom-right-radius: 25px; background-color: #f4edf7"
-            id="basic-addon1"><img src="{% static 'src/core/image/buscar.svg' %}" alt="Logo" width="24" height="24"
+            id="basic-addon1"> <img src="{% static 'src/core/image/buscar.svg' %}" alt="Logo" width="24" height="24"
                 class="d-inline-block align-text-top"></span>
-    </div>
+    </div> -->
+    <form id="search-form" method="get">
+        <div class="input-group">
+            <input class="form-control" type="text" name="search" id="search-input" placeholder="Buscar"
+                aria-label="Search" maxlength="30" value="">
+            <span class="border-0 input-group-text"
+                style="border-top-right-radius: 25px; border-bottom-right-radius: 25px; background-color: #f4edf7"
+                id="basic-addon1"> <img src="{% static 'src/core/image/buscar.svg' %}" alt="Logo" width="24" height="24"
+                    class="d-inline-block align-text-top">
+            </span>
+        </div>
+    </form>
 </li>
-
