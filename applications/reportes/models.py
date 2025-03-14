@@ -5,7 +5,7 @@ from applications.core.models import ModeloBase
 
 class Reporte(ModeloBase):
     titulo = models.CharField(max_length=100)
-    descripcion = models.TextField()
+    descripcion = models.TextField(max_length=500)
 
     class Meta:
         ordering = ['fecha_creacion']
