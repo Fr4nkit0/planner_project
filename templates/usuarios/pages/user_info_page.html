@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Información del usuario</h2>
+  <ul>
+    <li><strong>Nombre de usuario:</strong> {{ user.username }}</li>
+    <li><strong>Correo electrónico:</strong> {{ user.email }}</li>
+    <li><strong>Fecha de registro:</strong> {{ user.date_joined }}</li>
+  </ul>
+{% endblock %}

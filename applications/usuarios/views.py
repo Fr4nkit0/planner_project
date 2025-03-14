@@ -2,12 +2,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 from django.urls import reverse_lazy
-
-from .forms import PersonalizadoLoginForm
+from .forms import PersonalizadoLoginForm, PersonalizadoRegisterForm
 from django.contrib.auth import get_user_model, login
-from django.shortcuts import redirect
-from .forms import PersonalizadoCreacionDeUsuarioForm 
+from django.shortcuts import redirect 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
 import logging
+
 
 # Create your views here.
 
@@ -30,11 +31,14 @@ class PersonalizacionLogoutView(LogoutView):
 
 def registro_usuario_view(request):
     if request.method == 'POST':
-        form = PersonalizadoCreacionDeUsuarioForm(request.POST)
+        form = PersonalizadoRegisterForm(request.POST)
         if form.is_valid():
             user = form.save()  # Guarda el nuevo usuario
             login(request, user)  # Inicia sesión automáticamente después del registro
             return redirect('listar_proyectos_page')  # Redirige a la página de inicio
     else:
-        form = PersonalizadoCreacionDeUsuarioForm()
+        form = PersonalizadoRegisterForm()
     return render(request, 'usuarios/pages/register_page.html', {'form': form})
+
+class PersonalizacionUserInfoView(LoginRequiredMixin, TemplateView):
+    template_name = 'usuarios/pages/user_info_page.html'

@@ -1,9 +1,8 @@
 from django.urls import path
 from .views import prueba_config_view, PersonalizacionLoginView, PersonalizacionLogoutView, registro_usuario_view
 from django.contrib.auth import views as auth_views
-from django.contrib.auth.views import LogoutView
 from .forms import PersonalizadoSetPasswordForm  
-
+from .views import PersonalizacionUserInfoView
 
 urlpatterns = [
     path('',
@@ -31,4 +30,5 @@ urlpatterns = [
     path('reset_done/', 
          auth_views.PasswordResetCompleteView.as_view(template_name='usuarios/components/password_reset_complete.html'), 
          name='password_reset_complete'),
+    path('user_info_page/', PersonalizacionUserInfoView.as_view(), name='user_info'),
 ]

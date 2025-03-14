@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, SetPasswordForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, SetPasswordForm, PasswordResetForm
 from .models import Usuario
 
 class PersonalizadoLoginForm(AuthenticationForm):
@@ -21,7 +21,7 @@ class PersonalizadoLoginForm(AuthenticationForm):
         })
     )
 
-class PersonalizadoCreacionDeUsuarioForm(UserCreationForm):
+class PersonalizadoRegisterForm(UserCreationForm):
     class Meta:
         model = Usuario  # Asocia el formulario con tu modelo personalizado
         fields = ["username", "email", "password1", "password2"]
@@ -70,3 +70,4 @@ class PersonalizadoSetPasswordForm(SetPasswordForm):
             'class': 'form-control  fw-bold',
             'placeholder': 'Confirmar nueva contraseña',  # Agrega un placeholder
         })
+        
