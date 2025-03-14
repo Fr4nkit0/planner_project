@@ -22,3 +22,11 @@ ul {
 .icono {
     margin-top: -25px;
 }
+.reportes_estilo {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.reporte_nuevo_estilo {
+    margin-top: -5px;
+    margin-left: -10px;
+}

@@ -7,6 +7,13 @@ export function proyectoHtml(proyecto) {
                         <div class="d-flex justify-content-between align-items-center">
                             <p>${proyecto.nombre}</p>
                             <div class="proyecto-options">
+                               <!-- Botón para abrir el modal de ver proyecto-->
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal"  
+                                    data-id="${proyecto.id}" data-nombre="${proyecto.nombre}" data-descripcion="${proyecto.descripcion}" 
+                                    data-fecha="${proyecto.fecha_entrega}" data-tipo="ver-proyecto" style="background: none; border: none;">
+                                    <img src="/static/src/core/image/info.svg" alt="Editar">
+                                </button>
+
                                 <!-- Botón para abrir el modal de edición -->
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#modal"  
                                     data-id="${proyecto.id}" data-nombre="${proyecto.nombre}" data-descripcion="${proyecto.descripcion}"
@@ -31,7 +38,7 @@ export function proyectoHtml(proyecto) {
             </section>
         `;
 }
-export function crearProyectoFormularioHtml (){
+export function crearProyectoFormularioHtml() {
     return `
         <form method="POST" id="form-crear-proyecto">
             <div class="mb-3">
@@ -85,32 +92,22 @@ export function eliminarProyectoFormularioHtml(proyectoId) {
         </form>
      ` ;
 }
+export function crearVerProyectoHtml(nombreProyecto, descripcionProyecto, fechaEntregaProyecto) {
+    return `
+        <div class="mb-3 d-flex align-items-center gap-2">
+            <label class="form-label fw-bold mb-0">Nombre:</label>
+            <p class="form-control-plaintext ms-2">${nombreProyecto}</p>
+        </div>
+        <div class="mb-3 ">
+            <label class="form-label fw-bold">Descripción</label>
+            <div class="bg-light rounded-4" style="height: auto; min-height: 70px; overflow-y: auto;">
+             <p class="ms-2 mt-2">${descripcionProyecto}</p>
+             </div>
+        </div>
+        <div class="mb-3 d-flex align-items-center gap-2">
+            <label for="fecha_entrega" class="fw-bold mb-0">Fecha De Entrega:</label>
+            <input type="date" name="fecha_entrega" class="form-control ms-2" style="max-width: 130px;" value="${fechaEntregaProyecto}" readonly>
+        </div>
 
-
-// Enviaste
-// <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-3">
-//     <div class="card border-0 shadow-sm rounded-4" 
-//          style="height: 75px; width: 200px; margin: 10px; cursor: pointer;" 
-//          onclick="window.location.href='listar-notas/${pizarra.id}'">
-        
-//         <div class="d-flex justify-content-between align-items-center">
-//             <div class="text-center w-100">
-//                 <span>${pizarra.nombre}</span>
-//             </div>
-//             <div class="bg-primary position-relative" style="width: 90px; height: 75px; border-radius: 10px;">
-//                 <div class="dropdown position-absolute end-0 top-0">
-//                     <button class="dropdown-toggle" type="button" id="dropdownMenu" 
-//                             data-bs-toggle="dropdown" aria-expanded="false" 
-//                             style="background: none; border: none;" 
-//                             onclick="event.stopPropagation();">
-//                         <img src="/static/src/core/image/drop-down.svg"">
-//                     </button>
-//                     <ul class="dropdown-menu shadow-sm border-0" aria-labelledby="dropdownMenu">
-//                         <li><p>Probando</p></li>
-//                         <li><p>Probando</p></li>
-//                     </ul>
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-// </div>
+`;
+}

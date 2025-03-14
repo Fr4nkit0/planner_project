@@ -28,7 +28,7 @@ urlpatterns = [
          actualizar_proyecto_ajax_view,
          name='actualizar_proyecto_ajax_view'
          ),
-    path('ajax/listar-proyectos',
+    path('ajax/listar-proyectos/',
          listar_proyectos_ajax_view,
          name='listar_proyectos_ajax_view'
          ),

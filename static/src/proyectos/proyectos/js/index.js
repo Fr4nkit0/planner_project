@@ -2,8 +2,9 @@ import { obtenerProyectos, eliminarProyecto, actualizarProyecto, crearProyecto }
 import { crearPizarra, eliminarPizarra, actualizarPizarra } from "./services/pizarraServicio.js";
 import { listarProyectos, actualizarModal } from "./components/proyectoComponents.js";
 
-function cargarProyectos() {
-    obtenerProyectos((data) => {
+function cargarProyectos(searchQuery = '') {
+    obtenerProyectos(searchQuery, (data) => {
+        console.log(data)
         listarProyectos(data);
     }, (error) => {
         console.log(error);
@@ -11,6 +12,18 @@ function cargarProyectos() {
 }
 document.addEventListener("DOMContentLoaded", () => {
     cargarProyectos();
+    // Escuchar cambios en el campo de búsqueda
+    const searchInput = document.getElementById("search-input");
+    if (searchInput) {
+        let timer;
+        searchInput.addEventListener("input", () => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                const searchQuery = searchInput.value.trim();
+                cargarProyectos(searchQuery); // Busqueda
+            }, 300); // Espera 300 ms después de que el usuario deje de escribir
+        });
+    }
 })
 document.addEventListener("click", (e) => {
     // Detectar clic en una tarjeta (redirigir solo si NO es un modal o dropdown)

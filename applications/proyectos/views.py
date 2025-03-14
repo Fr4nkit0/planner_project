@@ -104,6 +104,13 @@ def listar_proyectos_ajax_view(request):
         return JsonResponse({'error': 'Método no permitido'}, status=405)
     try:
         proyectos = Proyecto.objects.prefetch_related('pizarras').all()
+        # Obtener el término de búsqueda desde el parámetro 'q'
+        search_query = request.GET.get('q', '').strip()
+        # Aplicar filtro si se proporciona un término de búsqueda
+        if search_query:
+            proyectos = proyectos.filter(
+                nombre__icontains=search_query)
+
         data = []
     except:
         return JsonResponse({'error': 'Error al obtener los proyectos'}, status=500)
@@ -178,8 +185,8 @@ def listar_notas_ajax_view(request, pizarra_id):
             return JsonResponse({'error': str(e)}, status=400)
         # Obtener el número de página de los parámetros de la solicitud (por defecto es 1)
         page_number = request.GET.get('page', 1)
-        # Crear un paginador con 31 notas por página
-        paginator = Paginator(notas, 31)
+        # Crear un paginador con 20 notas por página
+        paginator = Paginator(notas, 20)
         try:
             # Obtener la página solicitada
             page = paginator.page(page_number)
