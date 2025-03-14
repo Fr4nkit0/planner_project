@@ -1,10 +1,30 @@
-{% extends 'base.html' %}
+{% extends 'core/layout/base.html' %}
 
-{% block content %}
-  <h2>Información del usuario</h2>
-  <ul>
-    <li><strong>Nombre de usuario:</strong> {{ user.username }}</li>
-    <li><strong>Correo electrónico:</strong> {{ user.email }}</li>
-    <li><strong>Fecha de registro:</strong> {{ user.date_joined }}</li>
-  </ul>
-{% endblock %}
+{% block titulo %}Perfil{% endblock titulo %}
+
+{% block contenido_main %}
+
+{% load static %}
+
+<div class="container mt-4">
+  <div class="d-flex align-items-center p-4 rounded-4" style="background: linear-gradient(to bottom, #F3EDF7 50%, #FEF7FF 50%); 
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.2), 0px 1px 10px rgba(0, 0, 0, 0.14);">
+    <div class="me-3">
+      <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+        <img src="{% static 'src/core/image/usuario_dif_color.svg' %}" alt="Logo" width="60px" height="60px">
+      </div>
+    </div>
+    
+    <div class="ms-4">
+      <h5 style="color: #1E1E1E">Información del usuario</h5>
+      <ul class="fs-6" style="color: #545255">
+        <li>Nombre de usuario: {{ user.username }}</li>
+        <li>Correo electrónico: {{ user.email }}</li>
+        <li>Fecha de registro: {{ user.date_joined }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+{% endblock contenido_main %}
