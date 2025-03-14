@@ -1,4 +1,20 @@
 import { getCSRFToken } from "../../../../core/js/security.js"
+export function crearProyecto(form, successCallback, errorCallBack) {
+    const url = "ajax/crear-proyecto";
+    const formData = new FormData(form);
+    const csrfToken = getCSRFToken();
+    fetch(url, {
+        method: "POST",
+        body: formData,
+        headers: {
+            "X-CSRFToken": csrfToken,
+            "X-Requested-With": "XMLHttpRequest"
+        }
+    })
+        .then(response => response.json())
+        .then(data => successCallback(data))
+        .catch(error => errorCallBack(error))
+}
 export function obtenerProyectos(successCallback, errorCallBack) {
     const url = "ajax/listar-proyectos";
     fetch(url)

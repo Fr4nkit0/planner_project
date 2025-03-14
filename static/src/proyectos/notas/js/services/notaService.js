@@ -1,6 +1,6 @@
 import { getCSRFToken } from "../../../../core/js/security.js"
-export function obtenerNotas(proyecto_id, pagina = 1, successCallback, errorCallBack) {
-    const url = `/proyectos/ajax/listar-notas/${proyecto_id}?page=${pagina}`;
+export function obtenerNotas(proyecto_id, pagina = 1, searchQuery = '', successCallback, errorCallBack) {
+    const url = `/proyectos/ajax/listar-notas/${proyecto_id}?page=${pagina}&q=${encodeURIComponent(searchQuery)}`;
     fetch(url)
         .then(response => response.json())
         .then(data => successCallback(data))

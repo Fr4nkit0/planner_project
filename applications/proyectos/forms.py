@@ -5,7 +5,7 @@ from .models import Proyecto, Pizarra, Nota
 class ProyectoForm(forms.ModelForm):
     class Meta:
         model = Proyecto
-        fields = ['nombre', 'descripcion', 'fecha_inicio', 'fecha_entrega']
+        fields = ['nombre', 'descripcion', 'fecha_entrega']
 
     def save(self, usuario=None, *args, **kwargs):
         proyecto = super().save(commit=False)

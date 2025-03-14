@@ -13,7 +13,7 @@ def crear_proyecto_ajax_view(request):
     if request.method == 'POST':
         form = ProyectoForm(request.POST)
         if form.is_valid():
-            pizarra = form.save(usuario=request.user)
+            proyecto = form.save(usuario=request.user)
             return JsonResponse({'success': 'Proyecto creado correctamente'}, status=201)
         else:
             return JsonResponse({'error': form.errors}, status=400)
@@ -167,11 +167,17 @@ def listar_notas_ajax_view(request, pizarra_id):
             return JsonResponse({'error': 'Pizarra no encontrada'}, status=404)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
-        notas = pizarra.notas.all()
+        # Si la URL es: /listar_notas_ajax/1/?q=importante
+        search_query = request.GET.get('q', '').strip()
+        # Filtrar las notas por el término de búsqueda si se proporciona
+        try:
+            notas = pizarra.notas.all()
+            if search_query:
+                notas = notas.filter(titulo__icontains=search_query)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
         # Obtener el número de página de los parámetros de la solicitud (por defecto es 1)
         page_number = request.GET.get('page', 1)
-        # Obtener todas las notas de la pizarra
-        notas = pizarra.notas.all()
         # Crear un paginador con 31 notas por página
         paginator = Paginator(notas, 31)
         try:
@@ -192,7 +198,6 @@ def listar_notas_ajax_view(request, pizarra_id):
         # Obtener la página anterior y la página siguiente
         prev_page = page.previous_page_number() if page.has_previous() else None
         next_page = page.next_page_number() if page.has_next() else None
-
         return JsonResponse({
             'notas': data,
             'paginacion': {

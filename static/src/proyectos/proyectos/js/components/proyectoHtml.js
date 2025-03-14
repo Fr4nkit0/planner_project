@@ -31,6 +31,29 @@ export function proyectoHtml(proyecto) {
             </section>
         `;
 }
+export function crearProyectoFormularioHtml (){
+    return `
+        <form method="POST" id="form-crear-proyecto">
+            <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" " required>
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+                </div>
+                <div class="mb-3 d-flex align-items-center gap-2">
+                    <label for="fecha_entrega" class="mb-0">Fecha De Entrega:</label>
+                    <input type="date" name="fecha_entrega" class="form-control ms-2" style="max-width: 130px;">
+                </div>
+                <div class="d-flex justify-content-center gap-1">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Crear Proyecto</button>
+                </div>
+        </form>
+     `
+
+}
 export function editarProyectoFormularioHtml(proyectoId, nombreProyecto, descripcionProyecto) {
     return `
         <form method="POST" id="form-actualizar-proyecto">
@@ -62,6 +85,7 @@ export function eliminarProyectoFormularioHtml(proyectoId) {
         </form>
      ` ;
 }
+
 
 // Enviaste
 // <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-3">

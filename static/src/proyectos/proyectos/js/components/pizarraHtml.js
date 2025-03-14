@@ -7,7 +7,7 @@ export function pizarraHtml(pizarra) {
                     <div class="text-center w-100">
                         <span>${pizarra.nombre}</span>
                     </div>
-                    <div class="bg-primary position-relative" style="width: 90px; height: 75px; border-radius: 10px;">
+                    <div class="bg-primary position-relative" style="width: 110px; height: 75px; border-radius: 10px;">
                         <div class="dropdown position-absolute end-0 top-0">
                             <button class="dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
                                 <img src="/static/src/core/image/drop-down.svg"">

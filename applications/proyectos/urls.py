@@ -16,7 +16,7 @@ urlpatterns = [
     path('',
          listar_proyectos_page_view,
          name='listar_proyectos_page'),
-    path('ajax/crear-proyectos',
+    path('ajax/crear-proyecto',
          crear_proyecto_ajax_view,
          name='crear_proyecto_ajax_view'
          ),

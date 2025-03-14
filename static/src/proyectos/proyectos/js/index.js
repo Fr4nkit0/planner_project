@@ -1,4 +1,4 @@
-import { obtenerProyectos, eliminarProyecto, actualizarProyecto } from "./services/proyectoServicio.js";
+import { obtenerProyectos, eliminarProyecto, actualizarProyecto, crearProyecto } from "./services/proyectoServicio.js";
 import { crearPizarra, eliminarPizarra, actualizarPizarra } from "./services/pizarraServicio.js";
 import { listarProyectos, actualizarModal } from "./components/proyectoComponents.js";
 
@@ -22,6 +22,7 @@ document.addEventListener("click", (e) => {
         const button = e.target.closest("[data-bs-target='#modal']");
         actualizarModal(button);
     }
+
     if (e.target.closest(".dropdown-toggle")) {
         e.stopPropagation();
         return;
@@ -52,6 +53,20 @@ document.addEventListener("submit", (e) => {
                     const modalInstance = bootstrap.Modal.getInstance(modalElement)
                     modalInstance.hide();
                     cargarProyectos();
+                },
+                (error) => {
+                    console.log(error);
+                })
+        }
+        if (e.target && e.target.id == "form-crear-proyecto") {
+            const form = document.getElementById("form-crear-proyecto");
+            crearProyecto(form,
+                (data) => {
+                    const modalElement = document.getElementById("modal");
+                    const modalInstance = bootstrap.Modal.getInstance(modalElement);
+                    modalInstance.hide();
+                    cargarProyectos();
+
                 },
                 (error) => {
                     console.log(error);
