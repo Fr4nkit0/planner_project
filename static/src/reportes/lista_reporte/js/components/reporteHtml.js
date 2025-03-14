@@ -68,11 +68,11 @@ export function crearReporteFormularioHtml() {
         <form method="POST" id="form-crear-reporte">
             <div class="mb-3">
                 <label for="titulo" class="form-label">Título</label>
-                <input type="text" class="form-control" id="titulo" name="titulo" required>
+                <input type="text" class="form-control" id="titulo" name="titulo" required maxlength="100">
             </div>
             <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required maxlength="500"></textarea>
             </div>
             <div class="d-flex justify-content-center gap-1">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

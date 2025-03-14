@@ -35,14 +35,25 @@ document.addEventListener("DOMContentLoaded", () => {
             cerrarModalCorrectamente();
         }
     });
+    document.addEventListener("input", (event) => {
+        if (event.target.id === "titulo") {
+            validarCampo(event.target, 100, "error-titulo");
+        } else if (event.target.id === "descripcion") {
+            validarCampo(event.target, 500, "error-descripcion");
+        }
+    });
 });
 
 function submitHandler(e) {
     e.preventDefault();
     const form = e.target;
     const tipo = form.getAttribute("id").includes("editar") ? "editar-reporte" :
-                 form.getAttribute("id").includes("eliminar") ? "eliminar-reporte" : 
-                 "crear-reporte";
+                form.getAttribute("id").includes("eliminar") ? "eliminar-reporte" : 
+                "crear-reporte";
+
+    if (!validarFormulario(form)) {
+        return; // ❌ Detener el envío si hay errores
+    }
 
     if (tipo === "editar-reporte") {
         actualizarReporte(form, manejarRespuesta, manejarError);
@@ -60,6 +71,35 @@ function manejarRespuesta(data) {
 
 function manejarError(error) {
     console.log("❌ Error:", error);
+}
+
+function validarFormulario(form) {
+    let valido = true;
+    const titulo = form.querySelector("#titulo");
+    const descripcion = form.querySelector("#descripcion");
+
+    if (titulo && titulo.value.length > 100) {
+        validarCampo(titulo, 100, "error-titulo");
+        valido = false;
+    }
+    if (descripcion && descripcion.value.length > 500) {
+        validarCampo(descripcion, 500, "error-descripcion");
+        valido = false;
+    }
+
+    if (!valido) {
+        alert("Corrige los errores antes de enviar el formulario.");
+    }
+    return valido;
+}
+
+function validarCampo(input, maxLength, errorId) {
+    const errorMsg = document.getElementById(errorId);
+    if (input.value.length > maxLength) {
+        errorMsg.classList.remove("d-none");
+    } else {
+        errorMsg.classList.add("d-none");
+    }
 }
 
 function cerrarModalYActualizar() {
