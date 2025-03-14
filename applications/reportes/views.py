@@ -2,12 +2,18 @@ from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from .models import Reporte
 from .forms import CreacionReporteForm
+from django.contrib.auth.decorators import login_required
 
 def listar_reportes_ajax_view(request):
     if request.method != 'GET':
         return JsonResponse({'error': 'Método no permitido'}, status=405)
     try:
-        reportes = Reporte.objects.all()
+         # Si el usuario es superusuario, obtener todos los reportes
+        if request.user.is_superuser:
+            reportes = Reporte.objects.all().order_by('-fecha_creacion')
+        else:
+            # Si no es superusuario, obtener solo los reportes del usuario actual
+            reportes = Reporte.objects.filter(usuario=request.user).order_by('-fecha_creacion')
         data = [
             {
                 'id': reporte.id,
@@ -22,14 +28,17 @@ def listar_reportes_ajax_view(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
-
+@login_required
 def crear_reporte_ajax_view(request):
     if request.method == 'POST':
+        print(f"Usuario autenticado: {request.user}")
         form = CreacionReporteForm(request.POST)
         if form.is_valid():
-            reporte = form.save()
+            reporte = form.save(usuario=request.user)  # Asignar el usuario aquí
+            print(f"Reporte guardado con usuario: {reporte.usuario}")
             return JsonResponse({'success': 'Reporte creado correctamente'}, status=201)
         else:
+            print(f"Errores del formulario: {form.errors}")
             return JsonResponse({'error': form.errors}, status=400)
     return JsonResponse({'error': 'Método no permitido'}, status=405)
 

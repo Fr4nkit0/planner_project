@@ -2,9 +2,7 @@ export function reporteHtml(reporte) {
     const inicialUsuario = reporte.usuario ? reporte.usuario.charAt(0).toUpperCase() : "";
     const tituloMayuscula = reporte.titulo.toUpperCase();
     return `
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal" data-tipo="crear-reporte">
-        + Crear Reporte
-        </button>
+        
 
         <div class="card p-3 reporte">
             <div class="d-flex justify-content-between align-items-center titulo_reporte">
