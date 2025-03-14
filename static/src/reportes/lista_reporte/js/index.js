@@ -1,9 +1,8 @@
-import { obtenerReportes, eliminarReporte, actualizarReporte } from "./services/reporteServicio.js";
+import { obtenerReportes, eliminarReporte, actualizarReporte, crearReporte } from "./services/reporteServicio.js";
 import { listarReportes, actualizarModal } from "./components/reporteComponents.js";
 
 function cargarReportes() {
     obtenerReportes((data) => {
-        console.log(data);
         listarReportes(data);
     }, (error) => {
         console.log(error);
@@ -11,73 +10,72 @@ function cargarReportes() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Cargar los reportes cuando se carga la página
     cargarReportes();
 
-    // Manejar los clics en los botones de editar y eliminar
     document.addEventListener("click", (e) => {
-        e.preventDefault(); // Prevenir acción por defecto (recarga de página)
-        
-        const target = e.target.closest("a"); // Buscar el enlace clicado
+        const target = e.target.closest("button");
+
         if (target) {
-            const tipo = target.getAttribute("data-tipo"); // Obtener el tipo de acción (editar/eliminar)
-            const id = target.getAttribute("data-id"); // Obtener el ID del reporte
+            const tipo = target.getAttribute("data-tipo");
 
-            // Si es para eliminar un reporte, mostrar el modal de confirmación
-            if (tipo === "eliminar-reporte") {
-                actualizarModal(target); // Actualizar el modal con la información del reporte
+            if (["editar-reporte", "eliminar-reporte", "crear-reporte"].includes(tipo)) {
+                actualizarModal(target);
                 const modal = new bootstrap.Modal(document.getElementById("modal"));
-                modal.show(); // Mostrar el modal de eliminación
-            }
-            // Si es para editar un reporte, mostrar el modal de edición
-            if (tipo === "editar-reporte") {
-                const url = `/reportes/ajax/actualizar-reporte/${id}`;
-                actualizarModal(target); // Actualizar el modal con la información del reporte
-                const modal = new bootstrap.Modal(document.getElementById("modal"));
-                modal.show(); // Mostrar el modal de edición
+                modal.show();
 
-                const form = document.getElementById("form-editar-reporte");
-    actualizarReporte(url, form, (data) => {
-        const modalElement = document.getElementById("modal");
-        const modalInstance = bootstrap.Modal.getInstance(modalElement);
-        modalInstance.hide(); // Oculta el modal
-        cargarReportes(); // Recarga la lista de reportes
-    }, (error) => {
-        console.log(error);
-    });
+                const form = document.getElementById(`form-${tipo}`);
+                if (form) {
+                    form.removeEventListener("submit", submitHandler);
+                    form.addEventListener("submit", submitHandler);
+                }
             }
         }
 
-        // Manejar el envío del formulario de edición
-        if (e.target.closest("#form-editar-reporte")) { // Verificar si el formulario de edición fue enviado
-            e.preventDefault(); // Prevenir la acción por defecto del formulario (recarga de página)
-            const form = document.getElementById("form-editar-reporte");
-            
-            // Llamar a la función para actualizar el reporte
-            actualizarReporte(form, (data) => {
-                const modalElement = document.getElementById("modal");
-                const modalInstance = bootstrap.Modal.getInstance(modalElement);
-                modalInstance.hide(); // Ocultar el modal
-                cargarReportes(); // Recargar la lista de reportes
-            }, (error) => {
-                console.log(error);
-            });
-        }
-
-        // Manejar el envío del formulario de eliminación
-        if (e.target.closest("#form-eliminar-reporte")) { // Verificar si el formulario de eliminación fue enviado
-            e.preventDefault(); // Prevenir la acción por defecto del formulario (recarga de página)
-            const form = document.getElementById("form-eliminar-reporte");
-
-            // Llamar a la función para eliminar el reporte
-            eliminarReporte(form, (data) => {
-                const modalElement = document.getElementById("modal");
-                const modalInstance = bootstrap.Modal.getInstance(modalElement);
-                modalInstance.hide(); // Ocultar el modal
-                cargarReportes(); // Recargar la lista de reportes
-            }, (error) => {
-                console.log(error);
-            });
+        if (e.target.matches("[data-bs-dismiss='modal']")) {
+            cerrarModalCorrectamente();
         }
     });
 });
+
+function submitHandler(e) {
+    e.preventDefault();
+    const form = e.target;
+    const tipo = form.getAttribute("id").includes("editar") ? "editar-reporte" :
+                 form.getAttribute("id").includes("eliminar") ? "eliminar-reporte" : 
+                 "crear-reporte";
+
+    if (tipo === "editar-reporte") {
+        actualizarReporte(form, manejarRespuesta, manejarError);
+    } else if (tipo === "eliminar-reporte") {
+        eliminarReporte(form, manejarRespuesta, manejarError);
+    } else if (tipo === "crear-reporte") {
+        crearReporte(form, manejarRespuesta, manejarError);
+    }
+}
+
+function manejarRespuesta(data) {
+    console.log("✅ Respuesta del servidor:", data);
+    cerrarModalYActualizar();
+}
+
+function manejarError(error) {
+    console.log("❌ Error:", error);
+}
+
+function cerrarModalYActualizar() {
+    cerrarModalCorrectamente();
+    cargarReportes(); // Recargar la lista de reportes
+}
+
+function cerrarModalCorrectamente() {
+    const modalElement = document.getElementById("modal");
+    const modal = bootstrap.Modal.getInstance(modalElement);
+    if (modal) {
+        modal.hide();
+    }
+    modalElement.addEventListener("hidden.bs.modal", () => {
+        document.body.classList.remove("modal-open");
+        document.body.style.overflow = ""; // ✅ Habilita el scroll
+        document.querySelectorAll(".modal-backdrop").forEach(el => el.remove());
+    }, { once: true });
+}

@@ -1,13 +1,21 @@
-export function obtenerReportes(successCallback, errorCallBack){
-    const url = "ajax/listar-reportes"
-    const csrfToken = getCSRFToken();
+import { getCSRFToken } from "../../../../core/js/security.js";
+
+export function obtenerReportes(successCallback, errorCallback) {
+    const url = "ajax/listar-reportes";
     fetch(url)
         .then(response => response.json())
-        .then(data => successCallback(data))
-        .catch(error => errorCallBack(error))
+        .then(data => {
+            console.log("📌 Respuesta del servidor:", data);
+            successCallback(data);
+        })
+        .catch(error => {
+            console.log("❌ Error al obtener reportes:", error);
+            errorCallback(error);
+        });
 }
-export function eliminarReporte(form, successCallback, errorCallBack) {
-    const url = "ajax/eliminar-reporte"
+
+export function eliminarReporte(form, successCallback, errorCallback) {
+    const url = "ajax/eliminar-reporte";
     const formData = new FormData(form);
     const csrfToken = getCSRFToken();
     fetch(url, {
@@ -20,14 +28,13 @@ export function eliminarReporte(form, successCallback, errorCallBack) {
     })
         .then(response => response.json())
         .then(data => successCallback(data))
-        .catch(error => errorCallBack(error))
+        .catch(error => errorCallback(error));
 }
-export function actualizarReporte(url, form, successCallback, errorCallBack) {
+
+export function actualizarReporte(form, successCallback, errorCallback) {
+    const url = "ajax/actualizar-reporte";
     const formData = new FormData(form);
     const csrfToken = getCSRFToken();
-    for (let [key, value] of formData.entries()) {
-        console.log(key, value);  // Verifica todos los campos que se están enviando
-    }
     fetch(url, {
         method: "POST",
         body: formData,
@@ -37,18 +44,23 @@ export function actualizarReporte(url, form, successCallback, errorCallBack) {
         }
     })
         .then(response => response.json())
-        .then(data => {console.log("Respuesta del servidor:", data);successCallback(data);})
-        .catch(error => errorCallBack(error))
+        .then(data => successCallback(data))
+        .catch(error => errorCallback(error));
 }
-function getCSRFToken() {
-    let csrfToken = null;
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.startsWith("csrftoken=")) {
-            csrfToken = cookie.split("=")[1];
-            break;
+
+export function crearReporte(form, successCallback, errorCallback) {
+    const url = "ajax/crear-reporte";
+    const formData = new FormData(form);
+    const csrfToken = getCSRFToken();
+    fetch(url, {
+        method: "POST",
+        body: formData,
+        headers: {
+            "X-CSRFToken": csrfToken,
+            "X-Requested-With": "XMLHttpRequest"
         }
-    }
-    return csrfToken;
+    })
+        .then(response => response.json())
+        .then(data => successCallback(data))
+        .catch(error => errorCallback(error));
 }

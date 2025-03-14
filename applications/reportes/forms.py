@@ -6,9 +6,10 @@ class CreacionReporteForm(ModelForm):
         model = Reporte
         fields = ['titulo', 'descripcion']
 
-    def save(self, usuario=None, *args, **kwargs):
+    def save(self, usuario=None, commit=True, *args, **kwargs):
         reporte = super().save(commit=False)
         if usuario:
             reporte.usuario = usuario
-        reporte.save()
+        if commit:
+            reporte.save()
         return reporte

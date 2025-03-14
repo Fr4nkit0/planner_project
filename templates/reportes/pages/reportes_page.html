@@ -12,10 +12,5 @@
 {% endblock contenido_main %}
 
 {% block extra_js %}
-<script>
-    const lapizUrl = "{% static 'src/core/image/lapiz.svg' %}";
-    const eliminarUrl = "{% static 'src/core/image/eliminar.svg' %}";
-</script>
-<script src="{% static 'js/reporte.js' %}"></script>
 <script type="module" src="{% static 'src/reportes/lista_reporte/js/index.js' %}"></script>
 {% endblock extra_js %}
