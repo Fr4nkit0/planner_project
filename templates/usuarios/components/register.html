@@ -1,7 +1,19 @@
 {% load static %}
 
+{% include 'usuarios/components/mensajes_error_registro.html' %}
+
+<style>
+    .error-message {
+        color: #B3261E;
+        font-size: 13px;
+    }
+</style>
+
+
+
+
 <h2 class="text-center fw-bold">Registro de Usuario</h2>
-<div class="container text-center mb-4">
+<div class="container text-center">
     <img src="{% static 'src/core/image/usuario_dif_color.svg' %}" alt="Logo" width="120" height="120"
         class="d-inline-block align-text-top">
 </div>
@@ -10,35 +22,44 @@
         {% csrf_token %}
 
         <!-- Campo de nombre de usuario -->
-        <div class="form">
+        <div class="form-floating mb-4">
             {{ form.username }}
-            <label for="{{ form.username.id_for_label }}"></label>
+            <label class="fw-bold" for="{{ form.username.id_for_label }}" style="font-size: 14px;">Usuario</label>
+            <div class="position-relative ms-3">
+                <div id="usernameError" class="error-message position-absolute"></div>
+            </div>
         </div>
-        <div class="error-message" id="usernameError"></div>
 
         <!-- Campo de email -->
-        <div class="form">
+        <div class="form-floating mb-4">
             {{ form.email }}
-            <label for="{{ form.email.id_for_label }}"></label>
+            <label class="fw-bold" for="{{ form.email.id_for_label }}" style="font-size: 14px;">Correo electrónico</label>
+            <div class="position-relative ms-3">
+                <div id="emailError" class="error-message position-absolute"></div>
+            </div>
         </div>
-        <div class="error-message" id="emailError"></div>
 
         <!-- Campo de contraseña -->
-        <div class="form">
+        <div class="form-floating mb-4">
             {{ form.password1 }}
-            <label for="{{ form.password1.id_for_label }}"></label>
+            <label class="fw-bold" for="{{ form.password1.id_for_label }}" style="font-size: 14px;">Contraseña</label>
+            <div class="position-relative ms-3">
+                <div id="password1Error" class="error-message position-absolute"></div>
+            </div>
         </div>
-        <div class="error-message" id="password1Error"></div>
 
         <!-- Campo de confirmación de contraseña -->
-        <div class="form">
+        <div class="form-floating mb-4">
             {{ form.password2 }}
-            <label for="{{ form.password2.id_for_label }}"></label>
+            <label class="fw-bold" for="{{ form.password2.id_for_label }}" style="font-size: 14px;">Confirmar contraseña</label>
+            <div class="position-relative ms-3">
+                <div id="password2Error" class="error-message position-absolute"></div>
+            </div>
         </div>
-        <div class="error-message" id="password2Error"></div>
+
 
         <!-- Botón Registrar -->
-        <button class="btn btn-primary w-100" type="submit">Registrarse</button>
+        <button class="btn btn-primary w-100 mt-1" type="submit">Registrarse</button>
     </form>
 </div>
 
@@ -50,86 +71,77 @@
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const form = document.getElementById("registerForm");
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('registerForm');
+        const username = form.querySelector('#id_username');
+        const email = form.querySelector('#id_email');
+        const password1 = form.querySelector('#id_password1');
+        const password2 = form.querySelector('#id_password2');
     
-        const username = document.getElementById("username");
-        const email = document.getElementById("email");
-        const password1 = document.getElementById("password1");
-        const password2 = document.getElementById("password2");
+        const usernameError = document.getElementById('usernameError');
+        const emailError = document.getElementById('emailError');
+        const password1Error = document.getElementById('password1Error');
+        const password2Error = document.getElementById('password2Error');
     
-        const usernameError = document.getElementById("usernameError");
-        const emailError = document.getElementById("emailError");
-        const password1Error = document.getElementById("password1Error");
-        const password2Error = document.getElementById("password2Error");
-    
+        // Validaciones
         function validateUsername() {
-            const value = username.value.trim();
-            const regex = /^[a-zA-Z0-9@.+-_]+$/;
-    
-            if (value.length < 4 || value.length > 150) {
-                usernameError.textContent = "El usuario debe tener entre 4 y 150 caracteres.";
-                return false;
-            } else if (!regex.test(value)) {
-                usernameError.textContent = "El usuario solo puede contener letras, números y @/./+/-/_";
-                return false;
+            if (username.value.trim() === '') {
+                usernameError.textContent = 'El nombre de usuario es obligatorio.';
             } else {
-                usernameError.textContent = "";
-                return true;
+                usernameError.textContent = '';
             }
         }
     
         function validateEmail() {
-            const value = email.value.trim();
-            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
-            if (!regex.test(value)) {
-                emailError.textContent = "Ingrese un correo electrónico válido.";
-                return false;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email.value.trim() === '') {
+                emailError.textContent = 'El correo electrónico es obligatorio.';
+            } else if (!emailPattern.test(email.value)) {
+                emailError.textContent = 'El correo electrónico no es válido.';
             } else {
-                emailError.textContent = "";
-                return true;
+                emailError.textContent = '';
             }
         }
     
         function validatePassword1() {
-            const value = password1.value.trim();
-    
-            if (value.length < 8) {
-                password1Error.textContent = "La contraseña debe tener al menos 8 caracteres.";
-                return false;
-            } else if (!isNaN(value)) {
-                password1Error.textContent = "La contraseña no puede ser solo números.";
-                return false;
-            } else if (value.includes(username.value.trim())) {
-                password1Error.textContent = "La contraseña no puede contener el nombre de usuario.";
-                return false;
+            if (password1.value.length < 8) {
+                password1Error.textContent = 'La contraseña debe tener al menos 8 caracteres.';
             } else {
-                password1Error.textContent = "";
-                return true;
+                password1Error.textContent = '';
             }
         }
     
         function validatePassword2() {
-            if (password2.value.trim() !== password1.value.trim()) {
-                password2Error.textContent = "Las contraseñas no coinciden.";
-                return false;
+            if (password2.value !== password1.value) {
+                password2Error.textContent = 'Las contraseñas no coinciden.';
             } else {
-                password2Error.textContent = "";
-                return true;
+                password2Error.textContent = '';
             }
         }
     
-        // Asegurarse de que el DOM esté cargado antes de agregar los eventos
-        if (username) username.addEventListener("input", validateUsername);
-        if (email) email.addEventListener("input", validateEmail);
-        if (password1) password1.addEventListener("input", validatePassword1);
-        if (password2) password2.addEventListener("input", validatePassword2);
+        // Escuchar eventos en tiempo real
+        username.addEventListener('input', validateUsername);
+        email.addEventListener('input', validateEmail);
+        password1.addEventListener('input', validatePassword1);
+        password2.addEventListener('input', validatePassword2);
     
-        form.addEventListener("submit", function(event) {
-            if (!validateUsername() || !validateEmail() || !validatePassword1() || !validatePassword2()) {
-                event.preventDefault();
+        // Validación final al enviar el formulario
+        form.addEventListener('submit', function (event) {
+            validateUsername();
+            validateEmail();
+            validatePassword1();
+            validatePassword2();
+    
+            if (
+                usernameError.textContent ||
+                emailError.textContent ||
+                password1Error.textContent ||
+                password2Error.textContent
+            ) {
+                event.preventDefault(); // Evita el envío si hay errores
             }
         });
     });
-    </script>
+    
+    
+</script>
