@@ -1,10 +1,8 @@
 import { obtenerProyectos, eliminarProyecto, actualizarProyecto, crearProyecto } from "./services/proyectoServicio.js";
 import { crearPizarra, eliminarPizarra, actualizarPizarra } from "./services/pizarraServicio.js";
 import { listarProyectos, actualizarModal } from "./components/proyectoComponents.js";
-
 function cargarProyectos(searchQuery = '') {
     obtenerProyectos(searchQuery, (data) => {
-        console.log(data)
         listarProyectos(data);
     }, (error) => {
         console.log(error);
@@ -127,5 +125,6 @@ document.addEventListener("submit", (e) => {
                     console.log(error);
                 });
         }
+
     }
 });

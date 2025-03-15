@@ -52,10 +52,10 @@ export function botonModal(proyectoId) {
 }
 export function formularioPizarraHtml(proyectoId) {
     return ` 
-        <form method="POST" id="form-pizarra">
+        <form method="POST" id="form-pizarra" novalidate >
             <input type="hidden" name="proyecto_id" value="${proyectoId}">
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre De Pizarra</label>
+                <label for="nombre" class="form-label fw-semibold text-muted">Nombre De Pizarra</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" required>
             </div>
             <div class="d-flex justify-content-center gap-1">
@@ -70,7 +70,7 @@ export function formularioEditarPizarraHtml(pizarraId, nombrePizarra) {
         <form method="POST" id="form-actualizar-pizarra">
             <input type="hidden" name="pizarra_id" value="${pizarraId}">
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre De Pizarra</label>
+                <label for="nombre" class="form-label fw-semibold text-muted">Nombre De Pizarra</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" value="${nombrePizarra}" required>
             </div>
             <div class="d-flex justify-content-center gap-1">
@@ -82,7 +82,7 @@ export function formularioEditarPizarraHtml(pizarraId, nombrePizarra) {
 }
 export function formularioEliminarPizarraHtml(pizarraId, nombrePizarra) {
     return `
-        <p class="text-center">¿Estás seguro de eliminar la pizarra "${nombrePizarra}" ?</p>
+        <p class="text-center">¿Estás seguro de eliminar la pizarra ${nombrePizarra}?</p>
         <form method="POST" id="form-eliminar-pizarra">
             <input type="hidden" name="pizarra_id" value="${pizarraId}">
             <div class="d-flex justify-content-center gap-1">

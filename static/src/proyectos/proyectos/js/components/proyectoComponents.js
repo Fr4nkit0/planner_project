@@ -1,4 +1,4 @@
-import { proyectoHtml, editarProyectoFormularioHtml, eliminarProyectoFormularioHtml, crearProyectoFormularioHtml, crearVerProyectoHtml } from "./proyectoHtml.js";
+import { proyectoHtml, editarProyectoFormularioHtml, eliminarProyectoFormularioHtml, crearProyectoFormularioHtml, crearVerProyectoHtml, proyectosNoDisponibles } from "./proyectoHtml.js";
 import { crearPizarraHtml, crearEditarPizarraHtml, crearEliminarPizarraHtml } from "./pizarraComponents.js"
 export function listarProyectos(data) {
     const proyectosContainer = document.getElementById("proyectos-container");
@@ -8,7 +8,7 @@ export function listarProyectos(data) {
             proyectosContainer.innerHTML += proyectoHtml(proyecto);
         });
     } else {
-        proyectosContainer.innerHTML = `<h1>No hay proyectos</h1>`;
+        proyectosContainer.innerHTML = proyectosNoDisponibles();
     }
 }
 export function actualizarModal(button) {
@@ -46,6 +46,7 @@ function crearProyectoHtml(button) {
     const modalLabel = document.getElementById("modal-label");
     const modalBody = document.getElementById("modal-body");
     modalLabel.textContent = "Crear Proyecto";
+    modalLabel.classList.add("fw-bold", "text-primary");
     modalBody.innerHTML = crearProyectoFormularioHtml();
 
 }

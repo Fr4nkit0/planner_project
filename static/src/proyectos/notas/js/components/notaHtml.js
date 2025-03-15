@@ -119,13 +119,13 @@ export function detalleNotaHtml() {
                         <label for="etiqueta" class="form-label fs-7 mb-0 me-2">Color:</label>
                         <div class="btn-group dropend">
                             <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;"></button>
-                            
+
                             <div class="dropdown-menu p-3" style="background-color: #ede6ee;" id="drop-down-etiqueta">
                                 <h6 class="text-center">Colores</h6>
-                                
+
                                 <!-- Contenedor con scroll -->
                                 <div class="container" id="color-container" style="max-height: 200px; overflow-y: auto;">
-                                    
+
                                     <!-- Rojo -->
                                     <div class="form-check d-flex align-items-center gap-2 mb-2">
                                         <input class="form-check-input" type="checkbox" name="color" id="color1" value="#FF5733" style="margin-top: 0;">
@@ -174,9 +174,9 @@ export function detalleNotaHtml() {
             </div>
         </form>
     </section>
-    <section class="container">
+   <section class="container mt-4">
         <div class="row mb-3">
-            <div class="col-12 fw-bold">
+            <div class="col-12 fw-bold fs-4">
                 Comentarios
             </div>
         </div>
@@ -184,16 +184,32 @@ export function detalleNotaHtml() {
         <!-- Caja para escribir un nuevo comentario -->
         <div class="row mb-3 align-items-center">
             <div class="col-auto">
-               <img src="/static/src/core/image/usuario.svg" >
+                <img src="/static/src/core/image/usuario.svg" class="rounded-circle" width="40" height="40" alt="Usuario">
             </div>
             <div class="col">
-                <input type="text" class="form-control rounded-pill" placeholder="Escribe un comentario..." id="comentario" name="comentario">
+                <div class="input-group">
+                    <input type="text" class="form-control rounded-pill" placeholder="Escribe un comentario..." id="comentario" name="comentario">
+                    <button class="btn btn-primary rounded-pill" type="button">
+                        <img src="/static/src/core/image/send-icon.svg" alt="Enviar" width="20" height="20">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenedor de comentarios -->
+        <div class="container overflow-auto" id="comentario-container" style="max-height: 400px;">
+            <!-- Comentarios se agregarían dinámicamente aquí -->
+            <div class="comment mb-3">
+                <div class="d-flex align-items-center mb-2">
+                    <img src="/static/src/core/image/usuario.svg" class="rounded-circle" width="30" height="30" alt="Usuario">
+                    <span class="ms-2 fw-bold">Usuario</span>
+                    <span class="ms-2 text-muted fs-6">Hace 2 minutos</span>
+                </div>
+                <p>Este es un ejemplo de comentario. Los comentarios serán agregados dinámicamente.</p>
             </div>
         </div>
     </section>
-    <section class="container overflow-auto" id="comentario-container style="max-height: 400px;">
-     
-    </section>
+
     <div class="mb-3 d-flex justify-content-center gap-1"> 
         <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancelar</button> 
         <button type="submit" form="form-editar-nota" class="btn btn-primary">Guardar</button>

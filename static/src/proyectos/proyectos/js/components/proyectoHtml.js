@@ -42,15 +42,15 @@ export function crearProyectoFormularioHtml() {
     return `
         <form method="POST" id="form-crear-proyecto">
             <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
+                    <label for="nombre" class="form-label fw-semibold text-muted">Nombre</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" " required>
                 </div>
                 <div class="mb-3">
-                    <label for="descripcion" class="form-label">Descripción</label>
+                    <label for="descripcion" class="form-label fw-semibold text-muted">Descripción</label>
                     <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
                 </div>
                 <div class="mb-3 d-flex align-items-center gap-2">
-                    <label for="fecha_entrega" class="mb-0">Fecha De Entrega:</label>
+                    <label for="fecha_entrega" class="mb-0 fw-semibold text-muted">Fecha De Entrega:</label>
                     <input type="date" name="fecha_entrega" class="form-control ms-2" style="max-width: 130px;">
                 </div>
                 <div class="d-flex justify-content-center gap-1">
@@ -66,11 +66,11 @@ export function editarProyectoFormularioHtml(proyectoId, nombreProyecto, descrip
         <form method="POST" id="form-actualizar-proyecto">
             <input type="hidden" name="proyecto_id" value="${proyectoId}">
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
+                <label for="nombre" class="form-label fw-semibold text-muted">Nombre</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" value="${nombreProyecto}" required>
             </div>
             <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripción</label>
+                <label for="descripcion" class="form-label fw-semibold text-muted">Descripción</label>
                 <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required>${descripcionProyecto}</textarea>
             </div>
             <div class="d-flex justify-content-center gap-1">
@@ -82,7 +82,7 @@ export function editarProyectoFormularioHtml(proyectoId, nombreProyecto, descrip
 }
 export function eliminarProyectoFormularioHtml(proyectoId) {
     return `
-        <p class="text-center">¿Estás seguro de eliminar el proyecto</p>
+        <p class="text-center">¿Estás seguro de eliminar el proyecto?</p>
         <form method="POST" id="form-eliminar-proyecto">
             <input type="hidden" name="proyecto_id" value="${proyectoId}">
             <div class="d-flex justify-content-center gap-1">
@@ -94,20 +94,32 @@ export function eliminarProyectoFormularioHtml(proyectoId) {
 }
 export function crearVerProyectoHtml(nombreProyecto, descripcionProyecto, fechaEntregaProyecto) {
     return `
-        <div class="mb-3 d-flex align-items-center gap-2">
-            <label class="form-label fw-bold mb-0">Nombre:</label>
-            <p class="form-control-plaintext ms-2">${nombreProyecto}</p>
-        </div>
-        <div class="mb-3 ">
-            <label class="form-label fw-bold">Descripción</label>
-            <div class="bg-light rounded-4" style="height: auto; min-height: 70px; overflow-y: auto;">
-             <p class="ms-2 mt-2">${descripcionProyecto}</p>
-             </div>
-        </div>
-        <div class="mb-3 d-flex align-items-center gap-2">
-            <label for="fecha_entrega" class="fw-bold mb-0">Fecha De Entrega:</label>
-            <input type="date" name="fecha_entrega" class="form-control ms-2" style="max-width: 130px;" value="${fechaEntregaProyecto}" readonly>
-        </div>
+            <!-- Descripción del Proyecto -->
+            <div class="mb-4">
+                <h6 class="fw-semibold text-muted">Descripción:</h6>
+                <div class="bg-light p-3 rounded-4 overflow-auto" style="max-height: 300px;">
+                    <p class="mb-0">${descripcionProyecto}</p>
+                </div>
+            </div>
 
+            <!-- Fecha de Entrega -->
+            <div class="row">
+                <div class="col-auto">
+                    <h6 class="fw-semibold text-muted mb-0">Fecha de Entrega:</h6>
+                </div>
+                <div class="col-auto">
+                    <span class="text-dark">${fechaEntregaProyecto}</span>
+                </div>
+            </div>
 `;
+}
+export function proyectosNoDisponibles() {
+    return `   
+        <div class="alert alert-info text-center py-5 mt-5" role="alert">
+            <div class="mb-3">
+                <div class="fs-1">📂</div>
+            </div>
+            <h4 class="fw-bold">No hay proyectos disponibles</h4>   
+        </div>
+` ;
 }
