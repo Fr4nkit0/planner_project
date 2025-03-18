@@ -46,13 +46,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function submitHandler(e) {
     e.preventDefault();
+    if (enviandoFormulario) return;
+    enviandoFormulario = true;
+
     const form = e.target;
+
+    if (!validarFormulario(form)) {
+        enviandoFormulario = false;
+        return; // ❌ Detener el envío si hay errores
+    }
+
     const tipo = form.getAttribute("id").includes("editar") ? "editar-reporte" :
                 form.getAttribute("id").includes("eliminar") ? "eliminar-reporte" : 
                 "crear-reporte";
+                
+    const manejarRespuesta = (data) => {
+        manejarRespuesta(data);
+        enviandoFormulario = false;
+    }
 
-    if (!validarFormulario(form)) {
-        return; // ❌ Detener el envío si hay errores
+    const manejarError = (error) => {
+        manejarError(error);
+        enviandoFormulario = false;
     }
 
     if (tipo === "editar-reporte") {
