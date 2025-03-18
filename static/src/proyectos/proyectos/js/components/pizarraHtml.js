@@ -52,7 +52,7 @@ export function botonModal(proyectoId) {
 }
 export function formularioPizarraHtml(proyectoId) {
     return ` 
-        <form method="POST" id="form-pizarra" novalidate >
+        <form method="POST" id="form-crear-pizarra"  >
             <input type="hidden" name="proyecto_id" value="${proyectoId}">
             <div class="mb-3">
                 <label for="nombre" class="form-label fw-semibold text-muted">Nombre De Pizarra</label>
