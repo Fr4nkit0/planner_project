@@ -14,23 +14,29 @@
 }
 
 .task-card {
+    position: relative;
     width: 200px;
     height: 150px;
-    background-color: #CAC4D0;
-    border: none;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     transform: rotate(-5deg);
-    padding: 15px;
-    position: relative;
+    background-color: #CAC4D0;
+    clip-path: polygon(0% 0%, 0% 100%, 84% 100%, 100% 85%, 100% 0%);
+    /* Rosa claro */
+    padding: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    border: #131111 1px;
 }
 
 .task-card::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 20px;
-    height: 20px;
-    background-color: rgba(0, 0, 0, 0.1);
-    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 20px 30px;
+    border-color: transparent transparent transparent;
+    /* Rosa un poco más oscuro */
+    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 2;
 }
