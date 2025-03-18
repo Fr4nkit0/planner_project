@@ -1,4 +1,5 @@
-import { cargarNotas } from "./notaLoader";
+import { cargarNotas } from "./notaLoader.js";
+import { actualizarModal } from "./modalHelper.js";
 
 
 export function initEventHandlers() {

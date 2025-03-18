@@ -1,4 +1,4 @@
-import { notaHtml, notaCrearHtml, formularioNotaHtml, detalleNotaHtml } from "./notaHtml.js";
+import { notaHtml, notaCrearHtml } from "./notaHtml.js";
 import { generacionPaginacion } from "../modules/paginacion.js";
 export function mostrarNotas(data, searchQuery = '') {
     const notasContainer = document.getElementById('notas-container');
