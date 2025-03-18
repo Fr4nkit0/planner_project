@@ -10775,4 +10775,8 @@ body {
   display: none;
 }
 
+.textarea.form-control {
+  border-radius: 10px;
+}
+
 /*# sourceMappingURL=bootstrap.min.css.map */

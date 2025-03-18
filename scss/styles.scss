@@ -348,4 +348,7 @@ body {
 .dropdown-toggle::after {
   display: none;
 }
-  
+
+.textarea.form-control {
+  border-radius: 10px;
+}
