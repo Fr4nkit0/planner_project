@@ -1,4 +1,6 @@
 import { obtenerNotas } from "../services/notaService.js";
+import { mostrarNotas } from "../components/notaComponents.js";
+import { obtenerIdPizarraUrl } from "./urlPizarra.js";
 let debounceTimer;
 
 export function cargarNotas(pagina = 1, searchQuery = '') {

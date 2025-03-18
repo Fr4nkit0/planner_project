@@ -1,4 +1,4 @@
-import { cargarNotas } from "./notaLoader";
+import { cargarNotas } from "./notaLoader.js";
 
 
 export function initEventHandlers() {
