@@ -3,17 +3,37 @@ from django.http import JsonResponse
 from .models import Reporte
 from .forms import CreacionReporteForm
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 def listar_reportes_ajax_view(request):
     if request.method != 'GET':
         return JsonResponse({'error': 'Método no permitido'}, status=405)
+    
     try:
-         # Si el usuario es superusuario, obtener todos los reportes
+        # Obtener parámetros de paginación y búsqueda
+        page_number = request.GET.get('page', 1)
+        search_query = request.GET.get('q', '').strip()
+        
+        # Si el usuario es superusuario, obtener todos los reportes
         if request.user.is_superuser:
             reportes = Reporte.objects.all().order_by('-fecha_creacion')
         else:
             # Si no es superusuario, obtener solo los reportes del usuario actual
             reportes = Reporte.objects.filter(usuario=request.user).order_by('-fecha_creacion')
+        
+        # Aplicar filtro de búsqueda si existe
+        if search_query:
+            reportes = reportes.filter(titulo__icontains=search_query)
+            
+        # Crear un paginador con 10 reportes por página
+        paginator = Paginator(reportes, 10)
+        
+        try:
+            # Obtener la página solicitada
+            page = paginator.page(page_number)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+            
         data = [
             {
                 'id': reporte.id,
@@ -22,9 +42,22 @@ def listar_reportes_ajax_view(request):
                 'usuario': reporte.usuario.username if reporte.usuario else None,
                 'fecha_creacion': reporte.fecha_creacion.strftime('%d/%m/%Y')
             }
-            for reporte in reportes
+            for reporte in page
         ]
-        return JsonResponse({'reportes': data}, status=200)
+        
+        # Obtener la página anterior y la página siguiente
+        prev_page = page.previous_page_number() if page.has_previous() else None
+        next_page = page.next_page_number() if page.has_next() else None
+        print(paginator.num_pages)
+        return JsonResponse({
+            'reportes': data,
+            'paginacion': {
+                'total_paginas': paginator.num_pages,
+                'pagina_actual': page_number,
+                'pagina_anterior': prev_page,
+                'pagina_siguiente': next_page
+            }
+        }, status=200)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
