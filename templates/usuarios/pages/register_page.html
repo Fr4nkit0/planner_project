@@ -11,7 +11,7 @@
 
 {% block mensajes_de_error %}
 
-{% include 'usuarios/components/mensajes_error_registro.html' %}
+
     
 {% endblock mensajes_de_error %}
 
@@ -20,7 +20,7 @@
 
 
 
-{% include 'usuarios/components/register.html' %}
+{% include 'usuarios/components/register/register.html' %}
 
 
 
@@ -29,5 +29,7 @@
 
 
 {% block extra_js %}
+
+<script type="module" src="{% static 'src/usuarios/register/js/index.js' %}"></script>
 
 {% endblock extra_js %}

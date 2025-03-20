@@ -1,7 +1,9 @@
-// main.js
-import { initEventHandlers } from './eventHandlers.js';
+// index.js
+import { setupValidationEvents } from './modules/events.js';
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Inicializar los event handlers
-    initEventHandlers();
+    const form = document.getElementById('loginForm');
+    if (form) {
+        setupValidationEvents(form);
+    }
 });
