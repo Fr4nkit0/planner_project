@@ -30,5 +30,5 @@ urlpatterns = [
     path('reset_done/', 
          auth_views.PasswordResetCompleteView.as_view(template_name='usuarios/components/password_reset_complete.html'), 
          name='password_reset_complete'),
-    path('user_info_page/', PersonalizacionUserInfoView.as_view(), name='user_info'),
+    path('user-info/', PersonalizacionUserInfoView.as_view(), name='user_info'),
 ]
