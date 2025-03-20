@@ -1,7 +1,9 @@
 import { getCSRFToken } from "../../../../core/js/security.js";
 
-export function obtenerReportes(successCallback, errorCallback) {
-    const url = "ajax/listar-reportes";
+export function obtenerReportes(pagina = 1, searchQuery = '', successCallback, errorCallback) {
+    // Construir URL con parámetros de paginación y búsqueda
+    const url = `ajax/listar-reportes?page=${pagina}${searchQuery ? `&q=${encodeURIComponent(searchQuery)}` : ''}`;
+    
     fetch(url)
         .then(response => response.json())
         .then(data => {

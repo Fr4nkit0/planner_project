@@ -33,7 +33,7 @@ export function generacionPaginacion(paginacion, searchQuery) {
     if (paginacion.pagina_actual > 1) {
         paginacionHtml += `
         <li class="page-item">
-            <a class="page-link" href="#" data-pagina="${paginacion.pagina_actual - 1}" data-query="${searchQuery}" aria-label="Previous">
+            <a class="page-link" href="#" data-pagina="${Number(paginacion.pagina_actual) - 1}" data-query="${searchQuery}" aria-label="Previous">
                 Anterior
             </a>
         </li>`;
@@ -59,7 +59,7 @@ export function generacionPaginacion(paginacion, searchQuery) {
     if (paginacion.pagina_actual < paginacion.total_paginas) {
         paginacionHtml += `
         <li class="page-item">
-            <a class="page-link" href="#" data-pagina="${paginacion.pagina_actual + 1}"  data-query="${searchQuery}"aria-label="Next">
+            <a class="page-link" href="#" data-pagina="${Number(paginacion.pagina_actual) + 1}"  data-query="${searchQuery}"aria-label="Next">
                 Siguiente
             </a>
         </li>`;
