@@ -9,7 +9,8 @@ from .views import (listar_proyectos_page_view,
                     eliminar_pizarra_ajax_view,
                     listar_notas_page_view,
                     crear_nota_ajax_view,
-                    listar_notas_ajax_view
+                    listar_notas_ajax_view,
+                    crear_comentario_ajax_view
 
                     )
 urlpatterns = [
@@ -56,4 +57,7 @@ urlpatterns = [
          listar_notas_ajax_view,
          name='listar_notas_ajax_view'
          ),
+    path('ajax/crear-comentario',
+         crear_comentario_ajax_view,
+         name='crear_notas_ajax_view'),
 ]

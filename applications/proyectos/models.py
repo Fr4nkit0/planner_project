@@ -57,12 +57,12 @@ class Pizarra(ModeloBase):
 
 class Nota(ModeloBase):
     COLORES = [
-        ('#FF5733', 'Rojo'),
-        ('#33FF57', 'Verde'),
-        ('#3357FF', 'Azul'),
-        ('#F4D03F', 'Amarillo'),
-        ('#8E44AD', 'Morado'),
-        ('#2C3E50', 'Negro'),
+        ('#F7C8D3', 'Rosado'),
+        ('#FFD8B1', 'Naranja'),
+        ('#B8E6C9', 'Verde'),
+        ('#FCEFB4', 'Amarillo'),
+        ('#D7C3FF', 'Morado'),
+        ('#BEE3F8', 'Celeste'),
     ]
     titulo = models.CharField(max_length=100)
     descripcion = models.TextField()

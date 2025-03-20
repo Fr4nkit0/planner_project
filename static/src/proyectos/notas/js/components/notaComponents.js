@@ -1,5 +1,5 @@
 import { notaHtml, notaCrearHtml } from "./notaHtml.js";
-import { generacionPaginacion } from "../modules/paginacion.js";
+import { generacionPaginacion } from "../../../../core/js/paginacion.js";
 export function mostrarNotas(data, searchQuery = '') {
     const notasContainer = document.getElementById('notas-container');
     notasContainer.innerHTML = "";

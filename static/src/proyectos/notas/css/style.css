@@ -20,14 +20,13 @@
     transform: rotate(-5deg);
     background-color: #CAC4D0;
     clip-path: polygon(0% 0%, 0% 100%, 84% 100%, 100% 85%, 100% 0%);
-    /* Rosa claro */
     padding: 20px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
     border: #131111 1px;
 }
 
 .task-card::after {
-    content: "";    
+    content: "";
     position: absolute;
     bottom: 0;
     right: 0;
@@ -36,7 +35,6 @@
     border-style: solid;
     border-width: 0 0 20px 30px;
     border-color: transparent transparent transparent;
-    /* Rosa un poco más oscuro */
     box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1);
     z-index: 2;
 }

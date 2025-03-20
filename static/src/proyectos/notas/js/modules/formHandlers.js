@@ -1,5 +1,6 @@
 import { crearNota } from "../services/notaService.js";
 import { cerrarModal } from "./modalHelper.js";
+import { cargarNotas } from "./notaLoader.js";
 const formHandlersNotas = {
     "form-crear-nota": crearNota,
     // "form-editar-nota": editarNota // Asumo que existe esta función

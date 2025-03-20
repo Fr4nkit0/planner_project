@@ -16,6 +16,19 @@ export function crearProyecto(form, successCallback, errorCallBack) {
         .catch(error => errorCallBack(error))
 }
 export function obtenerProyectos(searchQuery = '', successCallback, errorCallBack) {
+    const urlContainer = document.getElementById("urls");
+
+    const urls = {
+        crearProyecto: urlContainer.dataset.crearProyecto,
+        eliminarProyecto: urlContainer.dataset.eliminarProyecto,
+        actualizarProyecto: urlContainer.dataset.actualizarProyecto,
+        listarProyectos: urlContainer.dataset.listarProyectos,
+        crearPizarra: urlContainer.dataset.crearPizarra,
+        actualizarPizarra: urlContainer.dataset.actualizarPizarra,
+        eliminarPizarra: urlContainer.dataset.eliminarPizarra
+    };
+
+    console.log(urls);
     const url = `ajax/listar-proyectos/?q=${encodeURIComponent(searchQuery)}`;
     fetch(url)
         .then(response => response.json())

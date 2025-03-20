@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.timezone import now
 from .models import Nota, Proyecto, Pizarra
-from .forms import ProyectoForm, PizarraForm, ActualizarProyectoForm, NotaForm
+from .forms import ProyectoForm, PizarraForm, ActualizarProyectoForm, NotaForm, ComentarioForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -214,6 +214,22 @@ def listar_notas_ajax_view(request, pizarra_id):
                 'pagina_siguiente': next_page
             }
         }, status=200)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
+def crear_comentario_ajax_view(request):
+    if request.method == 'POST':
+        form = ComentarioForm(request.POST)
+        if form.is_valid():
+            try:
+                nota_id = request.POST.get('nota_id')
+                nota = Nota.objects.get(id=nota_id)
+            except Nota.DoesNotExist:
+                return JsonResponse({'error': 'Nota no encontrada'}, status=404)
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=400)
+            form.save(usuario=request.user, nota=nota)
+            return JsonResponse({'mensaje': 'Comentario Creado Exitosamente'}, status=201)
     return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 
