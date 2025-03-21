@@ -118,9 +118,9 @@ export function detalleNotaHtml(notaId) {
             </div>
             <div class="col-6 d-flex justify-content-end">
             <div class="d-flex gap-3">
-                <!-- Botón para abrir el modal de eliminación -->
-                <button type="button" data-bs-toggle="modal" data-bs-target="#modal"
-                    data-id="" data-tipo="eliminar-nota" style="background: none; border: none;">
+                <!-- Botón para abrir actualizar el modal-->
+                <button type="button" class="actualizar-modal"
+                    data-id="${notaId}" data-tipo="eliminar-nota" style="background: none; border: none;">
                     <img src="/static/src/core/image/eliminar.svg" alt="Eliminar"> 
                 </button>
                 <!-- Botón para abrir el modal de edición -->
@@ -185,4 +185,16 @@ export function detalleNotaHtml(notaId) {
         </div>
     </section>
     `;
+}
+export function formularioEliminarNotaHtml(notaId) {
+    return `
+    <p class="text-center">¿Estás seguro de eliminar la nota?</p>
+    <form method="POST" id="form-eliminar-nota">
+        <input type="hidden" name="nota_id" value="${notaId}">
+        <div class="d-flex justify-content-center gap-1">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-danger">Confirmar Eliminacion</button>
+        </div>
+    </form>
+ `;
 }

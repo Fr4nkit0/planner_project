@@ -1,4 +1,4 @@
-import { formularioNotaHtml, detalleNotaHtml } from "../components/notaHtml.js"
+import { formularioNotaHtml, detalleNotaHtml, formularioEliminarNotaHtml } from "../components/notaHtml.js"
 import { obtenerNota } from "../services/notaService.js";
 import { cargarComentarios } from "./comentarioLoader.js"
 
@@ -27,12 +27,14 @@ export function actualizarModal(button) {
 
     modalLabel.textContent = estrategia.titulo(button);
 
-    // Si la estrategia tiene una función async, espera a que termine
+    // Mostrar el contenido cargado del modal
     if (estrategia.esAsync) {
         estrategia.html(button)
             .then(contenidoHtml => {
+                console.log("Contenido cargado en el modal:", contenidoHtml); // Para depurar
                 modalBody.innerHTML = contenidoHtml;
-                // Si hay acciones posteriores a cargar el HTML
+
+                // Acciones posteriores a cargar el HTML
                 if (estrategia.despuesDeCargar) {
                     estrategia.despuesDeCargar(button);
                 }
@@ -43,13 +45,16 @@ export function actualizarModal(button) {
             });
     } else {
         // Carga síncrona 
-        modalBody.innerHTML = estrategia.html(button);
-        // Si hay acciones posteriores a cargar el HTML
+        const contenidoHtml = estrategia.html(button);
+        console.log("Contenido cargado (síncrono) en el modal:", contenidoHtml); // Para depurar
+        modalBody.innerHTML = contenidoHtml;
+        // Acciones posteriores a cargar el HTML
         if (estrategia.despuesDeCargar) {
             estrategia.despuesDeCargar(button);
         }
     }
 }
+
 
 const estrategiasModales = {
     "crear-nota": {
@@ -103,54 +108,11 @@ const estrategiasModales = {
                 }
             );
         }
+    },
+    "eliminar-nota": {
+        titulo: () => "Eliminar Nota",
+        html: (button) => formularioEliminarNotaHtml(button.getAttribute("data-id")),
     }
-    // },
-    // "eliminar-nota": {
-    //     titulo: () => "Eliminar Nota",
-    //     html: () => `
-    //         <div class="text-center">
-    //             <p>¿Estás seguro de que deseas eliminar esta nota?</p>
-    //             <div class="d-flex justify-content-center gap-3 mt-4">
-    //                 <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-    //                 <button id="confirmar-eliminar" class="btn btn-danger">Eliminar</button>
-    //             </div>
-    //         </div>
-    //     `,
-    //     despuesDeCargar: (button) => {
-    //         const notaId = button.getAttribute("data-id");
-    //         document.getElementById("confirmar-eliminar").addEventListener("click", () => {
-    //             // Aquí iría la lógica para eliminar la nota
-    //             console.log("Eliminar nota con ID:", notaId);
-    //             // cerrarModal();
-    //         });
-    //     }
-    // },
-    // "editar-nota": {
-    //     titulo: () => "Editar Nota",
-    //     esAsync: true,
-    //     html: async (button) => {
-    //         const notaId = button.getAttribute("data-id");
-    //         if (!notaId) {
-    //             throw new Error("ID de nota no proporcionado");
-    //         }
-
-    //         return new Promise((resolve, reject) => {
-    //             obtenerNota(
-    //                 notaId,
-    //                 // Success callback
-    //                 (nota) => {
-    //                     // Retornar el formulario de edición con los datos pre-cargados
-    //                     resolve(formularioNotaHtml(nota));
-    //                 },
-    //                 // Error callback
-    //                 (error) => {
-    //                     console.error("Error al obtener la nota para editar:", error);
-    //                     reject(error);
-    //                 }
-    //             );
-    //         });
-    //     }
-    // }
 };
 
 // Función auxiliar para formatear la fecha

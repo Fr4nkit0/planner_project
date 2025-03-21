@@ -233,7 +233,7 @@ def crear_comentario_ajax_view(request):
     return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 
-def eliminar_pizarra_ajax_view(request):
+def eliminar_nota_ajax_view(request):
     if request.method == 'POST':
         nota_id = request.POST.get('nota_id')
         try:

@@ -30,3 +30,20 @@ export function crearNota(form, successCallback, errorCallBack) {
         .then(data => successCallback(data))
         .catch(error => errorCallBack(error));
 }
+export function eliminarNota(form, successCallback, errorCallBack) {
+    const url = "/proyectos/ajax/eliminar-nota";
+    const formData = new FormData(form);
+    const csrfToken = getCSRFToken();
+    fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': csrfToken,
+            "X-Requested-With": "XMLHttpRequest"
+        },
+
+    })
+        .then(response => response.json())
+        .then(data => successCallback(data))
+        .catch(error => errorCallBack(error));
+}

@@ -9,6 +9,7 @@ from .views import (listar_proyectos_page_view,
                     eliminar_pizarra_ajax_view,
                     listar_notas_page_view,
                     crear_nota_ajax_view,
+                    eliminar_nota_ajax_view,
                     listar_notas_ajax_view,
                     obtener_nota_ajax_view,
                     crear_comentario_ajax_view,
@@ -55,6 +56,9 @@ urlpatterns = [
          crear_nota_ajax_view,
          name='crear_nota_ajax_view'
          ),
+    path('ajax/eliminar-nota',
+         eliminar_nota_ajax_view,
+         name='eliminar_nota_ajax_view'),
     path('ajax/listar-notas/<int:pizarra_id>',
          listar_notas_ajax_view,
          name='listar_notas_ajax_view'

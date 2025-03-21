@@ -1,4 +1,4 @@
-import { crearNota } from "../services/notaService.js";
+import { crearNota, eliminarNota } from "../services/notaService.js";
 import { crearComentario } from "../services/comentarioService.js";
 import { cargarComentarios } from "./comentarioLoader.js";
 import { cerrarModal } from "./modalHelper.js";
@@ -7,6 +7,7 @@ import { cargarNotas } from "./notaLoader.js";
 const formHandlersNotas = {
     "form-crear-nota": crearNota,
     "comentario-form": crearComentario,  // Agregamos el formulario de comentarios
+    "form-eliminar-nota": eliminarNota
 };
 
 export function initFormHandlers() {
