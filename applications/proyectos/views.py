@@ -159,8 +159,8 @@ def obtener_nota_ajax_view(request, nota_id):
             'id': nota.id,
             'titulo': nota.titulo,
             'descripcion': nota.descripcion,
-            'etiqueta': nota.etiqueta.id if nota.etiqueta else None,
-            'estado': nota.estado
+            'estado': nota.estado,
+            'pendiente': nota.pendiente.strftime('%Y-%m-%d')
         }
         return JsonResponse(data, status=200)
     return JsonResponse({'error': 'Método no permitido'}, status=405)
@@ -231,6 +231,40 @@ def crear_comentario_ajax_view(request):
             form.save(usuario=request.user, nota=nota)
             return JsonResponse({'mensaje': 'Comentario Creado Exitosamente'}, status=201)
     return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
+def eliminar_pizarra_ajax_view(request):
+    if request.method == 'POST':
+        nota_id = request.POST.get('nota_id')
+        try:
+            nota = Nota.objects.get(id=nota_id)
+            nota.delete()
+            return JsonResponse({'success': 'Nota eliminado correctamente'})
+        except Pizarra.DoesNotExist:
+            return JsonResponse({'error': 'Nota no encontrado'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+
+def obtener_comentarios_ajax_view(request, nota_id):
+    if request.method == 'GET':
+        try:
+            nota = Nota.objects.get(id=nota_id)
+        except Nota.DoesNotExist:
+            return JsonResponse({'error': 'Nota no encontrado'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+        comentarios = nota.comentarios.all()
+        data = [
+            {
+                'usuario': comentario.usuario.username,
+                'id': comentario.id,
+                'descripcion': comentario.descripcion
+            }
+            for comentario in comentarios
+        ]
+        return JsonResponse({'comentarios': data}, status=200)
 
 
 def listar_notas_page_view(request, pizarra_id):
