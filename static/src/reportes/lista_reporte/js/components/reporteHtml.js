@@ -85,7 +85,7 @@ export function reportesNoDisponibles() {
     return `   
         <div class="alert alert-info text-center py-5 mt-5" role="alert">
             <div class="mb-3">
-                <div class="fs-1">📂</div>
+                <div class="fs-1">📝</div>
             </div>
             <h4 class="fw-bold">No hay Reportes disponibles</h4>   
         </div>
