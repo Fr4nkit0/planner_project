@@ -17,12 +17,19 @@ export function initFormHandlers() {
         const handler = formHandlers[e.target.id];
         if (handler) {
             e.preventDefault();
+            const submitButton = e.target.querySelector("button[type='submit']");
+            submitButton.disabled = true; // Deshabilitar el botón
             handler(e.target,
                 (data) => {
                     cerrarModal();
                     cargarProyectos();
+                    // Rehabilitar el botón después de la petición (en ambos casos)
+                    setTimeout(() => {
+                        submitButton.disabled = false;
+                    }, 3000);
                 },
                 (error) => console.log(error));
+            submitButton.disabled = false; // Habilitar el botón en caso de error
         }
     });
 }

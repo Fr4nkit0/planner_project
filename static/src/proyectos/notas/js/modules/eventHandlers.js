@@ -29,6 +29,18 @@ export function initEventHandlers() {
                 cargarNotas(pagina, searchQuery);
             }
         }
+        const checkbox = e.target;
+        if (checkbox.type === 'checkbox' && checkbox.name === 'color' && checkbox.checked) {
+            // Obtener todos los checkboxes con el mismo nombre
+            const colorCheckboxes = document.querySelectorAll('input[name="color"]');
+
+            // Desmarcar todos excepto el actual
+            colorCheckboxes.forEach(cb => {
+                if (cb !== checkbox && cb.checked) {
+                    cb.checked = false;
+                }
+            });
+        }
     });
 }
 let debounceTimer;
