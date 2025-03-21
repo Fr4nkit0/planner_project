@@ -54,10 +54,11 @@ class NotaForm(forms.ModelForm):
 class ComentarioForm (forms.ModelForm):
     class Meta:
         model = Comentario
-        fields = ['descripcion', 'imagen']
+        fields = ['descripcion']
 
     def save(self, usuario=None, nota=None, *args, **kwargs):
-        comentario = super.save(commit=False)
+        comentario = super(ComentarioForm, self).save(
+            commit=False)
         if usuario:
             comentario.usuario = usuario
         if nota:

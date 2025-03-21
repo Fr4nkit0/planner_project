@@ -3,7 +3,6 @@ from django.views.generic.base import RedirectView
 
 
 urlpatterns = [
-    path('', RedirectView.as_view(url= 'proyectos/' , permanent=False)),  # Redirige a '/listar-proyectos/'
+    # Redirige a '/listar-proyectos/'
+    path('', RedirectView.as_view(url='proyectos/', permanent=False)),
 ]
-
-

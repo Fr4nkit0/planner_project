@@ -1,7 +1,6 @@
 import { cargarNotas } from "./notaLoader.js";
 import { actualizarModal } from "./modalHelper.js";
 
-
 export function initEventHandlers() {
     document.addEventListener("click", (e) => {
         if (e.target.closest("[data-bs-target='#modal']")) {
