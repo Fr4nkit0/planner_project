@@ -12,15 +12,15 @@ export function reporteHtml(reporte) {
                     </div>
                     <div>
                         <p class="mb-0">${tituloMayuscula}</p>
-                        <p class="mb-0 text-muted">FECHA: ${reporte.fecha_creacion}</p>
+                        <small class="text-muted">FECHA: ${reporte.fecha_creacion}</small>
                     </div>
                 </div>
                 <div class="icono">
                     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modal"
                     data-id="${reporte.id}" data-titulo="${reporte.titulo}" data-descripcion="${reporte.descripcion}"
-                    data-tipo="editar-reporte"><img src="/static/src/core/image/lapiz.svg" alt="Editar" width="20"></button>
+                    data-tipo="editar-reporte" style="background: none; border: none;"><img src="/static/src/core/image/lapiz.svg" alt="Editar" width="20"></button>
                     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modal"
-                    data-id="${reporte.id}" data-tipo="eliminar-reporte"><img src="/static/src/core/image/eliminar.svg" alt="Eliminar" width="20"></button>
+                    data-id="${reporte.id}" data-tipo="eliminar-reporte" style="background: none; border: none;"><img src="/static/src/core/image/eliminar.svg" alt="Eliminar" width="20"></button>
                 </div>
             </div>
             <div class="card-body contenido">
