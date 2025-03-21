@@ -71,3 +71,7 @@ class PersonalizadoSetPasswordForm(SetPasswordForm):
             'placeholder': 'Confirmar nueva contraseña',  # Agrega un placeholder
         })
         
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['username', 'email']

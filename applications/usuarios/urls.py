@@ -1,17 +1,13 @@
 from django.urls import path
-from .views import prueba_config_view, PersonalizacionLoginView, PersonalizacionLogoutView, registro_usuario_view
+from .views import PersonalizacionLoginView, PersonalizacionLogoutView, registro_usuario_view
 from django.contrib.auth import views as auth_views
 from .forms import PersonalizadoSetPasswordForm  
 from .views import PersonalizacionUserInfoView
 
 urlpatterns = [
-    path('',
-         prueba_config_view,
-         name='prueba_config_view'),
     path("login",
          PersonalizacionLoginView.as_view(),
-         name="login_page"
-         ),
+         name="login_page"),
     path('logout/', 
          PersonalizacionLogoutView.as_view(), 
          name='logout_page'),

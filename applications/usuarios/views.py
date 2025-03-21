@@ -7,6 +7,8 @@ from django.contrib.auth import get_user_model, login
 from django.shortcuts import redirect 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
+from .forms import ProfileUpdateForm
+from django.contrib import messages
 import logging
 
 
@@ -15,10 +17,6 @@ import logging
 User = get_user_model()  # Importa el modelo de usuario
 
 logger = logging.getLogger(__name__) #logger para registrar cuándo y quién cierra sesión.
-
-@login_required
-def prueba_config_view(request):
-    return render(request, 'usuarios/pages/perfil_page.html', {})
 
 class PersonalizacionLoginView(LoginView):
     template_name = 'usuarios/pages/login_page.html'
@@ -42,3 +40,20 @@ def registro_usuario_view(request):
 
 class PersonalizacionUserInfoView(LoginRequiredMixin, TemplateView):
     template_name = 'usuarios/pages/user_info_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ProfileUpdateForm(instance=self.request.user)
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        form = ProfileUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Tu perfil ha sido actualizado correctamente.")
+            return redirect('user_info')  # Asegúrate de que este es el nombre correcto de tu URL
+        
+        # Si el formulario no es válido, vuelve a la página con los errores
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
+        return self.render_to_response(context)
