@@ -3,6 +3,8 @@ import { listarReportes, actualizarModal } from "./components/reporteComponents.
 
 // Variable para controlar envíos múltiples
 let enviandoFormulario = false;
+// Variable para controlar el debounce de la búsqueda
+let debounceTimer;
 
 // Función para cargar reportes con paginación
 function cargarReportes(pagina = 1, searchQuery = '') {
@@ -17,6 +19,18 @@ function cargarReportes(pagina = 1, searchQuery = '') {
 document.addEventListener("DOMContentLoaded", () => {
     // Cargar reportes iniciales
     cargarReportes();
+
+    // Campo de búsqueda con debounce (búsqueda en tiempo real)
+    const searchInput = document.getElementById("search-input");
+    if (searchInput) {
+        searchInput.addEventListener("input", function() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const query = this.value.trim();
+                cargarReportes(1, query);
+            }, 300); // Espera 300ms después de que el usuario deje de escribir
+        });
+    }
     
     // Campo de búsqueda
     const searchForm = document.getElementById("search-form");
@@ -48,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const tipo = target.getAttribute("data-tipo");
             if (["editar-reporte", "eliminar-reporte", "crear-reporte"].includes(tipo)) {
                 actualizarModal(target);
+                
                 const modal = new bootstrap.Modal(document.getElementById("modal"));
                 modal.show();
                 

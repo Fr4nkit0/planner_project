@@ -12,15 +12,15 @@ export function reporteHtml(reporte) {
                     </div>
                     <div>
                         <p class="mb-0">${tituloMayuscula}</p>
-                        <p class="mb-0">FECHA: ${reporte.fecha_creacion}</p>
+                        <small class="text-muted">FECHA: ${reporte.fecha_creacion}</small>
                     </div>
                 </div>
                 <div class="icono">
                     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modal"
                     data-id="${reporte.id}" data-titulo="${reporte.titulo}" data-descripcion="${reporte.descripcion}"
-                    data-tipo="editar-reporte"><img src="/static/src/core/image/lapiz.svg" alt="Editar" width="20"></button>
+                    data-tipo="editar-reporte" style="background: none; border: none;"><img src="/static/src/core/image/lapiz.svg" alt="Editar" width="20"></button>
                     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modal"
-                    data-id="${reporte.id}" data-tipo="eliminar-reporte"><img src="/static/src/core/image/eliminar.svg" alt="Eliminar" width="20"></button>
+                    data-id="${reporte.id}" data-tipo="eliminar-reporte" style="background: none; border: none;"><img src="/static/src/core/image/eliminar.svg" alt="Eliminar" width="20"></button>
                 </div>
             </div>
             <div class="card-body contenido">
@@ -35,11 +35,11 @@ export function editarReporteFormularioHtml(reporteId, titulo, descripcion) {
         <form method="POST" id="form-editar-reporte">
             <input type="hidden" name="reporte_id" value="${reporteId}">
             <div class="mb-3">
-                <label for="titulo" class="form-label">Título</label>
+                <label for="titulo" class="form-label fw-semibold text-muted">Título</label>
                 <input type="text" class="form-control" id="titulo" name="titulo" value="${titulo}" required>
             </div>
             <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripcion</label>
+                <label for="descripcion" class="form-label fw-semibold text-muted">Descripcion</label>
                 <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required>${descripcion}</textarea>
             </div>
             <div class="d-flex justify-content-center gap-1">
@@ -67,17 +67,27 @@ export function crearReporteFormularioHtml() {
     return `
         <form method="POST" id="form-crear-reporte">
             <div class="mb-3">
-                <label for="titulo" class="form-label">Título</label>
+                <label for="titulo" class="form-label fw-semibold text-muted">Título</label>
                 <input type="text" class="form-control" id="titulo" name="titulo" required maxlength="100">
             </div>
             <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripción</label>
+                <label for="descripcion" class="form-label fw-semibold text-muted">Descripción</label>
                 <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required maxlength="500"></textarea>
             </div>
             <div class="d-flex justify-content-center gap-1">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-success">Crear Reporte</button>
+                <button type="submit" class="btn btn-primary">Crear Reporte</button>
             </div>
         </form>
     `;
+}
+export function reportesNoDisponibles() {
+    return `   
+        <div class="alert alert-info text-center py-5 mt-5" role="alert">
+            <div class="mb-3">
+                <div class="fs-1">📝</div>
+            </div>
+            <h4 class="fw-bold">No hay Reportes disponibles</h4>   
+        </div>
+` ;
 }

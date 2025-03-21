@@ -94,44 +94,107 @@ export function formularioNotaHtml() {
                 </div>
             </div>
         </div>
+         <div class="mb-3 d-flex justify-content-center gap-1"> 
+            <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancelar</button> 
+            <button type="submit" form="form-crear-nota" class="btn btn-primary">Guardar</button>
+        </div>
     </form>
-    <div class="mb-3 d-flex justify-content-center gap-1"> 
-        <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancelar</button> 
-        <button type="submit" form="form-crear-nota" class="btn btn-primary">Guardar</button>
-    </div>
+   
     `;
 }
 
-export function detalleNotaHtml() {
+export function detalleNotaHtml(notaId) {
     return `
-    <section id="detalle-nota" class="bg-light p-4 rounded-3">
-        <!-- Fila 1: Título y Fecha -->
-        <div class="row d-flex align-items-center gap-2 mb-3">
-            <!-- Columna Título -->
-            <div class="col d-flex align-items-center">
-                <p id="titulo-nota" class="fs-6 mb-0">Título de la nota</p>
+    <section id="detalle-nota" class="rounded-3">
+      <!-- Creada por -->
+      <div class="row mb-3">
+            <div class="col-6">
+            <div class="d-flex align-items-center">
+                <span class="me-2 fw-semibold  mb-0">Creada por:</span>
+                <div>
+                    <img src="/static/src/core/image/usuario.svg" class="rounded-circle me-2" alt="Avatar">
+                </div>
             </div>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+            <div class="d-flex gap-3">
+                <!-- Botón para abrir actualizar el modal-->
+                <button type="button" class="actualizar-modal"
+                    data-id="${notaId}" data-tipo="eliminar-nota" style="background: none; border: none;">
+                    <img src="/static/src/core/image/eliminar.svg" alt="Eliminar"> 
+                </button>
+                <!-- Botón para abrir el modal de edición -->
+                <button type="button" data-bs-toggle="modal" data-bs-target="#modal"  
+                    data-tipo="editar-nota" style="background: none; border: none;">
+                    <img src="/static/src/core/image/lapiz.svg" alt="Editar">
+                </button>
+            </div>
+            </div>
+       </div>
 
-            <!-- Columna Fecha -->
-            <div class="col-8 d-flex justify-content-end align-items-center">
-                <div class="d-flex align-items-center">
-                    <span class="me-2">Pendiente para:</span>
-                    <span id="pendiente_para" class="p-2 bg-white border rounded">2023-12-25</span>
-                </div>
+      <!-- Título y Fecha -->
+      <div class="row mb-4">
+        <div class="col-6">
+          <h6 id="titulo-nota" class="fs-5   mb-0">Titulo de una nota</h6>
+        </div>
+        <div class="col-6">
+          <div class="d-flex align-items-center justify-content-end">
+            <h6 class=" mb-0 me-1">Pendiente para:</h6>
+            <span class="text-dark" id="Pendiente">20/03/25</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Descripción y Color --> 
+       <div class="row mb-3">
+            <div class="col-6">
+            <div class="d-flex align-items-center">
+                <h6 class="mb-0 me-2 fw-semibold  mb-0">Descripción</h6>
+                <button class="btn btn-sm border-0">
+                    <img src = "/static/src/core/image/list-task.svg">
+                </button>
+            </div>
+            </div>
+       </div>
+      
+      <!-- Área de descripción -->
+      <div class="row mb-4">
+        <div class="col-12">
+            <div id="descripcion" class="p-3 bg-white border rounded text-break overflow-auto" style="max-height: 150px;">
+            Aqui va la descripcion de una tarea xd
             </div>
         </div>
-        <!-- Fila 2: Descripción -->
-        <div class="row mb-3">
-            <div class="col">
-                <p class="fw-bold mb-2">Descripción</p>
-                <div id="descripcion" class="p-3 bg-white border rounded">
-                    Este es el texto completo de la descripción de la nota...
-                </div>
-            </div>
-        </div>
+      </div>
     </section>
     <section>
-        ${comentarioHtml()}
+            <div class="container mt-4">
+            <h6>Comentarios</h6>
+
+            <form id="comentario-form">
+                <input type="hidden" name="nota_id" value="${notaId}">
+                <div class="mb-3">
+                    <textarea id="input-comentario" name="descripcion" class="form-control" rows="3" placeholder="Escribe tu comentario..."></textarea>
+                    <button type="submit" id="btn-enviar" class="btn btn-primary mt-2">Guardar</button>
+                </div>
+            </form>
+
+            <!-- Lista de comentarios -->
+            <div class="mt-2 overflow-auto" id="lista-comentarios" style="max-height: 300px;">
+               
+            </div>
+        </div>
     </section>
     `;
+}
+export function formularioEliminarNotaHtml(notaId) {
+    return `
+    <p class="text-center">¿Estás seguro de eliminar la nota?</p>
+    <form method="POST" id="form-eliminar-nota">
+        <input type="hidden" name="nota_id" value="${notaId}">
+        <div class="d-flex justify-content-center gap-1">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-danger">Confirmar Eliminacion</button>
+        </div>
+    </form>
+ `;
 }

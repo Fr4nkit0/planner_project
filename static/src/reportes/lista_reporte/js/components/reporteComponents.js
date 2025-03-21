@@ -1,4 +1,4 @@
-import { reporteHtml, editarReporteFormularioHtml, eliminarReporteFormularioHtml , crearReporteFormularioHtml } from "./reporteHtml.js";
+import { reporteHtml, editarReporteFormularioHtml, eliminarReporteFormularioHtml , crearReporteFormularioHtml, reportesNoDisponibles} from "./reporteHtml.js";
 import { generacionPaginacion } from "../../../../core/js/paginacion.js";
 
 export function listarReportes(data, searchQuery = '') {
@@ -10,7 +10,7 @@ export function listarReportes(data, searchQuery = '') {
             reportesContainer.innerHTML += reporteHtml(reporte);
         });
     } else {
-        reportesContainer.innerHTML = `<h1>No hay reportes</h1>`;
+        reportesContainer.innerHTML = reportesNoDisponibles();
     }
     generacionPaginacion(data.paginacion, searchQuery);
 }
