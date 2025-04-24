@@ -59,7 +59,6 @@ export function crearProyectoFormularioHtml() {
                 </div>
         </form>
      `
-
 }
 export function editarProyectoFormularioHtml(proyectoId, nombreProyecto, descripcionProyecto) {
     return `
