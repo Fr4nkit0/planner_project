@@ -1,0 +1,62 @@
+{% load static %}
+
+{% include 'usuarios/components/register/mensajes_error_registro.html' %}
+
+
+<h2 class="text-center fw-bold">Registro de Usuario</h2>
+<div class="container text-center">
+    <img src="{% static 'src/core/image/usuario_dif_color.svg' %}" alt="Logo" width="120" height="120"
+        class="d-inline-block align-text-top">
+</div>
+<div class="py-4 container" style="max-width: 400px; width: 100%;">
+    <form id="registerForm" method="post" action="{% url 'register_page' %}">
+        {% csrf_token %}
+
+        <!-- Campo de nombre de usuario -->
+        <div class="form-floating mb-4">
+            {{ form.username }}
+            <label class="fw-bold" for="{{ form.username.id_for_label }}" style="font-size: 14px;">Usuario</label>
+            <div class="position-relative ms-3">
+                <div id="usernameError" class="error-message position-absolute"></div>
+            </div>
+        </div>
+
+        <!-- Campo de email -->
+        <div class="form-floating mb-4">
+            {{ form.email }}
+            <label class="fw-bold" for="{{ form.email.id_for_label }}" style="font-size: 14px;">Correo electrónico</label>
+            <div class="position-relative ms-3">
+                <div id="emailError" class="error-message position-absolute"></div>
+            </div>
+        </div>
+
+        <!-- Campo de contraseña -->
+        <div class="form-floating mb-4">
+            {{ form.password1 }}
+            <label class="fw-bold" for="{{ form.password1.id_for_label }}" style="font-size: 14px;">Contraseña</label>
+            <div class="position-relative ms-3">
+                <div id="password1Error" class="error-message position-absolute"></div>
+            </div>
+        </div>
+
+        <!-- Campo de confirmación de contraseña -->
+        <div class="form-floating mb-4">
+            {{ form.password2 }}
+            <label class="fw-bold" for="{{ form.password2.id_for_label }}" style="font-size: 14px;">Confirmar contraseña</label>
+            <div class="position-relative ms-3">
+                <div id="password2Error" class="error-message position-absolute"></div>
+            </div>
+        </div>
+
+
+        <!-- Botón Registrar -->
+        <button class="btn btn-primary w-100 mt-1" type="submit">Registrarse</button>
+    </form>
+</div>
+
+<!-- Ir a Login Usuario -->
+<div class="container d-flex justify-content-center text-center fw-bold">
+    <a class="me-2" style="text-decoration: none; color: #212529; font-weight: bold" href="{% url 'login_page' %}">¿Ya
+        tienes una cuenta?</a>
+</div>
+

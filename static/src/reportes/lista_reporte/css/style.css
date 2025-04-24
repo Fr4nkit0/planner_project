@@ -1,0 +1,32 @@
+@import "../../../../../scss/styles.scss";
+
+ul {
+    list-style: none !important;
+    padding: 0;
+}
+.reporte {
+    margin-bottom: 10px;
+    background-color: #FEF7FF;
+}
+.contenido {
+    background-color: #F3EDF7;
+}
+.letra_icono {
+    color: #6750A4 !important;
+    background-color: #b6a6e4 !important;
+    margin-right: 10px;
+}
+.titulo_reporte {
+    margin-bottom: 5px;
+}
+.icono {
+    margin-top: -25px;
+}
+.reportes_estilo {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.reporte_nuevo_estilo {
+    margin-top: -5px;
+    margin-left: -10px;
+}

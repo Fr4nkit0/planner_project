@@ -59,5 +59,4 @@ pip-delete-this-directory.txt
 # Ignorar node_modules (puede ser reinstalado con package.json)
 node_modules/
 
-# Ignorar Bootstrap descargado desde npm (ya está en static/libs)
-scss/
+

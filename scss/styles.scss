@@ -1,0 +1,354 @@
+// Material Design 3 colors in Sass variables
+
+
+$md-sys-color-primary-container: #FEF7FF;
+$md-sys-color-surface-container-highest: #E6E0E9;
+$md-sys-color-surface-container: #F3EDF7;
+$md-sys-color-inverse-on-surface: #F7F2FA;
+$md-sys-color-primary: #6750A4;
+
+
+// Primary palette
+$md3-primary: #EADDFF; // 
+$md3-primary-light: #9D47FF; // Indigo 200
+$md3-primary-dark: #0A00B6; // Indigo 700
+
+
+$md3-border: #e0e0e0; // Bordes
+
+// Secondary palette
+$md3-secondary: #ECE6F0; // 
+$md3-secondary-light: #67E1D5; // Teal 100
+$md3-secondary-dark: #018786; // Teal 700
+
+// Error color
+$md3-error: #B3261E; // 
+$md3-error-light: #FF8A80; // Red 100
+$md3-error-dark: #D50000; // Red 700
+
+// Background and surface colors
+$md3-background: #F5F5F5; // Gray 100
+$md3-surface: #FFFFFF; // White
+$md3-on-surface: #000000; // Black (text)
+$md3-on-background: #000000; // Black (text)
+
+// Text colors
+$md3-on-primary: #FFFFFF; // White (text on primary)
+$md3-on-secondary: #000000; // Black (text on secondary)
+$md3-on-error: #FFFFFF; // White (text on error)
+
+// Neutral colors
+$md3-neutral: #9E9E9E; // Gray 500
+$md3-neutral-light: #D3D3D3; // Gray 200
+$md3-neutral-dark: #616161; // Gray 700
+
+// State colors
+$md3-surface-variant: #E5E5E5; // Light Gray
+$md3-on-surface-variant: #000000; // Black (text on surface variant)
+$md3-outline: #BDBDBD; // Gray 300
+
+// Text/Background for dark theme
+$md3-dark-background: #121212;
+$md3-dark-surface: #1E1E1E;
+$md3-dark-on-surface: #FFFFFF;
+$md3-dark-on-background: #FFFFFF;
+$md3-dark-on-primary: #000000;
+$md3-dark-on-secondary: #000000;
+$md3-dark-on-surface-variant: #E0E0E0; // Un gris claro para buen contraste en fondo oscuro
+
+
+// Fuente principal para Material Design 3
+$font-family-sans-serif: 'Roboto', sans-serif;
+
+// O usar Roboto Flex para más flexibilidad
+//$font-family-sans-serif: 'Roboto Flex', sans-serif;
+
+$headings-font-family: $font-family-sans-serif; // Asegúrate de que los títulos también la usen
+
+
+
+// Reemplaza las variables de colores predeterminadas de Bootstrap 5.2.3 con Material Design 3
+@import "../node_modules/bootstrap/scss/functions";
+
+
+// Fondo y texto
+$dropdown-bg: $md3-surface; // Fondo claro
+$dropdown-color: $md3-on-surface; // Texto oscuro
+$dropdown-link-active-bg: $md-sys-color-primary-container;
+
+// Hover y focus
+$dropdown-link-hover-bg: $md3-surface-variant; // Color de fondo al hacer hover
+$dropdown-link-hover-color: $md3-on-surface;
+
+// Borde y sombra (elevación)
+$dropdown-border-color: $md3-outline;
+$dropdown-box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); // Elevación sutil de MD3
+
+// Espaciado y bordes
+$dropdown-padding-y: 0.75rem;
+$dropdown-padding-x: 1rem;
+$dropdown-border-radius: 0.75rem; // Esquinas redondeadas al estilo MD3
+
+
+$dropdown-item-padding-y: 0.5rem;
+$dropdown-item-padding-x: 1rem;
+$dropdown-item-font-size: 1rem;
+$dropdown-item-font-weight: 500; // Semibold para el estilo MD3
+
+
+$dropdown-dark-bg: $md3-dark-surface;
+$dropdown-dark-color: $md3-dark-on-surface;
+$dropdown-dark-link-hover-bg: $md3-dark-on-surface-variant;
+$dropdown-dark-border-color: $md3-outline;
+
+// Fondo y texto del navbar
+$navbar-bg: $md3-surface; // Fondo claro
+$navbar-color: $md3-on-surface; // Texto oscuro
+
+// Hover y focus
+$navbar-hover-bg: $md3-surface-variant; // Variante más oscura al hacer hover
+$navbar-hover-color: $md3-on-surface;
+
+// Sombra sutil (elevación)
+$navbar-box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+// Borde inferior (si lo deseas)
+$navbar-border-color: $md3-outline;
+
+$navbar-padding-y: 0.5rem; // Altura cómoda
+$navbar-padding-x: 1rem;
+
+$navbar-nav-link-padding-x: 1rem; // Espaciado entre enlaces
+$navbar-nav-link-font-size: 1rem; // Tamaño de los enlaces
+$navbar-nav-link-font-weight: 500; // Semibold como en MD3
+
+$navbar-toggler-padding-y: 0.5rem;
+$navbar-toggler-padding-x: 0.75rem;
+$navbar-toggler-font-size: 1.25rem;
+$navbar-toggler-border-radius: 0.5rem;
+$navbar-toggler-border-color: $md3-outline;
+
+$navbar-toggler-icon-bg: $md3-on-surface; // Color del icono de "hamburguesa"
+
+// Soporte para modo oscuro
+$navbar-dark-bg: $md3-dark-surface;
+$navbar-dark-color: $md3-dark-on-surface;
+$navbar-dark-hover-bg: $md3-dark-on-surface-variant;
+$navbar-dark-border-color: $md3-outline;
+
+
+$btn-padding-y: 0.75rem; // Altura cómoda
+$btn-padding-x: 1.5rem; // Anchura estándar
+$btn-border-radius: 50px; // Borde redondeado (MD3 usa 4px o más)
+
+$btn-font-weight: 700; // Peso seminegrita
+$btn-font-size: 0.90rem; // Tamaño base
+
+$btn-primary-bg: $md3-primary; // Fondo primario
+$btn-primary-color: $md3-on-primary; // Texto blanco
+$btn-primary-border-color: $md3-primary; // Borde del mismo color que el fondo
+
+$btn-primary-hover-bg: $md3-primary-light; // Color más claro al pasar el mouse
+$btn-primary-hover-border-color: $md3-primary-light;
+
+$btn-primary-active-bg: $md3-primary-dark; // Color más oscuro al hacer click
+$btn-primary-active-border-color: $md3-primary-dark;
+
+$btn-secondary-bg: $md3-surface; // Fondo claro
+$btn-secondary-color: $md3-primary; // Texto con el color primario
+$btn-secondary-border-color: transparent; // Sin borde
+
+$btn-secondary-hover-bg: $md3-surface-variant; // Fondo más oscuro
+$btn-secondary-hover-color: $md3-primary;
+
+$btn-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); // Sombra sutil
+
+$btn-outline-color: $md3-primary; // Borde del color primario
+$btn-outline-hover-bg: $md3-primary-light; // Ligero color al hacer hover
+$btn-outline-hover-border-color: $md3-primary;
+$btn-outline-active-bg: $md3-primary;
+$btn-outline-active-color: $md3-on-primary; // Texto blanco
+
+$btn-link-color: $md3-primary; // Solo texto con el color primario
+$btn-link-hover-color: $md3-primary-dark; // Oscurece al pasar el mouse
+$btn-link-active-color: $md3-primary-light;
+$btn-link-decoration: none; // Sin subrayado
+
+
+// Colores primarios
+$primary: $md3-primary; // Color principal
+$primary-light: $md3-primary-light; // Color primario claro
+$primary-dark: $md3-primary-dark; // Color primario oscuro
+
+// Colores secundarios
+$secondary: $md3-secondary; // Color secundario
+$secondary-light: $md3-secondary-light; // Color secundario claro
+$secondary-dark: $md3-secondary-dark; // Color secundario oscuro
+
+// Colores de texto
+$text-color: $md3-on-background; // Color de texto principal
+$text-muted: $md3-neutral; // Color de texto "muted" (suavizado)
+
+// Colores de fondo
+$body-bg: $md3-background; // Fondo principal
+$surface: $md3-surface; // Fondo de superficie (áreas del contenido)
+
+// Colores de error
+$danger: $md3-error; // Color de error
+$danger-light: $md3-error-light; // Color de error claro
+$danger-dark: $md3-error-dark; // Color de error oscuro
+
+// Colores de "success" (éxito) y "info" (información)
+$success: $md3-secondary; // Usando el color secundario para el éxito
+$info: $md3-primary-light; // Usando el color primario claro para la información
+
+// Colores de enlaces
+$link-color: $md3-primary; // Color de enlace (usando color primario)
+$link-hover-color: $md3-primary-dark; // Color de enlace al pasar el mouse
+
+// Colores de borde
+$border-color: $md3-outline; // Color de borde general
+
+// Colores para "hover" y "focus" (estados activos)
+$btn-primary-bg: $md3-primary; // Fondo del botón primario
+$btn-primary-border: $md3-primary-dark; // Borde del botón primario
+$btn-primary-hover-bg: $md3-primary-light; // Fondo del botón primario al hacer hover
+$btn-primary-hover-border: $md3-primary; // Borde del botón primario al hacer hover
+
+// Colores en el modo oscuro
+$dark-theme-background: $md3-dark-background;
+$dark-theme-surface: $md3-dark-surface;
+$dark-theme-text-color: $md3-dark-on-background;
+$dark-theme-link-color: $md3-dark-on-primary;
+$dark-theme-link-hover-color: $md3-dark-on-primary;
+
+// Sobrescribe la variable $light antes de importar Bootstrap
+$light: $md-sys-color-primary-container !default;
+
+
+
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+// Importamos Bootstrap completo
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+
+// Personalización del modal
+$modal-content-bg: #FEF7FF; // Fondo blanco o claro según MD3
+$modal-content-border-color: rgba(0, 0, 0, 0.12); // Borde sutil
+$modal-content-border-width: 1px;
+$modal-border-radius: 28px; // Bordes redondeados según MD3
+$modal-inner-padding: 24px; // Espaciado interno
+
+// Sombra suave según MD3
+$modal-content-box-shadow-xs: 0 2px 4px rgba(0, 0, 0, 0.2);
+$modal-content-box-shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.2);
+$modal-content-box-shadow-md: 0 6px 12px rgba(0, 0, 0, 0.3);
+$modal-content-box-shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.3);
+
+// Botón de cierre (X)
+$modal-header-border-color: rgba(0, 0, 0, 0.12);
+$modal-header-padding: 16px;
+$modal-footer-border-color: rgba(0, 0, 0, 0.12);
+$modal-footer-padding: 16px;
+
+// Animación sutil para el modal
+$modal-fade-transform: translateY(10px);
+$modal-show-transform: none;
+$modal-transition: all 0.3s ease-in-out;
+
+
+// Estilo base para las cards
+$card-bg: #ffffff; // Fondo blanco o claro según MD3
+$card-border-color: rgba(0, 0, 0, 0.12); // Borde sutil
+$card-border-width: 1px;
+$card-border-radius: 16px; // Bordes redondeados según MD3
+$card-inner-border-radius: $card-border-radius; // Asegura que los elementos internos coincidan
+
+// Sombra suave según MD3 (niveles de elevación)
+$card-box-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+$card-box-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.2);
+$card-box-shadow-lg: 0 8px 12px rgba(0, 0, 0, 0.3);
+
+// Espaciado interno
+$card-spacer-y: 16px;
+$card-spacer-x: 16px;
+
+// Títulos y textos
+$card-title-color: #1c1b1f; // Color de texto principal según MD3
+$card-subtitle-color: #49454f; // Color de subtítulos
+$card-text-color: #49454f; // Color del contenido
+$card-title-font-size: 1.25rem; // Tamaño de título
+$card-subtitle-font-size: 1rem;
+$card-text-font-size: 0.875rem;
+
+// Imagen dentro de la card
+$card-img-overlay-padding: 16px;
+
+// Transiciones para efectos sutiles
+$card-transition: all 0.3s ease-in-out;
+
+
+// Aplicar la tipografía
+body {
+  font-family: $font-family-sans-serif;
+}
+
+
+.btn {
+  position: relative;
+  overflow: hidden; // Necesario para el ripple
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  opacity: 0;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 1;
+  }
+}
+
+
+.modal-header {
+  border: none;
+}
+
+//Input de usuario personalizado
+.form-control {
+  background-color: #f4edf7;
+  border: none;
+  /* Sin bordes */
+  border-radius: 15px;
+  /* Bordes redondeados */
+  padding: 10px 15px;
+  /* Espaciado interno */
+  color: #3b3b3b;
+  /* Color del texto */
+  box-shadow: none;
+  /* Eliminar sombra al enfocar */
+  font-size: 14px;
+}
+
+.form-control::placeholder {
+  color: black;
+  /* Color del placeholder */
+  opacity: 0.7;
+  /* Transparencia del placeholder */
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.textarea.form-control {
+  border-radius: 10px;
+}

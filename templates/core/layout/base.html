@@ -8,23 +8,108 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title> {% block title %}Inicio{% endblock %}</title>
+    <title> {% block titulo %}Inicio{% endblock %}</title>
 
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
-    <link rel="stylesheet" href="{% static 'libs/boostratrap/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'libs/bootstrap/css/bootstrap.min.css' %}">
     {% block extra_css %}{% endblock extra_css %}
 </head>
 
 
 <body>
     <main>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'listar_proyectos_page' %}">PLANNER PROJECT</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-        {% block content %}
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav me-auto my-2 my-lg-0" style="--bs-scroll-height: 100px;">
+                        {% block navbar_content %}
+                        <!-- Contenido por defecto (opcional) -->
+                        {% endblock navbar_content %}
+                    </ul>
 
-        {% endblock content %}
+                    <!-- Aquí va el ícono de usuario alineado a la derecha -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Enlace directo para móviles ver perfil (visible solo cuando el navbar está colapsado) -->
+                        <li class="nav-item d-lg-none my-1">
+                            <a href="{% url 'user_info' %}"
+                                style="border: none; background: none; padding: 0; text-decoration: none; white-space: nowrap; color: black; display: flex; align-items: center;">
+                                <img src="{% static 'src/core/image/perfil_gris.svg' %}" alt="Logo" width="24"
+                                    height="24" class="me-2">
+                                <span style="color: rgb(115 111 115)">Ver perfil</span>
+                            </a>
+                        </li>
+
+                        
+                        
+                        {% if request.path != "/usuarios/user-info/" %}
+                        
+                        <!-- Aquí va el formulario de busqueda -->
+                        {% include 'core/components/form_busqueda.html' %}
+
+                        {% endif %}
+
+
+                        <!-- Enlace directo para móviles (visible solo cuando el navbar está colapsado) -->
+                        <li class="nav-item d-lg-none my-1">
+                            <button type="submit"
+                                style="border: none; background: none; padding: 0; text-decoration: none; color: black; display: flex; align-items: center;"
+                                data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                <img src="{% static 'src/core/image/cerrar_sesion_gris.svg' %}" alt="Logo" width="24"
+                                    height="24" class="me-2">
+                                <span style="color: rgb(115 111 115)">Cerrar sesión</span>
+                            </button>
+                        </li>
+
+                        <li class="nav-item d-flex justify-content-center align-items-center">
+                            <div class="dropdown d-none d-lg-block">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownLink"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="{% static 'src/core/image/usuario.svg' %}" alt="Logo" width="24"
+                                        height="24" class="d-inline-block align-text-top">
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownLink">
+                                    <li class="my-1">
+                                        <button type="submit"
+                                            style="border: none; background: none; padding: 0; text-decoration: none; white-space: nowrap; color: black; display: flex; align-items: center;"
+                                            data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                            <img src="{% static 'src/core/image/cerrar_sesion.svg' %}" alt="Logo"
+                                                width="24" height="24" class="me-2">
+                                            <span>Cerrar sesión</span>
+                                        </button>
+                                    </li>
+
+                                    <li class="my-1">
+                                        <a href="{% url 'user_info' %}"
+                                            style="border: none; background: none; padding: 0; text-decoration: none; white-space: nowrap; color: black; display: flex; align-items: center;">
+                                            <img src="{% static 'src/core/image/perfil.svg' %}" alt="Logo" width="24"
+                                                height="24" class="me-2">
+                                            <span>Ver perfil</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                {% include 'core/components/modal_logout.html' %}
+
+        </nav>
+
+        {% block contenido_main %}
+
+        {% endblock contenido_main %}
 
     </main>
 

@@ -1,0 +1,19 @@
+<li class="nav-item">
+    <a class="nav-link" data-tipo="crear-proyecto" data-bs-toggle="modal" data-bs-target="#modal">Crear Proyecto</a>
+</li>
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Reportes
+    </a>
+    <ul class="dropdown-menu">
+        <!--<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal" data-tipo="crear-reporte">Crear Reporte</a></li>-->
+        {% if request.user.is_superuser %}
+        <li><a class="dropdown-item" href="{% url 'listar_reportes_page' %}">Ver Reportes</a></li>
+        {% endif %}
+
+        {% if request.user.is_authenticated %}
+        <li><a class="dropdown-item" href="{% url 'listar_reportes_page' %}">Ver Mis Reportes</a></li>
+        {% endif %}
+    </ul>
+</li>

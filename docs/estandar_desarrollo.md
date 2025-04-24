@@ -6,5 +6,9 @@ def sustantivo_adjetivo_view:
     """"
     Documentacion
     """
+def sustantivo_adjetivo_ajax_view:
+    """"
+    Documentacion
+    """
 
 

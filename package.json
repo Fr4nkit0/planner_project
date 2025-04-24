@@ -13,27 +13,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@babel/core": "^7.26.9",
-    "@babel/preset-env": "^7.26.9",
-    "@rollup/plugin-babel": "^6.0.4",
-    "babel-loader": "^9.2.1",
-    "esbuild": "^0.25.0",
-    "gulp": "^5.0.0",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-flatmap": "^1.0.2",
-    "gulp-rename": "^2.0.0",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-tap": "^2.0.0",
-    "rename": "^1.0.4",
-    "sass": "^1.85.0",
-    "terser-webpack-plugin": "^5.3.11",
-    "webpack": "^5.98.0",
-    "webpack-stream": "^7.0.0"
-  },
-  "dependencies": {
-    "bootstrap": "^5.3.3"
-  },
   "directories": {
     "doc": "docs"
   },
@@ -44,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/Fr4nkit0/planner_project/issues"
   },
-  "homepage": "https://github.com/Fr4nkit0/planner_project#readme"
+  "homepage": "https://github.com/Fr4nkit0/planner_project#readme",
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "sass": "^1.63.6"
+  }
 }

@@ -1,0 +1,35 @@
+{% extends 'usuarios/layout/base_usuarios.html' %}
+
+{% load static %}
+
+{% block titulo %}Registro de Usuario{% endblock titulo %}
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+
+{% block mensajes_de_error %}
+
+
+    
+{% endblock mensajes_de_error %}
+
+
+{% block contenido_main %}
+
+
+
+{% include 'usuarios/components/register/register.html' %}
+
+
+
+{% endblock contenido_main %}
+
+
+
+{% block extra_js %}
+
+<script type="module" src="{% static 'src/usuarios/register/js/index.js' %}"></script>
+
+{% endblock extra_js %}

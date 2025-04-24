@@ -1,9 +1,31 @@
-{% extends 'core/layout/base.html' %}
+{% extends 'usuarios/layout/base_usuarios.html' %}
 
 {% load static %}
 
+{% block titulo %}Inicio de Sesion{% endblock titulo %}
+
+{% block extra_css %}
+
+
+{% endblock extra_css %}
+
+
+{% block contenido_main %}
+
+{% block mensajes_de_error %}
+
+{% include 'usuarios/components/login/mensajes_error_login.html' %}
+
+{% endblock mensajes_de_error %}
+
+
+{% include 'usuarios/components/login/login.html' %}
+
+
+{% endblock contenido_main %}
 
 {% block extra_js %}
-<script src="{% static 'build/usuarios/login/js/index.min.js' %}"></script>
+
+<script type="module" src="{% static 'src/usuarios/login/js/index.js' %}"></script>
 
 {% endblock extra_js %}

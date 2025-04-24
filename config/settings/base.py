@@ -5,8 +5,6 @@ from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -41,12 +39,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': False,  # Mantenemos esto en False porque centralizas las plantillas
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -106,3 +105,20 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'usuarios.Usuario'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Usa la base de datos para las sesiones
+SESSION_COOKIE_AGE = 1209600  # 2 semanas
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # No expira al cerrar el navegador
+SESSION_COOKIE_SECURE = False  # True si usas HTTPS
+LOGIN_URL = 'login_page'
+LOGIN_REDIRECT_URL = 'listar_proyectos_page'
+# Redirige a la página de inicio de sesión después de cerrar sesión
+LOGOUT_REDIRECT_URL = 'login_page'
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+]
